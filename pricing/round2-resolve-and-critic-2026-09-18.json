@@ -1,0 +1,840 @@
+{
+  "summary": "Resolve pricing conflicts, check the Copilot/OpenRouter/Perplexity routes, and hunt hidden costs before totals",
+  "agentCount": 6,
+  "logs": [],
+  "result": {
+    "resolved": [
+      {
+        "topic": "GitHub Copilot route",
+        "result": {
+          "answers": [
+            {
+              "question": "Copilot Free's exact monthly AI-credit allowance",
+              "answer": "Not stated as a number anywhere on official GitHub pages. GitHub Free is described only as having \"an allowance of GitHub AI Credits\" / \"Limited chat and agent usage,\" with no purchase option for more credits and no numeric figure published. The only hard numbers given for Free are 2,000 code completions/month (completions are billed separately from AI credits and are not credit-limited on paid plans). Checked 3 independent official pages (github.com/features/copilot/plans, docs.github.com Plans page, docs.github.com Usage-based billing for individuals) — all three omit the number.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/concepts/billing-and-usage/individuals/billing",
+              "quote": "Copilot Free and Copilot Student both have an allowance of AI credits and access to models through auto model selection only. Copilot Free includes 2000 code completions per month and Copilot Student includes unlimited code completions.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Which models Copilot Free can use",
+              "answer": "Copilot Free (and Copilot Student) get models only via \"auto model selection\" — there is no manual model picker. GitHub does not publicly enumerate which underlying models the auto-selector draws from for the Free tier specifically; the per-plan model-availability table on docs.github.com only has columns for Pro/Pro+/Max/Business/Enterprise, not Free. The auto-selection page states auto model selection \"chooses from supported models, subject to your policies and subscription type,\" implying a subscription-restricted subset, but the list is not published for Free.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/reference/ai-models/supported-models",
+              "quote": "Copilot Student and Copilot Free users have access to models through auto model selection only.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Copilot Pro price and included AI credits",
+              "answer": "$10 USD/month (free for some verified students/teachers/OSS maintainers). Total 1,500 AI credits/month, split into 1,000 \"base credits\" (fixed, matches subscription price) + 500 \"flex allotment\" (variable, applied automatically after base is used). Confirmed identically on 3 independent official pages: github.com/features/copilot/plans, docs.github.com Plans page, and docs.github.com Usage-based billing for individuals.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/concepts/billing-and-usage/individuals/billing",
+              "quote": "Copilot Pro | $10 USD | 1,000 | 500 | 1,500",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Do unused Copilot Pro AI credits carry over month to month?",
+              "answer": "No. Credits do not carry over; unused credits are forfeited and the allowance resets on the 1st of each calendar month at 00:00 UTC, regardless of your billing date.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/concepts/billing-and-usage/individuals/billing",
+              "quote": "Included AI credits do not carry over between months. Unused credits are forfeited, and your allowance resets to the full monthly amount at 00:00:00 UTC on the first day of each calendar month. This reset date is fixed and does not change based on your subscription billing date.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Per-model AI-credit rates: GPT-6 Astra, GPT-5.6 Sol, GPT-5.6 Luna (OpenAI)",
+              "answer": "All prices per 1M tokens; convert to AI credits by multiplying dollars by 100 (1 credit = $0.01). GPT-6 Astra (Powerful): Default tier (≤272K input tokens): input $10.00 (1,000 credits), cached input $1.00 (100 credits), cache write $12.50 (1,250 credits), output $50.00 (5,000 credits). Long-context tier (>272K): input $20.00, cached $2.00, cache write $25.00, output $75.00. GPT-5.6 Sol (Powerful): Default (≤272K): input $4.00, cached $0.40, cache write $5.00, output $20.00. Long-context (>272K): input $8.00, cached $0.80, cache write $10.00, output $30.00. GPT-5.6 Luna (Lightweight): Default (≤200K, note different threshold than Sol/Astra): input $0.20, cached $0.02, cache write $0.25, output $1.20. Long-context (>200K): input $0.40, cached $0.04, cache write $0.50, output $1.80.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+              "quote": "GPT-6 Astra | GA | Powerful | Default | ≤ 272K | $10.00 | $1.00 | $12.50 | $50.00",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Per-model AI-credit rates: Gemini models available in Copilot",
+              "answer": "All per 1M tokens (no cache-write line for Gemini; multiply $ by 100 for AI credits). Gemini 3.5 Flash (Lightweight): input $1.50, cached input $0.15, output $9.00 — standard pricing, no promo. Gemini 3.6 Flash, 3.7 Flash, 3.8 Flash (Versatile): input $0.75, cached $0.075, output $3.75 each, but this is explicitly PROMOTIONAL pricing valid only through December 31, 2026 (footnote 1 on all three) — flag that the rate changes after that date and the new rate is not stated.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+              "quote": "Gemini 3.6 Flash, Gemini 3.7 Flash, and Gemini 3.8 Flash are available at the promotional pricing of $0.75 per 1M input tokens, $0.075 per 1M cached input tokens, and $3.75 per 1M output tokens through December 31, 2026.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Per-model AI-credit rates: Claude models available in Copilot",
+              "answer": "All per 1M tokens (Anthropic models all include a cache-write cost). Claude Haiku 4.5: input $1.00, cached $0.10, cache write $1.25, output $5.00. Claude Sonnet 4: $3.00 / $0.30 / $3.75 / $15.00. Claude Sonnet 4.6: same as Sonnet 4 — $3.00 / $0.30 / $3.75 / $15.00. Claude Sonnet 5: $2.00 / $0.20 / $2.50 / $10.00. Claude Opus 4.7: $5.00 / $0.50 / $6.25 / $25.00. Claude Opus 4.8: same — $5.00 / $0.50 / $6.25 / $25.00. Claude Opus 5: same — $5.00 / $0.50 / $6.25 / $25.00. Claude Opus 4.8 (fast mode, preview): $10.00 / $1.00 / $12.50 / $50.00. Claude Fable 5: $10.00 / $1.00 / $12.50 / $50.00. Claude Fable 5.1: $10.00 / $0.25 / $12.50 / $50.00. Note: Claude Fable 5 and 5.1 also carry a separate data-retention/ZDR caveat (Anthropic retains prompts/outputs by default for safety classifiers unless enterprise-approved ZDR) — not a pricing term but relevant if these are ever used for the benchmark.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+              "quote": "Claude Sonnet 5 | GA | Versatile | $2.00 | $0.20 | $2.50 | $10.00",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Can Copilot CLI run one prompt non-interactively, and with what flags/output format?",
+              "answer": "Yes. `copilot -p \"PROMPT\"` (or piping to `copilot`) runs a single prompt and exits without an interactive session. Key flags for scripting: `-s` suppresses session metadata/decoration for clean text output; `--no-ask-user` stops it pausing for clarification; `--model=MODEL` pins a model; `--allow-tool=...` / `--allow-all` control tool permissions. Output format is controlled by `--output-format=FORMAT`: `text` (default) or `json`, where json mode emits JSONL (one JSON object per line) for easy script parsing.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-programmatic-reference",
+              "quote": "--output-format=FORMAT | Set the output format: text (the default) or json. With json, the CLI emits JSONL (one JSON object per line), which is convenient for parsing the agent's output in scripts.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Can Copilot CLI search the web, and how is that billed?",
+              "answer": "Yes, but general web search is only documented as part of the `/research` slash command (a specialized built-in research agent) and, more narrowly, a `url` tool that fetches specific allowed URLs/domains under `--allow-url`/`--allow-tool=url(...)` — there is no separate generic 'websearch' tool documented outside `/research`. On billing: no page checked (models-and-pricing, usage-based billing for individuals/orgs, CLI docs) lists a separate charge for web search or tool calls. Under the current AI-credits system, billing is purely per-token by model (input/cached/cache-write/output), so web-search/tool-call activity is billed only insofar as it adds tokens to the conversation — there is no discrete 'per search' fee documented. (Note: this confirms current AI-credit billing does NOT itemize tool calls; the legacy request-based billing model explicitly excluded autonomous tool calls from premium-request counts, consistent with this.)",
+              "confidence": "inferred",
+              "source_url": "https://docs.github.com/en/copilot/concepts/agents/copilot-cli/research",
+              "quote": "Copilot activates a specialized research agent that gathers and processes information from your codebase, from relevant GitHub repositories, and from the web.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Are there terms forbidding automated benchmarking of Copilot or publishing its outputs?",
+              "answer": "Not found. Checked three official governing-terms documents: GitHub Terms of Service (Section J, \"AI Features, Training, and Your Data\" — the section that explicitly governs Copilot for individual/non-enterprise users), GitHub Acceptable Use Policies, and the GitHub Generative AI Services Terms (which governs Business/Enterprise seats purchased direct from GitHub). None of the three contain the word \"benchmark,\" and none contain an explicit clause forbidding automated benchmarking or publishing Copilot's outputs. A docs.github.com page titled \"github-copilot-product-specific-terms\" does not exist (404) — so there is no separate Copilot-specific acceptable-use document beyond these three. This is not proof no such restriction exists elsewhere (e.g., a signed enterprise/volume agreement could differ), only that it isn't in the three public documents checked.",
+              "confidence": "unverified",
+              "source_url": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+              "quote": "This section applies to all AI Features unless a specific feature has additional terms that expressly modify them. The training and data-use provisions in Section J.3 apply only to individual licenses.",
+              "read_how": "full-page-or-pdf-text"
+            }
+          ],
+          "other_findings": "Method: downloaded each page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ (raw .html saved), then stripped HTML to plain text with a small Python (stdlib html.parser) script in the same folder and read the full text — no WebFetch summaries used for any fact reported above. Pages fetched: github.com/features/copilot/plans; docs.github.com Plans, Usage-based billing (individuals), Models and pricing, Supported models, Auto model selection, CLI programmatic how-to + reference, CLI /research, About Copilot CLI, Usage limits; GitHub Terms of Service, Acceptable Use Policies, Generative AI Services Terms.\n\nCross-check note: the $10/$39/$100 price points, 1,000/3,900/10,000 base credits, and 500/3,100/10,000 flex allotments are identical across github.com/features/copilot/plans and two separate docs.github.com pages (Plans, Usage-based billing) — triangulated 3 ways, all agree.\n\nTwo items came back genuinely \"not stated\" on every official page checked: (1) Copilot Free's exact numeric AI-credit allowance, and (2) an explicit automated-benchmarking/publishing restriction in GitHub's terms. Do not substitute an estimate for either — both are flagged as such above rather than guessed.\n\nThe \"GPT-5.6 Luna\" long-context threshold is 200K input tokens, not 272K like Sol/Terra/Astra — worth noting if the cost model keys off token thresholds.\n\nFiles left in scratchpad for audit: individual-plans.html/.txt, plans.html/.txt, models-and-pricing.html/.txt, usage-billing-individuals.html/.txt, cli-programmatic-ref.html/.txt, cli-research.html/.txt, models.html/.txt, auto-model.html/.txt, gh-tos.html/.txt, gh-aup.html/.txt, gh-genai-terms.html/.txt, html2text.py."
+        }
+      },
+      {
+        "topic": "OpenAI open points",
+        "result": {
+          "answers": [
+            {
+              "question": "Is there a $5 minimum first credit purchase for a new OpenAI API account, or pay-as-you-go with no minimum?",
+              "answer": "New API accounts are on prepaid billing, and the minimum initial credit purchase is $5 (default offered amount is $10). The 'no minimum, pay-as-you-go' claim applies only to legacy accounts still on old monthly invoiced billing, not to new accounts today (2026-09-18) — the two claims round 1 found aren't contradictory, they describe two different billing regimes, and new accounts get the $5-minimum prepaid one.",
+              "confidence": "confirmed",
+              "source_url": "https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing",
+              "quote": "New API accounts use prepaid billing. ... Choose your initial credit purchase amount. The minimum purchase is $5, and the default amount is $10.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "For the Responses API web_search tool with gpt-5.6 Sol/Terra/Luna and gpt-6-astra: is retrieved search content billed as input tokens at the model rate, or free?",
+              "answer": "Billed as input tokens at the model's standard rate, not free. The current 'web_search' tool (what these models use) is priced as '$10.00 / 1k calls + Search content tokens billed at model rates.' The 'content is free' pricing row exists only for the older, deprecated web_search_preview tool paired with non-reasoning models ($25/1k calls) — not applicable to gpt-5.6/gpt-6-astra. One narrow exception: gpt-4o-mini and gpt-4.1-mini on the non-preview tool get a flat 8,000-input-token block per call instead of metered content billing — also not the models in question. Conflict flagged: openai.com/business/pricing shows the same $10/1k-call web search tier as 'Search content tokens are free,' with no per-model breakdown — that page contradicts the technical docs. Treat the developer pricing docs (this source) as authoritative for API billing; the business page reads like simplified marketing copy.",
+              "confidence": "confirmed",
+              "source_url": "https://platform.openai.com/docs/pricing",
+              "quote": "Web search (all models) ... $10.00 / 1k calls + Search content tokens billed at model rates.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Does one answer typically make more than one search call, and is each billed?",
+              "answer": "Yes to both, per the official guide: reasoning models (the class gpt-5.6/gpt-6-astra belong to) use 'agentic search,' where the model can search repeatedly within one response and decide whether to keep searching; deep research explicitly 'often tap[s] into hundreds of sources.' Billing is defined per call ($10.00/1k calls), so every search call inside one response is metered and billed individually — no bundling or cap is stated. No official page gives a specific 'typical' number of calls per answer, so that exact figure is not stated anywhere I could find.",
+              "confidence": "confirmed",
+              "source_url": "https://platform.openai.com/docs/guides/tools-web-search",
+              "quote": "It can perform web searches as part of its chain of thought, analyze results, and decide whether to keep searching.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Do prepaid credits expire, and when?",
+              "answer": "Yes. Purchased credits expire 1 year after purchase, and OpenAI will not extend that date for any credits or credit grants.",
+              "confidence": "confirmed",
+              "source_url": "https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing",
+              "quote": "Purchased credits expire after 1 year. OpenAI cannot extend the expiration date of purchased credits or credit grants.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Default reasoning effort for gpt-5.6 Sol/Terra/Luna and gpt-6-astra and whether it can be set to none/minimal.",
+              "answer": "gpt-5.6 Sol, Terra, and Luna: default is medium; effort can be set to none (full list: none, low, medium(default), high, xhigh, max) — 'minimal' is NOT a listed option for any of the three. gpt-6-astra: supported values are only low, medium, high, xhigh, max — no 'none' and no 'minimal' option exists for this model, and its own model page does not state which of those is the default (answer: not stated).",
+              "confidence": "confirmed",
+              "source_url": "https://platform.openai.com/docs/models/gpt-5.6-sol",
+              "quote": "Reasoning.effort supports: none, low, medium (default), high, xhigh, and max.",
+              "read_how": "full-page-or-pdf-text"
+            }
+          ],
+          "other_findings": "Operational flag: this session's scratchpad (pricing2/) is shared by multiple parallel round-1 subagents that used identical generic filenames (pricing.html, billing.html, models.html, etc.) for different vendors — I found my own curl outputs collided with and got overwritten/shadowed by another subagent's OpenRouter/GitHub/Gemini downloads mid-task. I renamed all my own fetches to unique prefixed names (openai_*, oai_*, help_*) and re-verified each one's <title>/canonical tag matched an openai.com/help.openai.com domain before trusting its content. If any other topic subagent in this fan-out used generic filenames too, their cited files may be corrupted the same way — worth a spot-check.\n\ngpt-6-astra's own model page (platform.openai.com/docs/models/gpt-6-astra) genuinely omits a stated default reasoning effort — checked for a second occurrence of the \"effort supports\" sentence and for a \"(default)\" marker anywhere on the page; neither exists. Reported as \"not stated\" rather than inferring \"low\" from list order.\n\nMinor doc inconsistency spotted in passing (not one of the 5 asked questions): the platform.openai.com/docs/guides/tools-web-search page's own body text still references \"gpt-5.5\" when explaining reasoning-level tuning for agentic search and deep research, even though the models in scope here are gpt-5.6/gpt-6-astra — looks like a stale code-sample/prose leftover from an earlier model generation on OpenAI's side, not something on our end.\n\nAll files fetched this session live under: C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ — key ones: openai_docs_pricing.html, business_pricing.html, help_help_openai_com_en_articles_8264644-what-is-the-minimum-credit-amount-i-can-purchase.html (canonical: .../8264644-setting-up-and-managing-prepaid-api-billing), oai_guide_web_search.html, oai_platform_openai_com_docs_models_gpt-5_6-{sol,terra,luna}.html, oai_platform_openai_com_docs_models_gpt-6-astra.html, oai_platform_openai_com_docs_guides_reasoning.html."
+        }
+      },
+      {
+        "topic": "Google Gemini open points",
+        "result": {
+          "answers": [
+            {
+              "question": "Gemini 3.x Grounding with Google Search: is the $14/1,000 fee per search query or per grounded prompt, and does the 5,000 free searches/month apply only on the paid tier?",
+              "answer": "Per search query, not per grounded prompt. Google's own grounding doc says billing is per search query the model executes, and a single prompt that triggers multiple queries is billed for each one — this per-query model is specific to Gemini 3.x (Gemini 2.5 and older bill per prompt). The 5,000 free searches/month is paid-tier only: the pricing table's Free Tier column for Grounding with Google Search on every Gemini 3.x model (3.8 Flash, 3.1 Pro Preview, etc.) reads \"Not available\"; the 5,000-free-then-$14/1,000 allowance sits in the Paid Tier column.",
+              "confidence": "confirmed",
+              "source_url": "https://ai.google.dev/gemini-api/docs/google-search",
+              "quote": "When you use Grounding with Google Search with Gemini 3, your project is billed for each search query that the model decides to execute. ... This billing model only applies to Gemini 3 models; when you use search grounding with Gemini 2.5 or older models, your project is billed per prompt.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Gemini 2.5 Flash / Flash-Lite: confirm free-tier grounding \"up to 500 RPD\" and paid \"1,500 RPD free then $35 per 1,000 grounded prompts\".",
+              "answer": "Confirmed exactly as stated for both Gemini 2.5 Flash and Gemini 2.5 Flash-Lite (RPD caps are shared between the two models).",
+              "confidence": "confirmed",
+              "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+              "quote": "Free of charge, up to 500 RPD (limit shared with Flash-Lite RPD) ... 1,500 RPD (free, limit shared with Flash-Lite RPD), then $35 / 1,000 grounded prompts",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Is retrieved grounding content billed as input tokens for Gemini 3.x?",
+              "answer": "No. The pricing page explicitly calls out Search Grounding as the one tool where retrieved tokens are excluded from token billing (the flat per-query grounding fee covers it instead) — in contrast to URL context and File Search, where retrieved document/page tokens ARE billed as ordinary input tokens. This line is written as the general/standard billing distinction (it appears in the agents pricing section but is phrased as the pre-existing pricing structure, not an agent-only rule).",
+              "confidence": "confirmed",
+              "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+              "quote": "Tool usage fees apply per existing pricing structure, maintaining standard distinctions for Search Grounding (retrieved tokens excluded) versus Url_context / File Search (retrieved tokens included in all other tools).",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Minimum to enable paid billing (round 1 said \"$5 minimum prepay\" and also \"not stated\"; settle it).",
+              "answer": "Settled: $5 minimum, confirmed. The Billing guide states it in three separate places (upgrade flow, general Prepay setup, and the 'Buy credits' section: 'The minimum purchase is $5. The maximum amount of credits you can prepay for is $5,000.'). One FAQ line hedges that the actual required minimum shown in the UI 'is required for your region and tier level,' so $5 is the documented baseline, not guaranteed identical in every region/tier.",
+              "confidence": "confirmed",
+              "source_url": "https://ai.google.dev/gemini-api/docs/billing",
+              "quote": "Upgrading from the Free Tier to the Paid Tier means linking a billing account and prepaying to add a minimum of $5 (or equivalent in other currencies) of credits to your account.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Free tier availability restrictions by country/region for API keys and any rule about where requests come from.",
+              "answer": "Google now states the free tier is available in the EEA/EU, UK, and Switzerland (this is a change from the older rule that excluded those regions from the free tier) — 'we make the free tier and paid tier available in many regions,' same regions for both. The Gemini API/AI Studio's full country/territory allow-list (~190 entries, e.g. US, Canada, most of EU, UK, India, Japan, Brazil, etc.) is published on the Available Regions page and applies to the service generally (no separate free-tier-only exclusion list found on official pages). A separate age gate applies (18+, plus account age verification). On where requests 'come from': the only explicit rule found is Google's own Colab caveat that region restrictions are enforced based on the location of the calling instance/IP, not the user's home address — 'Region restrictions are applied based on the region that the Colab instance is in, not the region that the user is in.'",
+              "confidence": "confirmed",
+              "source_url": "https://ai.google.dev/gemini-api/docs/available-regions",
+              "quote": "Region restrictions are applied based on the region that the Colab instance is in, not the region that the user is in. You can check the location of the Colab instance using !curl ipinfo.io",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Default thinking level for Gemini 3.1 Pro and 3.8 Flash and whether it can be lowered.",
+              "answer": "gemini-3.8-flash: default thinking is On (medium); supported levels are low, medium, high — so it can be lowered to low. gemini-3.1-pro-preview (that's the current documented model id — still tagged 'preview'): default thinking is On (high); supported levels are low, medium, high — so it can be lowered to medium or low.",
+              "confidence": "confirmed",
+              "source_url": "https://ai.google.dev/gemini-api/docs/thinking",
+              "quote": "gemini-3.8-flash | On (medium) | low, medium, high ... gemini-3.1-pro-preview | On (high) | low, medium, high",
+              "read_how": "full-page-or-pdf-text"
+            }
+          ],
+          "other_findings": "All 6 points read from official ai.google.dev pages downloaded this session via PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and stripped to text with Python (no WebFetch summaries used). Pricing page states \"Last updated 2026-09-16 UTC\" (two days old). Process note: this scratchpad folder is shared with other concurrent subagents researching other providers (Perplexity, GitHub Copilot) in the same workflow round, and generic filenames (billing.html, models.html) got silently overwritten mid-task by another subagent's downloads to the same names \\u2014 caught it because \"grounding\" mention counts were 0 where expected, re-downloaded those two under unique names (gemini_billing.html, gemini_models.html) and re-verified titles before extracting. Worth telling the harness to give each topic/subagent its own subfolder next round to avoid silent cross-contamination. One nuance: current official docs list the Pro model as \"gemini-3.1-pro-preview\" (still preview-tagged), not a plain \"gemini-3.1-pro\" id."
+        }
+      },
+      {
+        "topic": "OpenRouter as one-stop shop",
+        "result": {
+          "answers": [
+            {
+              "question": "Are OpenRouter's per-token prices for these models identical to first-party (pass-through), or marked up?",
+              "answer": "Pass-through, no markup. OpenRouter states it passes through the underlying provider's pricing exactly with zero markup on inference; the only fee OpenRouter charges is on buying credits.",
+              "confidence": "confirmed",
+              "source_url": "https://openrouter.ai/docs/faq",
+              "quote": "We pass through the pricing of the underlying providers; there is no markup on inference pricing (however we do charge a fee when purchasing credits). ... We pass through the pricing of the underlying model providers without any markup, so you pay the same rate as you would directly with the provider.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Fee for buying credits: percent and minimum fee.",
+              "answer": "Card (Stripe): 5.5% with an $0.80 minimum fee per purchase. Crypto (Coinbase/USDC): 5%, no minimum stated. These are separate from the BYOK overage fee (5%, unrelated to credit purchases).",
+              "confidence": "confirmed",
+              "source_url": "https://openrouter.ai/docs/faq",
+              "quote": "if(type===`stripe`)return`5.5% ($0.80 minimum)`;if(type===`coinbase`)return`5%`",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Minimum credit purchase amount.",
+              "answer": "Not stated on any publicly reachable OpenRouter doc page. The actual purchase minimum is set on the account Credits page (openrouter.ai/settings/credits), which requires sign-in — not checked, per the read-only/no-login constraint on this task. Do not treat any figure for this as fact until checked while logged in.",
+              "confidence": "unverified",
+              "source_url": "https://openrouter.ai/settings/credits",
+              "quote": "(page requires sign-in; server returned the generic \"Sign In | OpenRouter\" shell with no purchase-minimum content in the static HTML)",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "How is web search billed via the plugin/:online — engine, price per result or per request, default result count?",
+              "answer": "Important update first: OpenRouter's docs say the web plugin (plugins:[{id:\"web\"}]) and the :online suffix are now DEPRECATED in favor of a new openrouter:web_search server tool, though pricing/rates are stated to be identical between the two surfaces. Engine defaults to \"auto\": native provider search when the model supports it, else falls back to Exa. Billing is per REQUEST/call, not per result, bundling up to 10 results into that flat price (extra results beyond 10 cost $0.001 each, Exa/Parallel). Exa: $0.007/request (instant/fast/auto), $0.012 (deep-lite/deep), $0.015 (deep-reasoning). Parallel: $0.001/request (turbo/fast), $0.005/request (basic/advanced). Perplexity (as an engine choice): $0.005/request. Firecrawl: billed on your own Firecrawl credits, no OpenRouter charge. Default max_results parameter = 5 for non-native engines; ignored entirely for native search, which instead uses a search_context_size of low/medium/high (no explicit result count documented).",
+              "confidence": "confirmed",
+              "source_url": "https://openrouter.ai/docs/guides/features/server-tools/web-search",
+              "quote": "The web search plugin (plugins: [{ id: \"web\" }]) and the :online variant are deprecated. Use the openrouter:web_search server tool instead. ... Exa Instant/Fast/Auto: $0.007 per request; Deep Lite/Deep: $0.012; Deep Reasoning: $0.015. Includes up to 10 results, then $0.001 per additional result. ... max_results integer 5 Maximum results per search call (1–25; 1–20 for Perplexity). Applies to Exa, Firecrawl, Parallel, and Perplexity engines; ignored with native provider search",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Does native search for OpenAI/Anthropic/Google/xAI bill the provider's own fee instead of an OpenRouter rate?",
+              "answer": "Yes, confirmed. Native search (used by default for OpenAI, Anthropic, Google, Perplexity, and xAI/\"SpaceXAI\" models when the model supports it) is priced as a straight pass-through of the provider's own native web-search fee, not a separate OpenRouter-set rate. On the model pages this shows up as a flat, provider-set \"Web Search\" figure: GPT-6 Astra $10.00/1K calls ($0.01/call), Gemini 3.8 Flash $14.00/1K calls ($0.014/call), Grok 4.6 $5.00/1K calls ($0.005/call), Sonar $5.00/1K calls ($0.005/call) — all matching Round 1's numbers exactly.",
+              "confidence": "confirmed",
+              "source_url": "https://openrouter.ai/docs/guides/features/server-tools/web-search",
+              "quote": "Native | Passed through from the provider (OpenAI, Anthropic, Google, Perplexity, SpaceXAI) ... All pricing is in addition to standard LLM token costs for processing the search result content.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Does a paid balance raise the free-model daily limit (currently 50/day), and to what?",
+              "answer": "Yes. Once you have purchased at least $10 in credits (lifetime, all-time total, not current balance), the free-model daily request cap rises from 50/day to 1,000/day. The per-minute cap for free models is a flat 20 requests/minute regardless of purchase history. This exact set of numbers appears identically on two separate OpenRouter doc pages (FAQ and Limits), which is an independent double-confirmation.",
+              "confidence": "confirmed",
+              "source_url": "https://openrouter.ai/docs/api-reference/limits",
+              "quote": "const FREE_MODEL_RATE_LIMIT_RPM=20;const FREE_MODEL_NO_CREDITS_RPD=50;const FREE_MODEL_HAS_CREDITS_RPD=1e3;const FREE_MODEL_CREDITS_THRESHOLD=10;",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Credit expiry.",
+              "answer": "OpenRouter's terms reserve the right to expire unused credits one year after purchase. Phrasing is a reserved right (\"we reserve the right to\"), not stated as an automatic/guaranteed expiry.",
+              "confidence": "confirmed",
+              "source_url": "https://openrouter.ai/docs/faq",
+              "quote": "Per our terms, we reserve the right to expire unused credits after one year of purchase.",
+              "read_how": "full-page-or-pdf-text"
+            }
+          ],
+          "other_findings": "Method: downloaded every source page this session via curl (Bash tool; PowerShell was available but curl was faster and equivalent) into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\, then stripped HTML with a small Python parser and read the resulting plain text plus, where numbers were React/JS-rendered blanks in the static HTML (fee %, RPD/RPM thresholds), grepped the embedded JS source for the literal constants — still the official page's own text, not a WebFetch summary. No logins, forms, purchases, or browser-pane/Chrome tools were used, per the read-only constraint.\n\nFiles fetched this session (in that folder): or_faq.html/.txt, or_limits.html/.txt, or_websearch_feat.html/.txt (deprecated Plugins>Web Search page), or_servertools_websearch.html/.txt (current Server Tools>Web Search page, authoritative for pricing), or_servertools.html/.txt, or_quickstart.html/.txt, or_docs_root.html/.txt, or_credits_page.html + or_settings_credits.html (both redirect to sign-in, no pricing data exposed), or_model_gpt6astra.html/.txt, or_model_gemini38flash.html/.txt, or_model_grok46.html/.txt, or_model_sonar.html/.txt, or_llms.txt (doc index).\n\nNote: this scratchpad directory is shared across the fan-out — it already contained leftover files from other agents' topics (Gemini, GitHub Copilot, Perplexity first-party pages under generic names like pricing.html/billing.html/rate-limits.html). Those were NOT used for any answer above; only files prefixed or_* (freshly downloaded from openrouter.ai this session) fed the answers. Flagging this in case another fan-out branch reused the same directory and picked up the wrong file by a generic name.\n\nSingle open gap: exact minimum-dollar credit purchase amount is genuinely not published anywhere in OpenRouter's public docs — it only lives on the logged-in Credits page, which this task's rules forbid accessing. Don't let a number for this slip into anything sent to Sasha or a cost model without checking it live, logged in.\n\nOne more thing worth Danny's attention for the \"one-stop-shop\" framing: OpenRouter is actively steering people off the plugin/:online mechanism onto a new tool-calling server tool (openrouter:web_search) — model behavior differs (model now decides if/when to search, 0-N calls per request, vs. the old plugin's guaranteed exactly-one search every request). If the benchmark harness is coded against :online, it will still work (deprecated, not removed) and bill at the same rates, but it's worth knowing it's on a deprecation path."
+        }
+      },
+      {
+        "topic": "Perplexity Agent API and xAI",
+        "result": {
+          "answers": [
+            {
+              "question": "Perplexity Agent API — exact price of the web_search tool",
+              "answer": "$0.0025 per invocation ($2.50 per 1,000 web_search calls). Billed separately from model token costs.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+              "quote": "web_search$0.0025 per invocationPerforms web searches to retrieve current information ... Tool costs are separate from model token costs.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Perplexity Agent API — how search context tokens are billed",
+              "answer": "There is no separate 'search context' fee for the Agent API. Web-page content the tool pulls into context is billed as ordinary model input tokens at the chosen model's standard input rate. search_context_size (low/medium/high) is just a shortcut that maps to a recommended max_tokens / max_tokens_per_page budget; if you set those explicitly instead, you are charged for the exact number of search-context tokens actually consumed, not the requested budget. This token charge is on top of the flat $0.0025 per-invocation tool fee.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.perplexity.ai/docs/agent-api/tools",
+              "quote": "Explicit budgets override any search_context_size value passed in the same request, and you are charged for the exact number of search context tokens consumed, not the requested budget.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Perplexity Agent API — cheapest sensible model to pair with web_search",
+              "answer": "By listed per-token price, the cheapest models in the Agent API catalog are perplexity/glm-5.3-flash ($0.15/1M input, $0.50/1M output) and openai/gpt-5.4-nano ($0.20/1M input, $1.25/1M output). Next up are perplexity/sonar and perplexity/nemotron-3-ultra-550b-a55b (both $0.25/1M input, $2.50/1M output) and google/gemini-3.5-flash-lite ($0.30/1M input, $2.50/1M output). Which of these is 'sensible' for tool-calling quality is a judgment call the docs don't make — the prices themselves are confirmed, the recommendation is mine.",
+              "confidence": "inferred",
+              "source_url": "https://docs.perplexity.ai/docs/agent-api/models",
+              "quote": "perplexity/glm-5.3-flash0.150.500.03—GLM-5.3 Flash ... openai/gpt-5.4-nano0.20 (≤272k)0.40 (>272k)1.20 (≤272k)1.80 (>272k)0.02flex, priorityGPT-5.4 Nano",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Perplexity Agent API — preset prices (fast/low/etc.)",
+              "answer": "Presets are NOT flat-priced products; each preset bundles a specific model + tools and is billed via the normal token + tool-invocation formula. fast, low, and medium presets currently run on openai/gpt-5.6-luna ($0.20/1M input, $1.20/1M output, ≤272k tokens). high, xhigh, and wide-research currently run on openai/gpt-5.6-sol ($5.00/1M input, $30.00/1M output, ≤272k tokens) — 25x pricier per token. Perplexity's own worked example for the low preset: 2,000 input + 1,000 output tokens + 1 web_search + 1 fetch_url = $0.007 total.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.perplexity.ai/docs/agent-api/presets",
+              "quote": "fast — current preset values ... Model: openai/gpt-5.6-luna ... low — current preset values ... Model: openai/gpt-5.6-luna ... high — current preset values ... Model: openai/gpt-5.6-sol",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Perplexity Agent API — service-tier multipliers",
+              "answer": "flex = 0.5x the listed token prices (lower-cost, best-effort capacity). priority = 2x the listed token prices (higher-priority processing); 'fast' is accepted as an alias for priority. Default/auto = standard listed rate. Only applies where the selected model lists that tier as supported (see the 'Service tiers' column per model) — otherwise the tier is silently ignored and default processing is used.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.perplexity.ai/docs/agent-api/models",
+              "quote": "Omit service_tier, or set it to auto or default, to use default processing. flex uses lower-cost, best-effort capacity at 0.5× the listed token prices. priority uses higher-priority processing at 2× the listed token prices. fast is accepted as an alias for priority.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Perplexity Agent API — any minimum purchase",
+              "answer": "Not stated. The Pricing, FAQ, and Rate Limits & Usage Tiers pages describe cumulative-spend tier thresholds ($50/$250/$500/$1,000/$5,000 all-time credit purchases unlock higher rate limits) but none of them state a minimum dollar amount for an initial or single credit purchase.",
+              "confidence": "unverified",
+              "source_url": "https://docs.perplexity.ai/docs/resources/faq",
+              "quote": "How Do I Add Credits or Set Up Billing? Purchase API credits in the Billing page in the API Console. Enable auto top-up to add credits automatically when your balance runs low ... TierCredit Purchase (all time) Tier 1$50 Tier 2$250 Tier 3$500 Tier 4$1000 Tier 5$5000",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Perplexity Search API ($5/1,000 requests) — can results be fed to any model",
+              "answer": "Not stated as one explicit sentence, but strongly implied: the Search API returns raw ranked JSON results specifically 'for your own processing' (as opposed to the Agent API's LLM-generated answer), and Perplexity publishes official integration guides showing it wired up as a function/tool call to both OpenAI models and Google Gemini via their respective SDKs — i.e., it's designed to be model-agnostic.",
+              "confidence": "inferred",
+              "source_url": "https://docs.perplexity.ai/docs/search/quickstart",
+              "quote": "Use the Search API when you need raw results for your own processing. For an LLM-generated answer with citations, use the Agent API.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "Perplexity Search API — is there a free allowance",
+              "answer": "Not stated. No free tier, free requests, or complimentary allowance is mentioned on the Search API quickstart page, the Pricing page, or the FAQ. Pricing page explicitly says there are no additional token-based charges on top of the $5/1,000-request price, but says nothing about any free quota.",
+              "confidence": "unverified",
+              "source_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+              "quote": "Search API$5.00Raw web search results with advanced filtering ... There are no additional token-based charges.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "xAI — grok-4.3 price",
+              "answer": "Short context (≤200k tokens): $1.25/1M input, $0.20/1M cached input, $2.50/1M output. Long context (>200k, up to the 1M-token window): $2.50/1M input, $0.40/1M cached input, $5.00/1M output. Confirmed identically on both the model detail page and the pricing page.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.x.ai/developers/models/grok-4.3",
+              "quote": "Input Tokens $1.25/ 1M tokens Cached tokens $0.20/ 1M tokens Output Tokens $2.50/ 1M tokens ... We charge different rates for requests which exceed the 200K context window",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "xAI — is web_search tool $5 per 1,000 calls",
+              "answer": "Yes, confirmed.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.x.ai/docs/pricing",
+              "quote": "Web Searchweb_searchSearch the internet and browse web pages$5 / 1k calls",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "xAI — do search results bill as tokens",
+              "answer": "Yes. Tool use is priced on two components: the flat per-call tool-invocation fee ($5/1k for web_search) PLUS ordinary token billing (input/reasoning/completion/cached) for whatever content — including fetched search-result text — ends up in the model's context. There's no separate 'search context' line item like Perplexity's Sonar API has; it's just standard token pricing.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.x.ai/docs/pricing",
+              "quote": "Requests which make use of xAI provided server-side tools are priced based on two components: token usage and server-side tool invocations. Since the agent autonomously decides how many tools to call, costs scale with query complexity.",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "xAI grok-4.3 — can reasoning be off",
+              "answer": "Yes. Reasoning effort supports 'none' (no reasoning at all), low, medium, high (and xhigh per the model's Details block). Default reasoning effort for grok-4.3 is 'low', so you must explicitly set it to 'none' to disable reasoning.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.x.ai/developers/models/grok-4.3",
+              "quote": "Configurable reasoning Supports none (no reasoning at all), low, medium, and high. ... Reasoning efforts Supported none, low, medium, high, xhigh Default low",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "xAI — minimum credit purchase",
+              "answer": "The only minimum stated in the official docs is for auto top-up: the top-up amount per trigger has a $5 minimum. No separate minimum is stated anywhere for a one-time/initial manual credit purchase in the billing or FAQ pages checked.",
+              "confidence": "confirmed",
+              "source_url": "https://docs.x.ai/console/billing",
+              "quote": "The top-up amount of credits that will be purchased (minimum $5).",
+              "read_how": "full-page-or-pdf-text"
+            },
+            {
+              "question": "xAI — any free credits",
+              "answer": "Not stated on any official docs.x.ai page I could reach this session (billing, billing FAQ, quickstart all checked — the quickstart just says sign up then load credits, no mention of a free grant). Third-party aggregator sites (not docs.x.ai) claim a ~$25 sign-up credit and a $150/month 'data sharing program' credit requiring $5 prior spend, but I could not locate or load an official docs.x.ai page describing either program, so treat those numbers as unverified.",
+              "confidence": "unverified",
+              "source_url": "https://docs.x.ai/developers/quickstart",
+              "quote": "Sign up for an account at console.x.ai, then load it with credits to start using the API.",
+              "read_how": "full-page-or-pdf-text"
+            }
+          ],
+          "other_findings": "All pages fetched via PowerShell Invoke-WebRequest / curl into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and read as plain extracted text (not WebFetch summaries), except where the two WebSearch-only entries above are explicitly flagged as inferred/unverified because no official page confirmed them.\n\nNotable non-obvious findings:\n- Sonar (the old API) ends Sept 27, 2026 and is being replaced by Agent API + Search API, per the doc nav structure (legacy Sonar API section still present but marked \"Legacy API\").\n- Perplexity presets were renamed: fast-search\\u2192fast, pro-search\\u2192low, deep-research\\u2192medium, advanced-deep-research\\u2192high, ultra\\u2192xhigh.\n- Perplexity's Agent API pricing model has NO \"search context size\" fee tier the way the old/legacy Sonar API does (Sonar bills $5/$8/$12 per 1k requests by low/medium/high context on top of tokens) \\u2014 Agent API instead uses flat $0.0025/call + normal token billing. Don't conflate the two when quoting \"search context\" pricing.\n- xAI's X Search tool pricing is changing Sept 21, 2026 (this week) from $5/1k calls to $5/1k posts fetched + $10/1k user profiles fetched \\u2014 not asked about directly but adjacent and time-sensitive if relevant to a related decision.\n- xAI Priority Processing (2x token price) is the rough analog to Perplexity's Agent API \"priority\"/\"fast\" service tier (also 2x) \\u2014 both platforms use the same 2x multiplier language for priority processing, and xAI's US regional endpoint adds a separate 1.1x premium on top of any tier multiplier.\n- I did not find an official docs.x.ai page for the \"$150/month data sharing\" or \"$25 signup credit\" programs that recur across third-party recap blogs; either the docs.x.ai info-architecture doesn't publish it as a standalone page, or it's console-UI-only (not reachable without login, which was out of scope for this read-only task)."
+        }
+      }
+    ],
+    "critic": {
+      "answers": [
+        {
+          "question": "OpenAI direct: minimum purchase, auto-reload default",
+          "answer": "$5 minimum first credit purchase (default offered $10). Auto-reload is ON by default during setup; minimum auto-recharge is also $5. Turn it off or it will buy credits on its own.",
+          "confidence": "confirmed",
+          "source_url": "https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing",
+          "quote": "Review Use auto-reload before confirming your purchase. It is turned on by default during setup.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenAI direct: credit expiry, refunds, overrun",
+          "answer": "Purchased credits expire 1 year after purchase, non-refundable. Usage can overrun a zero balance; the negative amount is taken from the next purchase.",
+          "confidence": "confirmed",
+          "source_url": "https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing",
+          "quote": "Purchased credits expire after 1 year. OpenAI cannot extend the expiration date of purchased credits or credit grants.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenAI direct: US sales tax on API credits",
+          "answer": "OpenAI's help center has a US sales-tax exemption process that covers API organizations and mentions refunds of tax already charged. That implies US sales tax is charged where applicable. No page gives the rate or the list of states.",
+          "confidence": "inferred",
+          "source_url": "https://help.openai.com/en/articles/7232908-how-can-i-request-a-us-sales-tax-exemption",
+          "quote": "If you have already been charged tax and would like us to review those invoices",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenAI direct: per-call web search fee and search content billed as input",
+          "answer": "$10 per 1,000 search calls ($0.01 each), and retrieved search content is billed as input tokens at the model's rate. Using the measured 14,000 input tokens per answer (max 159,000): Astra $0.14 avg / $1.59 max, Sol $0.056 / $0.64, Terra $0.028 / $0.32, Luna $0.0028 / $0.032 per answer. That is on top of the call fee. Only 'search' actions carry the call fee. 'open_page' and 'find_in_page' are listed without a fee, but their content still adds tokens (inferred).",
+          "confidence": "confirmed",
+          "source_url": "https://developers.openai.com/api/docs/pricing",
+          "quote": "| Web search | Web search (all models) | $10.00 / 1k calls + Search content tokens billed at model rates. |",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenAI direct: multiple search calls per answer",
+          "answer": "With reasoning models the model decides how many searches to run for one answer, and each search action is billed. There is no stated cap or typical count. 'return_token_budget: unlimited' lifts the cap on returned content and warns that this raises cost.",
+          "confidence": "confirmed",
+          "source_url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+          "quote": "It can perform web searches as part of its chain of thought, analyze results, and decide whether to keep searching.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenAI direct: reasoning tokens billed as output at default effort",
+          "answer": "Reasoning tokens are billed as output tokens. GPT-5.6 Sol, Terra and Luna default to 'medium' (can be set to 'none'). GPT-6 Astra cannot use 'none' (returns HTTP 400); its lowest setting is 'low' and its default is not stated. OpenAI says one answer can use 'a few hundred to tens of thousands' of reasoning tokens. On 150-1,500-token answers that can multiply the output bill. If max_output_tokens is hit, you can pay for reasoning and get no visible answer.",
+          "confidence": "confirmed",
+          "source_url": "https://developers.openai.com/api/docs/guides/reasoning",
+          "quote": "While reasoning tokens are not visible via the API, they still occupy space in the model's context window and are billed as output tokens.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenAI direct: long-context price step",
+          "answer": "Any prompt over 272K input tokens is billed at 2x input and 1.5x output for the whole request, on all four models (Luna included). The measured 159K max is under the step for a single call. Whether agentic search steps add up toward it is not stated.",
+          "confidence": "confirmed",
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+          "quote": "Prompts with >272K input tokens are priced at 2x input and 1.5x output for the full request.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenAI direct: Sol promo expiry",
+          "answer": "Sol's $4/$20 is a promotional price guaranteed only 'at least through November 21, 2026'. The stated 20%/33% cut implies the regular price is $5/$30 (inferred). Perplexity still lists Sol at $5/$30.",
+          "confidence": "confirmed",
+          "source_url": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+          "quote": "GPT-5.6 Sol costs $4 per million input tokens and $20 per million output tokens, a 20% reduction in input pricing and a 33% reduction in output pricing. GPT-5.6 Sol’s promotional pricing is available at least through November 21, 2026.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Azure OpenAI: web search fee",
+          "answer": "Azure's web_search tool runs on Grounding with Bing at $14 per 1,000 transactions, 40% more per call than OpenAI direct ($10). The Azure Retail Prices API also shows 'Grounding with Bing | Search Transactions | 14.0 per 1K'. Azure's docs also warn that Bing grounding data leaves your compliance/geo boundary.",
+          "confidence": "confirmed",
+          "source_url": "https://www.microsoft.com/en-us/bing/apis",
+          "quote": "Grounding with Bing Search | 150 transactions per second 1 Million transactions per day $14 per 1,000 transactions",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Azure OpenAI: search content billed as input tokens",
+          "answer": "Confirmed only for Deep Research, where search-context tokens are charged at the model's input price plus the Bing fee. For the plain web_search tool, the Azure page does not say; it is presumably the same as OpenAI direct (inferred). Global Standard token prices match OpenAI direct (Sol $4/$20, Luna $0.20/$1.20).",
+          "confidence": "inferred",
+          "source_url": "https://azure.microsoft.com/en-us/pricing/details/azure-openai/",
+          "quote": "Search context tokens are charged input token prices for the model being used. You’ll separately incur charges for Grounding with Bing Search and the base GPT model being used for clarifying questions.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Azure OpenAI: Data Zone uplift",
+          "answer": "Data Zone (US/EU) deployments cost 10% more than Global. Example: Sol input $4.40 vs $4.00, output $22 vs $20. Long-context meters exist (Sol long input $8, output $30), but Azure does not publish the threshold in what I read.",
+          "confidence": "confirmed",
+          "source_url": "https://prices.azure.com/api/retail/prices",
+          "quote": "\"retailPrice\":4.4,\"unitPrice\":4.4,\"armRegionName\":\"eastus2\",\"location\":\"US East 2\",\"effectiveStartDate\":\"2026-09-01T00:00:00Z\",\"meterId\":\"00bb768d-2a38-547a-aa75-a8b6a3fdf1d6\",\"meterName\":\"5.6 sol ShortCo Inp Std DZ 1M Tokens\"",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Azure OpenAI: taxes, minimum purchase, credit expiry",
+          "answer": "Taxes are set by your sold-to or ship-to address. Microsoft does not state the US sales-tax rate on the page read. Billing is postpaid pay-as-you-go, so no minimum top-up and no credit expiry is stated (checked the Azure OpenAI pricing page and the Azure tax page).",
+          "confidence": "confirmed",
+          "source_url": "https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/manage-tax-information",
+          "quote": "When you buy Azure products and services, the taxes that you pay get determined by one of two things: your sold-to address, or your ship-to/service usage address, if it's different.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Gemini direct: minimum prepay, expiry, overrun",
+          "answer": "$5 minimum prepay (max $5,000). Unused credits expire after 12 months and are non-refundable. Usage can run over the balance during about 10 minutes of billing lag. The Tier 1 account spend cap is $250.",
+          "confidence": "confirmed",
+          "source_url": "https://ai.google.dev/gemini-api/docs/billing",
+          "quote": "After credits are purchased, unused credits expire after 12 months and are non-refundable, except after switching to a Postpay account.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Gemini direct: US sales tax",
+          "answer": "Google Cloud Billing, which the Gemini paid tier uses, says US customers may owe state and local sales tax based on billing address. SKU prices exclude tax. No rate is given.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.cloud.google.com/billing/docs/resources/vat-overview",
+          "quote": "You might be subject to state and local sales taxes. The tax law for your billing address determines whether your account is subject to tax.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Gemini direct: search fee and multiple queries per answer",
+          "answer": "Gemini 3.x bills every search query the model runs, and one prompt can trigger several. After 5,000 free per month (one pool shared across all Gemini 3.x models, paid tier only), each query costs $14 per 1,000. Google Search grounding is not available on the free tier for 3.x models.",
+          "confidence": "confirmed",
+          "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+          "quote": "A customer-submitted request to Gemini may result in one or more queries to Google Search. You will be charged for each individual search query performed.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Gemini direct: is grounding content billed as input tokens",
+          "answer": "Probably not billed, but weakly sourced. The only statement is in the 'Pricing for agents' rows (Deep Research and managed agents). The Google Search grounding doc's Pricing section and the per-model tables say nothing about retrieved tokens. URL context and File Search content IS billed as input tokens.",
+          "confidence": "inferred",
+          "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+          "quote": "Tool usage fees apply per existing pricing structure, maintaining standard distinctions for Search Grounding (retrieved tokens excluded) versus Url_context / File Search (retrieved tokens included in all other tools).",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Gemini direct: thinking tokens at default level",
+          "answer": "Output price includes thinking tokens, billed on the full thoughts even though only a summary is returned. gemini-3.8-flash defaults to medium, and its lowest level is low (thinking cannot be turned off). gemini-3.1-pro-preview defaults to high, lowest low. 3.1 Pro is not on the free tier.",
+          "confidence": "confirmed",
+          "source_url": "https://ai.google.dev/gemini-api/docs/thinking",
+          "quote": "| gemini-3.8-flash | On (medium) | low, medium, high |",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Gemini direct: long-context step and promo expiry",
+          "answer": "Gemini 3.1 Pro Preview: $2/$12 up to 200K-token prompts, $4/$18 above 200K. Gemini 3.8 Flash (also 3.7 and 3.6) doubles on Jan 1, 2027: input $0.75 to $1.50, output $3.75 to $7.50, cache $0.075 to $0.15.",
+          "confidence": "confirmed",
+          "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+          "quote": "| Input price | Free of charge | $0.75 through December 31, 2026. $1.50 starting January 1, 2027. |",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "GitHub Copilot: plan gating of benchmark models",
+          "answer": "Copilot Pro ($10) does NOT include GPT-5.6 Sol or GPT-6 Astra. Pro+ ($39/month, 7,000 credits) is the cheapest individual plan with both. Pro does include Luna, Terra, Gemini 3.8 Flash, Grok 4.6, Sonnet 5 and Haiku 4.5. Read from the per-plan availability table's cell labels.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.github.com/en/copilot/reference/ai-models/supported-models",
+          "quote": "GPT-6 Astra | Not included | Included | Included | Included | Included",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "GitHub Copilot: credit expiry and overage",
+          "answer": "Included credits are forfeited monthly and reset at 00:00 UTC on the 1st. Past the allowance, you set a USD budget for extra usage at $0.01 per credit, or upgrade. The 'flex allotment' part of the allowance is explicitly variable and can change.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.github.com/en/copilot/concepts/billing-and-usage/individuals/billing",
+          "quote": "The flex allotment is a variable part of your included usage; it is designed to adapt as the economics of AI evolve, including model pricing, new models, and improvements in efficiency.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "GitHub Copilot: US sales tax",
+          "answer": "GitHub calculates US sales tax for US customers. The tax-exemption upload is only for GitHub Customer Agreement accounts. No rate is stated.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.github.com/en/billing/how-tos/set-up-payment/add-sales-tax-certificate",
+          "quote": "If you're a GitHub customer in the United States, you need to ensure that your account is set up to calculate sales tax correctly.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "GitHub Copilot: reasoning effort floor",
+          "answer": "CLI effort levels are low, medium, high, xhigh, max. There is no 'none', so every Copilot call on a reasoning model pays for some reasoning. GitHub also warns that agentic features can make multiple model calls within one task (billed per token).",
+          "confidence": "confirmed",
+          "source_url": "https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference",
+          "quote": "| --effort=LEVEL, --reasoning-effort=LEVEL | Set the reasoning effort level (low, medium, high, xhigh, max).",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "GitHub Copilot: web search path costs",
+          "answer": "The only documented web search is /research, documented for interactive sessions. Its built-in research agent defaults to claude-haiku-4.5, not the model you pinned, and makes 'many tool calls'. So web answers get extra Haiku tokens and are not produced by the model under test alone. In -p mode only web_fetch (fetches given URLs) is documented, which is not a search.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference",
+          "quote": "| research | claude-haiku-4.5 | Executes thorough searches based on instructions.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "GitHub Copilot: long-context threshold for Luna",
+          "answer": "On Copilot, Luna's long-context step is at 200K, not the 272K used by OpenAI direct, Perplexity and OpenRouter. Above it: $0.40/$1.80. Sol and Astra step at 272K.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+          "quote": "| GPT-5.6 Luna | GA | Lightweight | Long context | > 200K | $0.40 | $0.04 | $0.50 | $1.80",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenRouter: card fee",
+          "answer": "5.5% card fee with a $0.80 minimum per purchase (a $5 buy costs $5.80). Crypto fee is 5%. The fee is non-refundable. Read from the FAQ's rendered JSX: getTotalFeeString('stripe') returns '5.5% ($0.80 minimum)'.",
+          "confidence": "confirmed",
+          "source_url": "https://openrouter.ai/docs/faq",
+          "quote": "OpenRouter charges a 5.5% ($0.80 minimum) fee when you purchase credits.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenRouter: minimum purchase, refund window, expiry",
+          "answer": "$5 minimum and $25,000 maximum per transaction. Unused credits are refundable only within 24 hours of purchase; platform fees are never refunded; crypto is never refunded. OpenRouter reserves the right to expire credits 365 days after purchase. Terms last updated Aug 31, 2026.",
+          "confidence": "confirmed",
+          "source_url": "https://openrouter.ai/terms",
+          "quote": "Currently, OpenRouter requires users to purchase Credits to make API calls and access the Service, with a minimum and maximum purchase amount of $5 and $25,000 per transaction, respectively.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenRouter: sales tax",
+          "answer": "Prices exclude tax, and Stripe adds tax at purchase where required. The page names only VAT/GST; US sales tax is not specifically stated.",
+          "confidence": "unverified",
+          "source_url": "https://openrouter.ai/docs/cookbook/administration/tax-id",
+          "quote": "Prices on OpenRouter are exclusive of applicable taxes. Where required by your jurisdiction, VAT or GST is calculated automatically by Stripe and added to the invoice at purchase time.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenRouter: search calls per answer and search content tokens",
+          "answer": "The openrouter:web_search tool runs 0 to N searches per request, and each is billed. The default server-tool budget is 30 steps (also the max). max_uses is honored only for Anthropic native search; OpenAI, Google and xAI native search ignore it. Search content is billed as normal tokens on top of the per-call fee.",
+          "confidence": "confirmed",
+          "source_url": "https://openrouter.ai/docs/guides/features/server-tools/web-search",
+          "quote": "With native provider search, the value is forwarded only to Anthropic (as its native max_uses); other native search providers have no equivalent parameter and ignore it.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "OpenRouter: routing to a pricier provider",
+          "answer": "By default, requests are load-balanced across providers, weighted by inverse-square of price, so some may land on a more expensive endpoint. For gpt-5.6-sol, the endpoints API shows OpenAI at $2/$10 (flag discount 0.5, end date not stated), Amazon Bedrock at $4.40/$22 and Azure at $5/$30. Set provider sort=price, or pin the provider, to avoid this.",
+          "confidence": "confirmed",
+          "source_url": "https://openrouter.ai/docs/guides/routing/provider-selection",
+          "quote": "For each model in your request, OpenRouter's default behavior is to load balance requests across providers, prioritizing price.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Perplexity Agent API: per-call tool fees",
+          "answer": "web_search costs $0.0025 per call and fetch_url $0.0005 per call; sandbox is $0.03 per session. The Search API is $5 per 1,000 requests (up to 5 queries count as one request). Presets allow multiple steps: fast 1, low 5, medium 15, high 15, xhigh 100.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+          "quote": "| fetch_url | $0.0005 per invocation | Fetches and extracts content from specific URLs",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Perplexity Agent API: search content billed as input",
+          "answer": "Search content is billed as input tokens at the model rate, for the exact amount used. Budgets are small: low 300, medium 1,000, high 4,000 tokens per call; presets use 2,000. This is the most bounded search-content cost of the seven routes.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.perplexity.ai/docs/agent-api/tools/web-search",
+          "quote": "Explicit budgets override any search_context_size value passed in the same request, and you are charged for the exact number of search context tokens consumed, not the requested budget.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Perplexity Agent API: model price vs first party",
+          "answer": "Perplexity charges $5/$30 for gpt-5.6-sol, versus OpenAI direct's current $4/$20 promo: 25% more on input and 50% more on output. That contradicts Perplexity's own 'no markup' claim; its prices are refreshed only monthly. The long-context rate is $10/$45 above 272K. Priority tier is 2x.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.perplexity.ai/docs/agent-api/models",
+          "quote": "| `openai/gpt-5.6-sol`   | 5.00 (≤272k)<br />10.00 (>272k) | 30.00 (≤272k)<br />45.00 (>272k) |",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "Perplexity: minimum purchase, credit expiry, sales tax",
+          "answer": "None of the three is stated in the API docs. Checked: Pricing, FAQ, Projects & Billing, Rate Limits pages. Only auto top-up and tier thresholds are described.",
+          "confidence": "unverified",
+          "source_url": "https://docs.perplexity.ai/docs/getting-started/projects",
+          "quote": "Enable automatic credit top-up by clicking **Change preferences** next to **Auto reload**.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "xAI: web search fee and multiple calls",
+          "answer": "$5 per 1,000 web_search calls; only successful executions are billed. The agent decides how many calls to make. max_turns limits turns, not calls, and parallel calls per turn are possible. The default cap is not stated.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.x.ai/developers/tools/tool-usage-details",
+          "quote": "max_turns does not directly limit the number of individual tool calls. Instead, it limits the number of assistant turns in the agentic loop. During a single turn, the model may invoke multiple tools in parallel.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "xAI: search content and cumulative prompt tokens",
+          "answer": "prompt_tokens add up across every inference step in the agentic loop, with the full history re-sent each step. So one searched answer bills the growing context several times, partly offset by caching. At grok-4.3's $1.25 per 1M input, the measured 14K avg is $0.0175 and 159K is $0.20 per answer.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.x.ai/developers/tools/tool-usage-details",
+          "quote": "Represents the cumulative input tokens across all inference requests made during the agentic process. Each request includes the full conversation history up to that point, which grows as the agent progresses.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "xAI: reasoning default and long-context step",
+          "answer": "grok-4.3 defaults to reasoning 'low', so reasoning tokens are billed unless you set 'none'. The separate reasoning rate is not stated. At 200K prompt tokens or more, every token in the request is billed at the long-context rate ($2.50/$5.00).",
+          "confidence": "confirmed",
+          "source_url": "https://docs.x.ai/developers/pricing",
+          "quote": "Models with long context pricing bill the long context rates for all tokens in a request once its prompt reaches the model's long context threshold.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "xAI: other fees and hidden tokens",
+          "answer": "There is a $0.05 fee for each request caught as a usage-guideline violation before generation. The US regional endpoint costs 1.1x (grok-4.6 only). The API adds 'pre-defined tokens' to every prompt count; the amount is not stated.",
+          "confidence": "confirmed",
+          "source_url": "https://docs.x.ai/developers/pricing",
+          "quote": "For violations that are caught before generation in the Responses API, we will charge a $0.05 usage guideline violation fee per request.",
+          "read_how": "full-page-or-pdf-text"
+        },
+        {
+          "question": "xAI: minimum purchase, refunds, expiry, tax, card fees",
+          "answer": "Auto top-up minimum is $5; a manual purchase minimum is not stated. No refunds on prepaid credits. Expiry is not stated; credits are forfeited on termination. The Enterprise ToS, which the billing FAQ links for refunds, makes fees exclusive of sales tax and has the customer pay card-processing fees, amount not stated.",
+          "confidence": "confirmed",
+          "source_url": "https://x.ai/legal/terms-of-service-enterprise",
+          "quote": "Customer will pay fees via credit card, ACH transfer, check, or wire transfer and will also pay any credit-card or other payment-processing fees associated with the payment method Customer selects.",
+          "read_how": "full-page-or-pdf-text"
+        }
+      ],
+      "other_findings": "Method: I read every source this session from my own subfolder, C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\critic\\. Each page was pulled with curl as HTML or the site's .md version and stripped to text with html2text.py. No shared generic filenames and no WebFetch summaries were used. Two numbers came from official JSON APIs: Azure Retail Prices (prices.azure.com) and OpenRouter's /api/v1/models and /endpoints. Anything I label inferred or unverified is marked that way in its row.\n\nROUND-1 FINDINGS THAT LOOK WRONG OR STALE:\n1. OpenRouter minimum purchase is wrong. Round 1 said it is not stated on any public page. The Terms of Service (sec 4.1, updated Aug 31, 2026) state a $5 minimum and $25,000 maximum per transaction. They also say unused credits are refundable only within 24 hours and platform fees never are.\n2. OpenRouter \"pass-through, no markup\" is incomplete. The price depends on which provider endpoint serves the request. Sol is $2/$10 via OpenAI (a 50% discount flag with no stated end), $4.40/$22 via Bedrock and $5/$30 via Azure. Default load balancing can route some requests to the pricier endpoints.\n3. The Perplexity preset finding uses Sol at $5/$30 as if that were the provider rate. OpenAI direct is currently $4/$20 (promo), so Perplexity is 25% higher on input and 50% higher on output. Perplexity refreshes prices only monthly.\n4. The Perplexity \"$0.007 low preset\" worked example is stale, and it is on the Pricing page, not the Presets page. Its token lines imply $0.50/$3 per 1M tokens, but the low preset now runs gpt-5.6-luna at $0.20/$1.20. With Luna the same run costs about $0.0046: $0.0004 input + $0.0012 output + $0.0025 web_search + $0.0005 fetch_url.\n5. The Gemini claim that grounding content is excluded from token billing was marked confirmed and general. The only source is the \"Pricing for agents\" rows. The grounding doc's own Pricing section and the per-model tables are silent. It should be downgraded to inferred.\n6. The Copilot finding says the Gemini 3.6/3.7/3.8 rate after the promo is not stated. Copilot's page does not state it, but Google's own pricing page does: from Jan 1, 2027, input goes $0.75 to $1.50 and output $3.75 to $7.50. Whether Copilot follows Google is inferred.\n7. The Copilot finding lists Sol and Astra credit rates without the plan gate. Copilot Pro ($10) excludes both; you need Pro+ ($39). That changes the Copilot cost by $29/month.\n8. Copilot's web-search route is not comparable to the others. /research is documented for interactive sessions, its research agent defaults to claude-haiku-4.5 rather than the pinned model, and -p mode documents only web_fetch. The \"with web search\" arm would measure Haiku-assisted answers.\n9. The Perplexity fast and low presets set Luna's reasoning effort to \"minimal\". OpenAI's Luna page lists only none/low/medium/high/xhigh/max. That is a doc inconsistency; I could not verify what Perplexity actually sends.\n10. OpenAI's business pricing page says search content is free, which conflicts with the developer pricing page. Round 1 already flagged this; the developer pricing page (read this session) says content is billed at model rates.\n\nTIME-SENSITIVE PRICE CHANGES:\n- OpenAI Sol promo is guaranteed only through Nov 21, 2026.\n- Gemini 3.x Flash prices double on Jan 1, 2027.\n- Copilot's Gemini promo ends Dec 31, 2026.\n- xAI X Search billing changes Sep 21, 2026. That is not web_search, but it is the same week.\n\nLONG-CONTEXT STEPS:\nThe measured 159K max is under every step: OpenAI 272K, Copilot Luna 200K, Gemini 3.1 Pro 200K, xAI 200K, Perplexity 272K/200K. The margin is thinnest at 200K. xAI explicitly accumulates prompt tokens across agentic steps. Whether cumulative totals count toward the step threshold is not stated for any provider.\n\nNOT STATED ANYWHERE I LOOKED:\n- Perplexity: minimum purchase, credit expiry, sales tax.\n- xAI: manual purchase minimum and credit expiry.\n- OpenRouter: US sales tax specifically (the page names only VAT/GST).\n- GPT-6 Astra: default reasoning effort.\n- Azure: long-context threshold.\n- Copilot: size of the CLI agent's system-prompt overhead per call."
+    }
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Resolve"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Critic"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "resolve: GitHub Copilot route",
+      "phaseIndex": 1,
+      "phaseTitle": "Resolve",
+      "agentId": "a5cdc50dbbf1feb13",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789742351380,
+      "queuedAt": 1789742351348,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "Method: downloaded each page with PowerShell Invoke-WebRequ…",
+      "promptPreview": "Today is 2026-09-18. The owner will spend real money on these facts and was burned once by an unchecked price, so every answer must come from an OFFICIAL page read this session (download with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and read the text, or curl; WebFetch summaries can garble t…",
+      "promptFramed": true,
+      "lastProgressAt": 1789742851357,
+      "tokens": 151372,
+      "toolCalls": 57,
+      "durationMs": 499969,
+      "resultPreview": "{\"answers\":[{\"question\":\"Copilot Free's exact monthly AI-credit allowance\",\"answer\":\"Not stated as a number anywhere on official GitHub pages. GitHub Free is described only as having \\\"an allowance of GitHub AI Credits\\\" / \\\"Limited chat and agent usage,\\\" with no purchase option for more credits and no numeric figure published. The only hard numbers given for Free are 2,000 code completions/month…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "resolve: OpenAI open points",
+      "phaseIndex": 1,
+      "phaseTitle": "Resolve",
+      "agentId": "ac63c0339a6961933",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789742351382,
+      "queuedAt": 1789742351350,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "Operational flag: this session's scratchpad (pricing2/) is …",
+      "promptPreview": "Today is 2026-09-18. The owner will spend real money on these facts and was burned once by an unchecked price, so every answer must come from an OFFICIAL page read this session (download with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and read the text, or curl; WebFetch summaries can garble t…",
+      "promptFramed": true,
+      "lastProgressAt": 1789742856803,
+      "tokens": 112475,
+      "toolCalls": 56,
+      "durationMs": 504149,
+      "resultPreview": "{\"answers\":[{\"question\":\"Is there a $5 minimum first credit purchase for a new OpenAI API account, or pay-as-you-go with no minimum?\",\"answer\":\"New API accounts are on prepaid billing, and the minimum initial credit purchase is $5 (default offered amount is $10). The 'no minimum, pay-as-you-go' claim applies only to legacy accounts still on old monthly invoiced billing, not to new accounts today (…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "resolve: Google Gemini open points",
+      "phaseIndex": 1,
+      "phaseTitle": "Resolve",
+      "agentId": "ad299da0dfcf3f42d",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789742351384,
+      "queuedAt": 1789742351351,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "All 6 points read from official ai.google.dev pages downloa…",
+      "promptPreview": "Today is 2026-09-18. The owner will spend real money on these facts and was burned once by an unchecked price, so every answer must come from an OFFICIAL page read this session (download with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and read the text, or curl; WebFetch summaries can garble t…",
+      "promptFramed": true,
+      "lastProgressAt": 1789742638864,
+      "tokens": 112690,
+      "toolCalls": 34,
+      "durationMs": 286210,
+      "resultPreview": "{\"answers\":[{\"question\":\"Gemini 3.x Grounding with Google Search: is the $14/1,000 fee per search query or per grounded prompt, and does the 5,000 free searches/month apply only on the paid tier?\",\"answer\":\"Per search query, not per grounded prompt. Google's own grounding doc says billing is per search query the model executes, and a single prompt that triggers multiple queries is billed for each …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "resolve: OpenRouter as one-stop shop",
+      "phaseIndex": 1,
+      "phaseTitle": "Resolve",
+      "agentId": "a83ec024171d41208",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789742351386,
+      "queuedAt": 1789742351351,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "Method: downloaded every source page this session via curl …",
+      "promptPreview": "Today is 2026-09-18. The owner will spend real money on these facts and was burned once by an unchecked price, so every answer must come from an OFFICIAL page read this session (download with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and read the text, or curl; WebFetch summaries can garble t…",
+      "promptFramed": true,
+      "lastProgressAt": 1789742796560,
+      "tokens": 139591,
+      "toolCalls": 39,
+      "durationMs": 443905,
+      "resultPreview": "{\"answers\":[{\"question\":\"Are OpenRouter's per-token prices for these models identical to first-party (pass-through), or marked up?\",\"answer\":\"Pass-through, no markup. OpenRouter states it passes through the underlying provider's pricing exactly with zero markup on inference; the only fee OpenRouter charges is on buying credits.\",\"confidence\":\"confirmed\",\"source_url\":\"https://openrouter.ai/docs/faq…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "resolve: Perplexity Agent API and xAI",
+      "phaseIndex": 1,
+      "phaseTitle": "Resolve",
+      "agentId": "add65b2e857c340ab",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789742351387,
+      "queuedAt": 1789742351351,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "All pages fetched via PowerShell Invoke-WebRequest / curl i…",
+      "promptPreview": "Today is 2026-09-18. The owner will spend real money on these facts and was burned once by an unchecked price, so every answer must come from an OFFICIAL page read this session (download with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and read the text, or curl; WebFetch summaries can garble t…",
+      "promptFramed": true,
+      "lastProgressAt": 1789742792510,
+      "tokens": 170062,
+      "toolCalls": 48,
+      "durationMs": 439854,
+      "resultPreview": "{\"answers\":[{\"question\":\"Perplexity Agent API — exact price of the web_search tool\",\"answer\":\"$0.0025 per invocation ($2.50 per 1,000 web_search calls). Billed separately from model token costs.\",\"confidence\":\"confirmed\",\"source_url\":\"https://docs.perplexity.ai/docs/getting-started/pricing\",\"quote\":\"web_search$0.0025 per invocationPerforms web searches to retrieve current information ... Tool cost…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "hidden-cost critic",
+      "phaseIndex": 2,
+      "phaseTitle": "Critic",
+      "agentId": "a86695b30d05c940d",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789742856809,
+      "queuedAt": 1789742856806,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "Method: I read every source this session from my own subfol…",
+      "promptPreview": "Today is 2026-09-18. The owner will spend real money on these facts and was burned once by an unchecked price, so every answer must come from an OFFICIAL page read this session (download with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing2\\ and read the text, or curl; WebFetch summaries can garble t…",
+      "promptFramed": true,
+      "lastProgressAt": 1789743952610,
+      "tokens": 269989,
+      "toolCalls": 106,
+      "durationMs": 1095801,
+      "resultPreview": "{\"answers\":[{\"question\":\"OpenAI direct: minimum purchase, auto-reload default\",\"answer\":\"$5 minimum first credit purchase (default offered $10). Auto-reload is ON by default during setup; minimum auto-recharge is also $5. Turn it off or it will buy credits on its own.\",\"confidence\":\"confirmed\",\"source_url\":\"https://help.openai.com/en/articles/8264644-setting-up-and-managing-prepaid-api-billing\",\"q…"
+    }
+  ],
+  "totalTokens": 956179,
+  "totalToolCalls": 340
+}

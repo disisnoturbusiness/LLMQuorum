@@ -1,0 +1,1632 @@
+{
+  "summary": "Live API prices for ChatGPT/Copilot/Gemini models, web-search add-ons for providers in use, Perplexity and Grok; each checked by a skeptic",
+  "agentCount": 10,
+  "logs": [],
+  "result": [
+    {
+      "family": "OpenAI (ChatGPT)",
+      "research": {
+        "models": [
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-6-astra",
+            "powers": "OpenAI's current flagship API model ('our most capable model, built for the hardest end-to-end work'); offered inside ChatGPT Business/Enterprise/Pro plans, not on Free/Go by default",
+            "input_per_1m_usd": 10,
+            "cached_input_per_1m_usd": 1,
+            "output_per_1m_usd": 50,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web_search (Responses API built-in tool)",
+              "fee_per_1k_searches_usd": 10,
+              "search_content_tokens_billed": "platform.openai.com/docs/pricing: retrieved search content billed as input tokens at the model's own input rate ($10/1M for Astra). CONFLICT: openai.com/business/pricing's summary instead says 'Search content tokens are free' for the same $10/1k-calls line -- the two official OpenAI pages disagree; the docs page is the more detailed technical source.",
+              "free_allowance": "none stated on either page",
+              "notes": "Also a legacy 'web search preview' tool exists: $10/1k calls for reasoning models (content at model rates) or $25/1k for non-reasoning models (content free) -- not the current default tool."
+            },
+            "free_tier": "None confirmed. Help center describes new API accounts as prepaid-only; no standing free trial credits stated.",
+            "minimum_spend": "$5 minimum initial credit purchase (default suggested amount $10); no subscription minimum",
+            "sources": [
+              {
+                "url": "https://platform.openai.com/docs/pricing",
+                "quote": "gpt-6-astra 10 1 12.5 50 (short-context Standard tier, input/cached/cache-writes/output)",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://openai.com/business/pricing/",
+                "quote": "Our most capable model, built for the hardest end-to-end work",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://platform.openai.com/docs/models",
+                "quote": "use GPT-6 Astra, our flagship model for complex reasoning and coding",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://help.openai.com/en/articles/8264644-what-is-the-minimum-credit-you-can-add-to-your-account",
+                "quote": "The minimum purchase is $5, and the default amount is $10.",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-5.6-terra",
+            "powers": "OpenAI's current mid-tier API model, positioned as the 'mini'-equivalent cost/intelligence balance; also offered inside ChatGPT Business/Enterprise plans",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": 0.2,
+            "output_per_1m_usd": 12,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web_search (Responses API built-in tool)",
+              "fee_per_1k_searches_usd": 10,
+              "search_content_tokens_billed": "Billed as input tokens at gpt-5.6-terra's own input rate ($2/1M) per platform.openai.com/docs/pricing; openai.com/business/pricing's summary claims search content is free for the same tier -- same cross-page conflict noted for gpt-6-astra.",
+              "free_allowance": "none stated on either page",
+              "notes": ""
+            },
+            "free_tier": "None confirmed. New API accounts are prepaid-only per help center; no standing free credits stated.",
+            "minimum_spend": "$5 minimum initial credit purchase (default suggested amount $10)",
+            "sources": [
+              {
+                "url": "https://platform.openai.com/docs/pricing",
+                "quote": "gpt-5.6-terra 2 0.2 2.5 12 (short-context Standard tier)",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://openai.com/business/pricing/",
+                "quote": "Balanced model for efficient, high-volume work",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://platform.openai.com/docs/models",
+                "quote": "Choose GPT-5.6 Terra to balance intelligence and cost",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-5.6-luna",
+            "powers": "OpenAI's cheapest current-generation API model ('nano'-equivalent), 'optimized for cost-sensitive workloads'; also offered inside ChatGPT Business/Enterprise plans",
+            "input_per_1m_usd": 0.2,
+            "cached_input_per_1m_usd": 0.02,
+            "output_per_1m_usd": 1.2,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web_search (Responses API built-in tool)",
+              "fee_per_1k_searches_usd": 10,
+              "search_content_tokens_billed": "Billed as input tokens at gpt-5.6-luna's own input rate ($0.20/1M) per platform.openai.com/docs/pricing; openai.com/business/pricing's summary claims search content is free for the same tier -- same cross-page conflict noted for gpt-6-astra.",
+              "free_allowance": "none stated on either page",
+              "notes": "Note: the $10/1k-call tool fee alone (before any content tokens) already exceeds the entire model+output cost of most short Q&A calls on this cheap a model."
+            },
+            "free_tier": "None confirmed. New API accounts are prepaid-only per help center; no standing free credits stated.",
+            "minimum_spend": "$5 minimum initial credit purchase (default suggested amount $10)",
+            "sources": [
+              {
+                "url": "https://platform.openai.com/docs/pricing",
+                "quote": "gpt-5.6-luna 0.2 0.02 0.25 1.2 (short-context Standard tier)",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://openai.com/business/pricing/",
+                "quote": "Fast, affordable model for everyday work",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://platform.openai.com/docs/models",
+                "quote": "GPT-5.6 Luna for cost-sensitive, high-volume workloads",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-5-search-api",
+            "powers": "Dedicated search-grounding model, listed in its own 'Search' category on the pricing page (API only); not a general ChatGPT-default chat model",
+            "input_per_1m_usd": 1.25,
+            "cached_input_per_1m_usd": 0.125,
+            "output_per_1m_usd": 10,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "gpt-5-search-api is itself the search-specific model, distinct from the general web_search tool",
+              "fee_per_1k_searches_usd": null,
+              "search_content_tokens_billed": "No separate per-call search fee is documented for this model specifically; page only shows its flat per-token rate. If invoked via the standard web_search tool the usual $10/1k-calls fee would apply, but that combination is not documented.",
+              "free_allowance": "not stated",
+              "notes": "Confidence on billing mechanics for this specific model is lower than for Astra/Terra/Luna -- price row confirmed, but how/whether it combines with the web_search per-call fee is not spelled out on either page read."
+            },
+            "free_tier": "None confirmed.",
+            "minimum_spend": "$5 minimum initial credit purchase (default suggested amount $10)",
+            "sources": [
+              {
+                "url": "https://platform.openai.com/docs/pricing",
+                "quote": "gpt-5-search-api 1.25 0.125 10 (Search category, Other models table)",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "chat-latest",
+            "powers": "API alias listed under the 'ChatGPT' category on the pricing page -- the literal closest match to 'whichever model ChatGPT uses by default' (historically this alias tracked the live ChatGPT model, e.g. the old chatgpt-4o-latest); OpenAI's page does not explicitly restate that equivalence for this newer alias",
+            "input_per_1m_usd": 5,
+            "cached_input_per_1m_usd": 0.5,
+            "output_per_1m_usd": 30,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web_search (Responses API built-in tool)",
+              "fee_per_1k_searches_usd": 10,
+              "search_content_tokens_billed": "Assumed billed as input tokens at chat-latest's own input rate ($5/1M) per the general docs footnote, same as other current models; not separately spelled out for this alias.",
+              "free_allowance": "none stated",
+              "notes": ""
+            },
+            "free_tier": "None confirmed.",
+            "minimum_spend": "$5 minimum initial credit purchase (default suggested amount $10)",
+            "sources": [
+              {
+                "url": "https://platform.openai.com/docs/pricing",
+                "quote": "ChatGPT chat-latest $5.00 / $0.50 / $30.00 (Other models table)",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "inferred"
+          }
+        ],
+        "notes": "SCOPE: This subagent covered ONLY the OpenAI API (per the fan-out assignment). Copilot/Gemini/OpenRouter are separate agents' output -- don't treat their absence here as a gap in my slice.\n\nAll prices read live this session (2026-09-18) via curl/Invoke-WebRequest, full page text parsed with Python (read_how: full-page-or-pdf-text throughout -- no WebFetch summaries used). Read-only: no signups/logins/forms/browser used.\n\nNAMING SURPRISE (flag honestly, not a hallucination): OpenAI's current lineup uses planetary codenames layered on top of version numbers -- GPT-6 Astra (flagship), GPT-5.6 Terra (mid), GPT-5.6 Luna (cheap), GPT-5.6 Sol (a separate \"flagship for professional work\" exposed in the ChatGPT consumer app specifically). This is CONFIRMED independently on two separate official pages (platform.openai.com/docs/pricing and openai.com/business/pricing, which openai.com/api/pricing now 308-redirects to) with matching numbers, so I'm treating it as real, not a scraping artifact.\n\nTRIANGULATION ON REASONING-TOKENS BILLING: confirmed via the exact quoted tooltip on platform.openai.com/docs/pricing: \"Output prices include visible output tokens and reasoning tokens, even though reasoning tokens are not visible via the API.\" Applies to the whole Standard/Fast/Batch/Flex table (Astra/Terra/Luna). For chat-latest and gpt-5-search-api (a separate \"Other models\" table with no such tooltip attached) I could not find that statement restated, so I marked those two lower-confidence on that specific point.\n\nUNRESOLVED CONFLICT (this is a genuine hole, flagging per your triangulate-or-scuttle rule rather than papering over it): platform.openai.com/docs/pricing says the $10/1k-calls web_search tool bills retrieved search content \"at model rates\" (i.e., as input tokens) -- but openai.com/business/pricing's simplified summary of the SAME $10/1k-calls line says \"Search content tokens are free.\" I did not find a way to resolve this with a third independent official source in the time I had (would need OpenAI support or a changelog entry). Recommend budgeting for the docs.openai.com version (content = billed) as the conservative/technical source, but do not treat this line item as fully closed.\n\nDID NOT CONFIRM: which model Free-tier ChatGPT (the consumer chat app) actually defaults to for an ordinary logged-in user -- the pricing/model docs describe API recommendations and paid-plan feature gating, not the literal free-tier default. If that specific fact matters for the decision, it needs a separate check of the ChatGPT model picker itself (out of scope for API-pricing pages).\n\nWeb search per-call fee is confirmed at exactly $10.00 per 1,000 calls ($0.01/call) for the current \"web_search\" Responses API tool, on both official pages, for all of Astra/Terra/Luna. A legacy \"web search preview\" tool also still exists at $10/1k (reasoning models) or $25/1k (non-reasoning models, content free) -- not the one you'd use with current models.\n\nMinimum spend for a brand-new API account: confirmed $5 minimum purchase, $10 suggested default, at help.openai.com's billing article (exact URL and quote in sources). No standing free API credit tier found anywhere I checked.\n\nFiles saved this session under C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing\\: openai-docs-pricing.html, openai-docs-models.html, business-pricing.html (= what openai.com/api/pricing redirects to), chatgpt-pricing.html, web-search-tool.html, pricing-help-min.html."
+      },
+      "verify": {
+        "checks": [
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-6-astra",
+            "all_numbers_match_page": true,
+            "corrections": "Prices all correct: $10 in, $1 cached, $50 out, web search $10/1k calls, $5 minimum. Three corrections. (1) long_context_note should not be empty. Pricing row gives >272K input as $20 in / $2 cached / $75 out, and the model page says '2x input and cache rates and 1.5x output for the full request'. Our short prompts never hit it. (2) powers is incomplete. chatgpt.com/pricing shows 'Plan: Plus, Feature: GPT-6 Astra, Yes', so Plus has it too, not only Business/Enterprise/Pro. Free and Go do not. (3) reasoning_billed_as_output=true is CONFIRMED by a second source. The reasoning guide says reasoning tokens 'are billed as output tokens', and the model page lists 'Reasoning token support'. Also add: the web search fee is charged per search action, not per request ('Search actions incur a tool call cost'). A reasoning model can search several times in one answer. Also add three billing facts from the help article: auto-reload 'is turned on by default during setup'; 'Purchased credits expire after 1 year'; credits are non-refundable.",
+            "evidence_url": "https://developers.openai.com/api/docs/pricing (platform.openai.com/docs/pricing 308-redirects here; also read the .md version)",
+            "evidence_quote": "| gpt-6-astra | $10.00 | $1.00 | $12.50 | $50.00 | $20.00 | $2.00 | $25.00 | $75.00 |"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-5.6-terra",
+            "all_numbers_match_page": true,
+            "corrections": "Prices correct: $2 in, $0.20 cached, $12 out, cache writes $2.50. The business page shows the same numbers. (1) long_context_note is missing: >272K input is $4 in / $18 out. (2) powers is incomplete. chatgpt.com/pricing shows Terra on Plus ('Yes') and Pro ('Unlimited*'). Free and Go get 'Limited access in Work and Codex on desktop'. The model page says it 'roughly corresponds to the mini model tier'. Reasoning billed as output: confirmed ('Reasoning token support' on the model page plus the reasoning guide).",
+            "evidence_url": "https://developers.openai.com/api/docs/models/gpt-5.6-terra.md",
+            "evidence_quote": "| Input | $2 | 1M tokens | ... | Output | $12 | 1M tokens |"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-5.6-luna",
+            "all_numbers_match_page": true,
+            "corrections": "Prices correct: $0.20 in, $0.02 cached, $1.20 out. One material correction to powers. Luna is the ChatGPT FREE-plan model, not something 'also offered inside ChatGPT Business/Enterprise'. chatgpt.com/pricing, Free plan card: 'Unlimited text chats with GPT-5.6 Luna'. The feature table shows Free/Go/Plus 'Yes'. This answers their 'DID NOT CONFIRM which model Free ChatGPT defaults to' note: it is Luna. long_context_note is missing: >272K input is $0.40 in / $1.80 out. Their per-call math holds. At 300 in + 1,500 out, a Luna call costs about $0.0019 in tokens, against a $0.01 search fee.",
+            "evidence_url": "https://chatgpt.com/pricing/ (openai.com/chatgpt/pricing redirects here) + https://developers.openai.com/api/docs/pricing",
+            "evidence_quote": "Unlimited text chats with GPT-5.6 Luna"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-5-search-api",
+            "all_numbers_match_page": true,
+            "corrections": "Token prices correct: $1.25 in, $0.125 cached, $10 out (Specialized models > Search row). (1) reasoning_billed_as_output: true -> null (unverified). This model has no model page (developers.openai.com/api/docs/models/gpt-5-search-api returns 404) and is not in the models catalog. No official page says whether it bills reasoning tokens. (2) Their line 'if invoked via the standard web_search tool' describes a combination that cannot happen. The web search guide says the Chat Completions API 'supports only specialized search models', and gpt-5-search-api is the Chat Completions search path, not a Responses tool. (3) Key fact for this use case: 'Chat Completions search models always search before responding'. So it cannot run the from-memory half of the test; every call searches. (4) Per-call fee: keeping it null is defensible, since no model-specific fee is printed. But the pricing tools row reads 'Web search (all models) $10.00 / 1k calls'. Budget $10/1k as likely, labelled inferred.",
+            "evidence_url": "https://developers.openai.com/api/docs/guides/tools-web-search.md",
+            "evidence_quote": "Chat Completions search models always search before responding; Responses search is a tool"
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "chat-latest",
+            "all_numbers_match_page": true,
+            "corrections": "Prices correct: $5 in, $0.50 cached, $30 out. (1) powers claim is wrong. OpenAI DOES state what this alias is: 'chat-latest points to the latest Instant model currently used in ChatGPT' (model page; the catalog says 'Latest Instant model used in ChatGPT'). Confidence inferred -> confirmed. (2) reasoning_billed_as_output: true -> null / not applicable. The chat-latest page has NO 'Reasoning token support' line, while the Astra/Terra/Luna pages do. It is an Instant model. (3) Search-content billing is not an 'assumption'. The pricing tools row covers 'Web search (all models)', and the model page lists web_search under supported tools. It is subject to the same cross-page conflict (see the web_search row). (4) Batch is 'Not supported', and Tier-1 TPM is only 30,000.",
+            "evidence_url": "https://developers.openai.com/api/docs/models/chat-latest.md",
+            "evidence_quote": "chat-latest points to the latest Instant model currently used in ChatGPT."
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "web_search tool (Responses API, all models)",
+            "all_numbers_match_page": true,
+            "corrections": "$10.00/1k calls: confirmed on both pages. The cross-page conflict they flagged is REAL; I reproduced it. The developers pricing tools row says '$10.00 / 1k calls + Search content tokens billed at model rates.' The openai.com/business/pricing Web search card (openai.com/api/pricing 308s here) says '$10.00 / 1k calls ... Search content tokens are free.' No third official page resolves it. The docs page is the more specific source: its footnote defines search content tokens and gives a special rule, 'For gpt-4o-mini and gpt-4.1-mini with the non-preview web search tool, search content tokens are billed as a fixed block of 8,000 input tokens per call'. So budget content as billed input. Legacy web_search_preview: reasoning models $10/1k with content at model rates; non-reasoning models $25/1k with content free. Both match their note. The fee applies per 'search' action, and reasoning models may search more than once per request.",
+            "evidence_url": "https://developers.openai.com/api/docs/pricing",
+            "evidence_quote": "Web search (all models) | $10.00 / 1k calls + Search content tokens billed at model rates."
+          },
+          {
+            "provider": "OpenAI",
+            "model_id": "account billing (all models)",
+            "all_numbers_match_page": true,
+            "corrections": "$5 minimum and $10 default: confirmed. The help article URL now titles itself 'Setting up and managing prepaid API billing'. Missing from their table: auto-reload is ON by default at setup (turn it off), the auto-recharge minimum is $5, credits expire after 1 year and are non-refundable, and the balance can go negative ('Do not rely on the prepaid balance as an instantaneous spending cutoff'). Free tier: no standing free API credit is stated. The article only says 'If your account has free credits, those are used before purchased credits.' Invoke-WebRequest got 403 on help.openai.com and openai.com; curl with a browser user agent got 200.",
+            "evidence_url": "https://help.openai.com/en/articles/8264644-what-is-the-minimum-credit-you-can-add-to-your-account",
+            "evidence_quote": "The minimum purchase is $5, and the default amount is $10."
+          }
+        ],
+        "missing_models_worth_adding": "From https://developers.openai.com/api/docs/pricing (full .md version, read 2026-09-18), each confirmed on that page:\n(1) gpt-5.6-sol: $4.00 in / $0.40 cached / $20.00 out. It is the 'GPT-5.6' ChatGPT Plus users get, and the gpt-5.6 alias routes to it. They wrongly called it ChatGPT-app-only. It is on the API price table and supports web_search. This is PROMO pricing: 'available at least through November 21, 2026'. The business page shows the regular price as $5.00 / $0.50 / $30.00.\n(2) gpt-5.5: $5.00 / $0.50 / $30.00. The web search guide names it as the recommended model for new web search integrations: 'Responses API with web_search and gpt-5.5'.\n(3) Cheap options that support web_search (per their model pages): gpt-5.4-nano $0.20 / $0.02 / $1.25; gpt-5-mini $0.25 / $0.025 / $2.00; gpt-5-nano $0.05 / $0.005 / $0.40. gpt-5-nano is 4x cheaper on input than Luna.\n(4) Flex and Batch tiers cost half of Standard. Examples: Luna $0.10 / $0.60, Terra $1.00 / $6.00, Astra $5.00 / $25.00. For a non-urgent 44-call run, Flex halves token cost. The $10/1k search fee is not discounted anywhere on the page.\n(5) Two search-option notes. gpt-4o-search-preview and gpt-4o-mini-search-preview were 'shut down 2026-07-23', so don't list them. gpt-4.1-mini and gpt-4o-mini with the non-preview web_search tool bill search content as a flat 8,000 input tokens per call."
+      }
+    },
+    {
+      "family": "Google (Gemini)",
+      "research": {
+        "models": [
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.1-pro-preview",
+            "powers": "Inferred to be the current top Pro model shown in Gemini app / AI Studio (the prior 'Gemini 3 Pro Preview' model is listed as shut down on the models page). NOT directly confirmed against the consumer Gemini app's model picker this session — no browsing was done, per read-only task constraints.",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": 0.2,
+            "output_per_1m_usd": 12,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "Above 200k-token prompts: input $4.00 (from $2.00), output $18.00 (from $12.00), context-cache $0.40 (from $0.20) per 1M tokens. Cache storage is a flat $4.50 / 1,000,000 tokens/hour regardless of prompt size.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Google Search",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not explicitly stated on this model's row. Elsewhere on the same page (Gemini 3 Pro Image / Nano Banana Pro tool footnote) Google states retrieved grounding context is 'not charged as input tokens' — plausibly the same rule applies to text grounding generally, but this is not repeated for the 3.1 Pro text row, so treat as inferred, not confirmed.",
+              "free_allowance": "5,000 free search requests/month, shared across ALL Gemini 3.x models — but only once on the Paid tier. Free Tier column for this model reads 'Not available': grounding cannot be used at all without a linked billing account.",
+              "notes": "Billed per individual Google Search query the model issues, not per user prompt: 'A customer-submitted request to Gemini may result in one or more queries to Google Search. You will be charged for each individual search query performed.'"
+            },
+            "free_tier": "None. Pricing page lists Free Tier = 'Not available' for input, output, and context caching on this model — paid tier only, unlike the Flash models.",
+            "minimum_spend": "$5 minimum prepay (account-wide, not per-model) to move the whole Gemini API account from Free to Paid tier.",
+            "sources": [
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "$2.00, prompts $4.00, prompts > 200k tokens",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "5,000 free search requests per month (shared across all Gemini 3.x models), then $14 per 1,000 requests.",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/billing",
+                "quote": "prepaying a minimum of $5 (or equivalent in other currencies) of credits",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.8-flash",
+            "powers": "Newest/flagship Flash model per ai.google.dev banner ('Gemini 3.8 Flash is now available'); plausibly backs the default 'Flash' option in the Gemini app, but not confirmed directly against the consumer app this session.",
+            "input_per_1m_usd": 0.75,
+            "cached_input_per_1m_usd": 0.075,
+            "output_per_1m_usd": 3.75,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "No price step by prompt length for this model. There IS a scheduled calendar price increase (not context-size related) on Jan 1, 2027: input $0.75→$1.50, output $3.75→$7.50, context-cache $0.075→$0.15, cache storage $0.50→$1.00 per 1M tokens/hour.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Google Search",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not explicitly stated for this model's row; same caveat as the Gemini 3.1 Pro entry applies (only confirmed for the Nano Banana image-grounding footnote).",
+              "free_allowance": "5,000 free search requests/month, shared across all Gemini 3.x models — paid tier only. Free Tier column = 'Not available' for grounding.",
+              "notes": "Billed per Google Search query issued by the model, not per prompt (one prompt can trigger multiple billed queries)."
+            },
+            "free_tier": "Yes for plain model use — input/output tokens free of charge on the Free Tier. Exact RPD/RPM rate-limit numbers are on a separate rate-limits page not fetched this session. Grounding/web search is NOT available on the Free Tier.",
+            "minimum_spend": "$5 minimum prepay (account-wide) to move from Free to Paid tier.",
+            "sources": [
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "$0.75 through December 31, 2026. $1.50 starting January 1, 2027.",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "Output price (including thinking tokens) ... $3.75 through December 31, 2026.",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.5-flash-lite",
+            "powers": "Current Stable Flash-Lite model, listed above the older Gemini 3.1 Flash-Lite (also still Stable) in the models list ordering. Not confirmed against the consumer Gemini app directly. NOTE: a second live Flash-Lite variant exists — gemini-3.1-flash-lite — priced lower ($0.25 text/img/video input, $0.50 audio input, $1.50 output); see top-level notes.",
+            "input_per_1m_usd": 0.3,
+            "cached_input_per_1m_usd": 0.03,
+            "output_per_1m_usd": 2.5,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "No context-length price step found on the pricing page for this model (flat rate regardless of prompt size).",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Google Search",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not explicitly stated for this model's row; same caveat as the Gemini 3.1 Pro entry applies.",
+              "free_allowance": "5,000 free search requests/month, shared across all Gemini 3.x models — paid tier only. Free Tier column = 'Not available' for grounding.",
+              "notes": "Also supports Grounding with Google Maps: 5,000 free prompts/month (shared across Gemini 3), then $14/1,000 queries — paid tier only."
+            },
+            "free_tier": "Yes for plain model use — input/output tokens free of charge on the Free Tier (exact RPD/RPM caps not fetched this session). Grounding not available on Free Tier.",
+            "minimum_spend": "$5 minimum prepay (account-wide) to move from Free to Paid tier.",
+            "sources": [
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "$0.30 (text / image / video / audio) ... Output price ... $2.50",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/models",
+                "quote": "Our fastest, most cost-effective 3.5 model for high-throughput execution.",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          }
+        ],
+        "notes": "Scope: this run covers ONLY Google Gemini API (assigned provider for this subagent). Copilot/ChatGPT/OpenRouter are being covered by parallel fan-out agents per the workflow.\n\nPages fetched live this session via PowerShell Invoke-WebRequest (not WebFetch, to avoid table-dropping summaries), full text read from saved local files:\n- https://ai.google.dev/gemini-api/docs/pricing (page self-reports \"Last updated 2026-09-16 UTC\")\n- https://ai.google.dev/gemini-api/docs/models (client-rendered React app; static HTML captured model names/descriptions/endpoints but NOT a fully server-rendered pricing table — all numeric pricing came from the /pricing page, not /models)\n- https://ai.google.dev/gemini-api/docs/billing (page self-reports \"Last updated 2026-09-03 UTC\")\nAll three are within days of today (2026-09-18), so treated as current.\n\nKey findings not fully captured in the per-model schema:\n1. Gemini 3.1 Pro Preview has NO free tier at all (paid-only) — unlike the Flash and Flash-Lite models, which do give free input/output tokens on a rate-limited Free Tier.\n2. Web search (Grounding with Google Search) is paid-tier-only across every current Gemini 3.x model — the \"5,000 free searches/month\" allowance only kicks in once billing is linked; a pure Free-Tier API key cannot ground at all.\n3. Whether retrieved search-result content is billed as input tokens is confirmed ONLY for the Nano Banana / Gemini 3 Pro Image grounding tool (\"not charged as input tokens\"). It is not restated for the text models (3.1 Pro, 3.8 Flash, 3.5 Flash-Lite) — flagged as inferred/unverified in each entry, do not treat as confirmed fact for text-only Q&A billing.\n4. Two live \"Flash-Lite\" model lines exist right now: gemini-3.5-flash-lite (chosen above, newer/higher version, unified per-modality input price $0.30) and gemini-3.1-flash-lite (older, cheaper: $0.25 input text/image/video + $0.50 audio, $1.50 output, $0.025/$0.05 cache). If Danny wants the cheaper one instead, it's on the same pricing page.\n5. Did not fetch the separate rate-limits page (ai.google.dev/gemini-api/docs/rate-limits), so exact RPM/RPD free-tier caps for plain (non-search) usage are not in hand — only \"Free of charge\" is confirmed, not the throughput ceiling.\n6. Billing/minimum spend is account-wide, not per-model: $5 minimum prepay to leave the Free tier; tiers then advance automatically by cumulative spend ($100+3 days → Tier 2 cap $2,000; $1,000+30 days → Tier 3 cap $20,000-$100,000+).\n7. Grounding with Google Search billing note found on the pricing page: dynamic retrieval means \"only requests that contain at least one grounding support URL from the web in their response are charged\" — so not every prompt sent with the search tool enabled necessarily incurs the $14/1,000 fee, only ones that actually ground."
+      },
+      "verify": {
+        "checks": [
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.1-pro-preview",
+            "all_numbers_match_page": true,
+            "corrections": "All prices confirmed from the raw HTML table (my text strip lost the <= and > signs, so I checked the raw cells): $2.00 / $12.00 / $0.20 cache up to 200k; $4.00 / $18.00 / $0.40 above 200k; $4.50 per 1M per hour storage; free tier Not available; search 5,000/month free then $14 per 1,000. The non-price corrections follow. (1) search_content_tokens_billed: the agent cited the wrong source. The sentence 'Retrieved context (text or images) provided by Grounding with Google Search is not charged as input tokens' is in the footnote for Gemini 3.1 Flash Image (Nano Banana 2, gemini-3.1-flash-image). The Nano Banana Pro (gemini-3-pro-image) footnote does not have that sentence. The same page's 'Pricing for agents' table also calls it the standard rule: 'standard distinctions for Search Grounding (retrieved tokens excluded) versus Url_context / File Search (retrieved tokens included...)'. That makes it a page-level rule, stated twice. It is still not printed on the 3.1 Pro text row, so 'stated page-wide, not per row' is the right label. It is better than 'inferred'. (2) Top-level note 7 (only responses with a grounding support URL are charged) is about the legacy dynamic-retrieval feature. That feature uses google_search_retrieval, which is for older models. For Gemini 3 the google-search doc says 'your project is billed for each search query that the model decides to execute', two queries in one call means 2 billable uses, and 'we ignore the empty web search queries'. Gemini 2.5 and older are billed per prompt. (3) The $5 minimum is correct, with caveats from the billing page. Some accounts get a Prepay/Postpay choice or are put on Postpay for a while. Prepaid credits 'expire after 12 months and are non-refundable'. When the balance hits $0, all API keys on that billing account stop. The Tier 1 billing cap of $250 was left out. (4) Cost warning: 3.1 Pro thinks at 'On (high)' by default, with levels low/medium/high and no off switch. Thinking tokens bill as output, so actual output will go well past 150-1,500 tokens unless thinking_level is set to low. It is listed under Preview on the models page, with no shutdown date announced.",
+            "evidence_url": "https://ai.google.dev/gemini-api/docs/pricing",
+            "evidence_quote": "$12.00, prompts <= 200k tokens / $18.00, prompts > 200k"
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.8-flash",
+            "all_numbers_match_page": true,
+            "corrections": "None on prices. $0.75 input, $3.75 output (including thinking), $0.075 cache and $0.50 per hour storage, all through Dec 31 2026. From Jan 1 2027 they double to $1.50 / $7.50 / $0.15 / $1.00. Free tier: tokens free, grounding 'Not available'. The Nano Banana source attribution for search tokens is wrong here too, same as the 3.1 Pro entry. Additions: Batch and Flex are $0.375 in / $1.875 out. Default thinking is 'On (medium)' with levels low/medium/high, no minimal and no off switch. gemini-3.7-flash and gemini-3.6-flash have exactly the same prices. Released Sep 2 2026, no shutdown announced.",
+            "evidence_url": "https://ai.google.dev/gemini-api/docs/pricing",
+            "evidence_quote": "Output price (including thinking tokens) ... $3.75 through December 31, 2026. $7.50 starting January 1, 2027."
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.5-flash-lite",
+            "all_numbers_match_page": true,
+            "corrections": "None on prices. $0.30 input (text/image/video/audio), $2.50 output, $0.03 cache, $1.00 per hour storage. Free tier: tokens free; caching and grounding 'Not available'. Their gemini-3.1-flash-lite alternative figures also match: $0.25 text/image/video and $0.50 audio input, $1.50 output, $0.025/$0.05 cache. Additions: Flex and Batch are $0.15 in / $1.25 out. Default thinking is 'On (minimal)', the cheapest default of the three. The deprecations page gives gemini-3.1-flash-lite a shutdown date of May 7 2027, with 3.5 Flash-Lite as its replacement. Search token attribution: same correction as the 3.1 Pro entry.",
+            "evidence_url": "https://ai.google.dev/gemini-api/docs/pricing",
+            "evidence_quote": "$0.30 (text / image / video / audio) ... Output price (including thinking tokens) ... $2.50"
+          }
+        ],
+        "missing_models_worth_adding": "1) The biggest miss is gemini-2.5-flash and gemini-2.5-flash-lite. Both give free web search on the FREE tier with no billing account. The pricing page says 'Free of charge, up to 500 RPD (limit shared with Flash-Lite RPD)'. On paid it is 1,500 requests per day free, then '$35 / 1,000 grounded prompts', billed per prompt, not per query. 2.5 Flash-Lite is $0.10 in / $0.40 out / $0.01 cache. 2.5 Flash is $0.30 in / $2.50 out. The deprecations page lists no shutdown date for either. That makes the table's line 'grounding cannot be used at all without a linked billing account' true for Gemini 3.x only. For 22 questions, 2.5 Flash on the free tier costs $0. The catch is that free-tier data is 'Used to improve our products: Yes'. 2) gemini-2.5-pro: $1.25 in / $10.00 out up to 200k, $2.50 / $15.00 above. Free-tier tokens are free, but paid-tier grounding is 1,500 per day free, then $35 per 1,000 prompts. 3) gemini-3-flash-preview: $0.50 in / $3.00 out, cheaper than 3.8 Flash, with Gemini 3 search billing. Default thinking is high. 4) Trap: gemini-3.5-flash is $1.50 in / $9.00 out, double the price of the newer 3.8 Flash. 5) Flex/Batch is 50% off on every model above. 6) The URL context tool has retrieved content 'Charged as input tokens per model pricing', unlike Search grounding. 7) All numbers above come from the pricing page (updated 2026-09-16), the google-search doc (2026-09-17), the billing page (2026-09-03), the rate-limits page (2026-09-02), the thinking doc and the deprecations page (2026-09-17). All were downloaded with Invoke-WebRequest or curl and read as full text; the <= and > cells were checked in the raw HTML. Files are in C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing\\skeptic_google\\. The docs pages do not give free-tier RPM/RPD numbers; they only show up in AI Studio."
+      }
+    },
+    {
+      "family": "Microsoft (Copilot)",
+      "research": {
+        "models": [
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-6 Astra (Global Standard, ≤272K context)",
+            "powers": "GitHub Copilot (GA, top 'Powerful' tier, in the current Sept-2026 supported-models list). Microsoft's own docs say Copilot uses a 'real-time router' that picks a model per prompt from a pool including GPT-6 Astra for M365 Copilot; no single fixed model is confirmed as 'the' default.",
+            "input_per_1m_usd": 10,
+            "cached_input_per_1m_usd": 1,
+            "output_per_1m_usd": 50,
+            "reasoning_billed_as_output": null,
+            "long_context_note": ">272K input tokens doubles every rate: $20.00 input / $2.00 cached / $25.00 cache write / $75.00 output per 1M tokens (Global). Not relevant to this task's ~300 input tokens.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service tool, works with any deployed Foundry chat model)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not itemized on either page read this session. Retrieved Bing snippets are inserted into the model's prompt, so they would be billed as ordinary input tokens at the model's own input rate on top of the $14/1,000-transaction grounding fee. Inferred, not explicitly stated on either official page.",
+              "free_allowance": "none stated",
+              "notes": "Same $14 per 1,000 transactions for both 'Grounding with Bing Search' and 'Grounding with Bing Custom Search'. Cap: 150 transactions/sec, 1,000,000 transactions/day. Confirmed two ways: microsoft.com/en-us/bing/apis/grounding-pricing and a live meter in Azure's own Retail Prices API."
+            },
+            "free_tier": "None. Azure OpenAI Foundry is pay-as-you-go only; the marketing pricing page itself confirms 'Standard (On-Demand): Pay-as-you-go for input and output tokens' with no free token allowance mentioned.",
+            "minimum_spend": "pay as you go, no minimum beyond a valid payment method on the Azure subscription (owner already has one)",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+                "quote": "productName: Azure OpenAI GPT6, skuName: 6-astra ShortCo Inp Std Gl, retailPrice: 10.0, unitOfMeasure: 1M",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+                "quote": "GPT-6 Astra GA Powerful Default $10.00 $1.00 $12.50 $50.00",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.6 Sol (Global Standard, ≤272K context)",
+            "powers": "GitHub Copilot (GA, 'Powerful' tier). TechCrunch, citing an OpenAI statement dated 2026-07-09, reported GPT-5.6 as the 'preferred model' for Microsoft 365 Copilot — that is a third-party report of an OpenAI claim, not an official Microsoft or GitHub page, so treat as unverified/inferred, not confirmed.",
+            "input_per_1m_usd": 4,
+            "cached_input_per_1m_usd": 0.4,
+            "output_per_1m_usd": 20,
+            "reasoning_billed_as_output": null,
+            "long_context_note": ">272K input tokens: $8.00 input / $0.80 cached / $10.00 cache write / $30.00 output per 1M tokens (Global). Irrelevant at this task's ~300 input tokens.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service tool)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not itemized; retrieved content would bill as ordinary input tokens on top of the transaction fee (inferred).",
+              "free_allowance": "none stated",
+              "notes": "Same tool/price as noted on the GPT-6 Astra row above; it is a Foundry-wide add-on, not a per-model feature."
+            },
+            "free_tier": "None — pay-as-you-go only, confirmed on Azure's own pricing page.",
+            "minimum_spend": "pay as you go, no minimum (standard Azure subscription billing)",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+                "quote": "skuName: 5.6 sol ShortCo Inp Std Gl, retailPrice: 4.0; 5.6 sol ShortCo Opt Std Gl, retailPrice: 20.0",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+                "quote": "GPT-5.6 Sol GA Powerful Default $4.00 $0.40 $5.00 $20.00",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.6 Terra (Global Standard, ≤272K context)",
+            "powers": "GitHub Copilot GA, 'Versatile' tier; included in Copilot's auto model-selection pool per docs.github.com.",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": 0.2,
+            "output_per_1m_usd": 12,
+            "reasoning_billed_as_output": null,
+            "long_context_note": ">272K input tokens: $4.00 input / $0.40 cached / $5.00 cache write / $18.00 output per 1M tokens (Global).",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service tool)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not itemized; inferred to bill as ordinary input tokens on top of the transaction fee.",
+              "free_allowance": "none stated",
+              "notes": "Foundry-wide add-on tool, same price on every model."
+            },
+            "free_tier": "None — pay-as-you-go only.",
+            "minimum_spend": "pay as you go, no minimum (standard Azure subscription billing)",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+                "quote": "skuName: 5.6 terra ShortCo Inp Std Gl, retailPrice: 2.0; ...Opt Std Gl, retailPrice: 12.0",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+                "quote": "GPT-5.6 Terra GA Versatile Default $2.00 $0.20 $2.50 $12.00",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.6 Luna (Global Standard, ≤200K context)",
+            "powers": "GitHub Copilot GA, 'Lightweight' tier — the cheapest current GPT-5.6-family option and the closest analogue to a free/default-tier model in the Copilot lineup.",
+            "input_per_1m_usd": 0.2,
+            "cached_input_per_1m_usd": 0.02,
+            "output_per_1m_usd": 1.2,
+            "reasoning_billed_as_output": null,
+            "long_context_note": ">200K input tokens: $0.40 input / $0.04 cached / $0.50 cache write / $1.80 output per 1M tokens (Global).",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service tool)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not itemized; inferred to bill as ordinary input tokens on top of the transaction fee.",
+              "free_allowance": "none stated",
+              "notes": "Foundry-wide add-on tool, same price on every model."
+            },
+            "free_tier": "None for Foundry API access — pay-as-you-go only.",
+            "minimum_spend": "pay as you go, no minimum (standard Azure subscription billing)",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+                "quote": "skuName: 5.6 luna ShortCo Inp Std Gl, retailPrice: 0.2; ...Opt Std Gl, retailPrice: 1.2",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+                "quote": "GPT-5.6 Luna GA Lightweight Default $0.20 $0.02 $0.25 $1.20",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.3-Codex (Global Standard)",
+            "powers": "GitHub Copilot's official long-term-support (LTS)/fallback model — GitHub's own docs state it is 'used in the event no other models are available' for auto model selection.",
+            "input_per_1m_usd": 1.75,
+            "cached_input_per_1m_usd": 0.175,
+            "output_per_1m_usd": 14,
+            "reasoning_billed_as_output": null,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service tool)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not itemized; inferred to bill as ordinary input tokens on top of the transaction fee.",
+              "free_allowance": "none stated",
+              "notes": "Foundry-wide add-on tool, same price on every model."
+            },
+            "free_tier": "None — pay-as-you-go only.",
+            "minimum_spend": "pay as you go, no minimum (standard Azure subscription billing)",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+                "quote": "skuName: 5.3 codex inp Gl, retailPrice: 1.75; 5.3 codex opt Gl, retailPrice: 14.0",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.github.com/en/copilot/reference/ai-models/supported-models",
+                "quote": "GPT-5.3-Codex will be used in the event no other models are available",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5 mini (Global Standard)",
+            "powers": "GitHub Copilot GA, 'Lightweight' default tier.",
+            "input_per_1m_usd": 0.25,
+            "cached_input_per_1m_usd": 0.025,
+            "output_per_1m_usd": 2,
+            "reasoning_billed_as_output": null,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service tool)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not itemized; inferred to bill as ordinary input tokens on top of the transaction fee.",
+              "free_allowance": "none stated",
+              "notes": "Foundry-wide add-on tool, same price on every model. Note: Azure also lists a separate 'Priority' tier for this model at roughly 2x this price ($0.45/$0.045/$3.60) which was found but is not the standard tier."
+            },
+            "free_tier": "None — pay-as-you-go only.",
+            "minimum_spend": "pay as you go, no minimum (standard Azure subscription billing)",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+                "quote": "skuName: GPT 5 Mini Inpt Glbl, retailPrice: 0.25; GPT 5 Mini outpt Glbl, retailPrice: 2.0",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing",
+                "quote": "GPT-5 mini GA Lightweight Default $0.25 $0.025 $2.00",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-4.1 (Global Standard)",
+            "powers": "Historically GitHub Copilot's original default chat model. It is NOT on GitHub's current (2026-09-18) 'Supported AI models in Copilot' list — appears to have been superseded/retired from Copilot itself. Still purchasable directly through Azure OpenAI Foundry as a general-purpose model.",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": 0.5,
+            "output_per_1m_usd": 8,
+            "reasoning_billed_as_output": null,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service tool)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not itemized; inferred to bill as ordinary input tokens on top of the transaction fee.",
+              "free_allowance": "none stated",
+              "notes": "Foundry-wide add-on tool, same price on every model."
+            },
+            "free_tier": "None — pay-as-you-go only.",
+            "minimum_spend": "pay as you go, no minimum (standard Azure subscription billing)",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+                "quote": "skuName: gpt 4.1 Inp glbl, retailPrice: 0.002 per 1K (=$2.00/1M); gpt 4.1 Outp glbl, retailPrice: 0.008 per 1K (=$8.00/1M)",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.github.com/en/copilot/reference/ai-models/supported-models",
+                "quote": "Model name Provider Release status GPT-5 mini OpenAI GA GPT-5.3-Codex OpenAI GA GPT-5.4 OpenAI GA",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          }
+        ],
+        "notes": "SCOPE: I was the 'YOUR PROVIDER' agent for Copilot in a fan-out — this covers Microsoft/GitHub only, reached via Azure OpenAI in Azure AI Foundry (Copilot itself has no public API). ChatGPT, Gemini, OpenRouter etc. are separate agents' output, not included here.\n\nBIGGEST FINDING: GitHub Models is OFFICIALLY RETIRED. docs.github.com states (read twice, two different URL paths, identical text): \"As of July 30, 2026, GitHub Models has been fully retired. The playground, model catalog, inference API, and bring your own key (BYOK) are no longer available to any customer.\" github.com/marketplace/models now bounces to a GitHub sign-in page, consistent with that. There is no free tier, no paid pricing, no models list to report — it does not exist as an option any more. Microsoft's own redirect points people to Azure AI Foundry's model catalog instead, which is what I priced above.\n\nGROUNDING WITH BING SEARCH: $14 per 1,000 transactions, confirmed two independent ways this session — microsoft.com/en-us/bing/apis/grounding-pricing (fetched via WebFetch summary) and as a live billing meter in Microsoft's own Azure Retail Prices API (read in full). Same price for both 'Grounding with Bing Search' and 'Grounding with Bing Custom Search.' Cap: 150 TPS / 1,000,000 transactions/day. It's a bolt-on Foundry Agent Service tool usable with any deployed chat model, not a per-model line item, and whether retrieved content is separately billed as input tokens is NOT stated anywhere I read — I marked that inferred, not confirmed.\n\nWHAT ACTUALLY POWERS COPILOT: there is no single fixed model. Microsoft's own Learn page (learn.microsoft.com/.../ai-models-overview, read in full) says Copilot uses \"a real-time router to adjust the underlying model based on your prompt\" across a pool (GPT-5.x/6, Claude Sonnet/Opus, etc.) — so a per-query cost for M365/consumer Copilot is a blend, not one clean rate. GitHub Copilot is more concrete: it publishes a real per-token price list (docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing) and every number on that page matched Microsoft's own Azure Retail Prices API exactly for every model I checked (GPT-6 Astra, GPT-5.6 Sol/Terra/Luna, GPT-5.3-Codex, GPT-5 mini) — strong double-source agreement. GPT-4.1, believed to be Copilot's old default, is absent from GitHub's current supported-models list, so I flagged it as likely superseded rather than asserting it's still live in Copilot.\n\nMETHOD NOTE: azure.microsoft.com's own pricing page loads all dollar figures client-side via JavaScript (the downloaded HTML literally has data-has-valid-price=\"false\" and every cell as \"$-\") — a plain page download gets you nothing. I went around that by querying Microsoft's own Azure Retail Prices API (prices.azure.com/api/retail/prices), which is the same backend that page calls and is official first-party Microsoft data, not a third party. All prices above are the \"Global\" (non-Data-Zone) Standard/pay-as-you-go tier at eastus2 for a 22-question, ~300-input/~1000-output-token workload; Data Zone runs ~10% higher, a \"Priority\" tier runs ~2x, Batch runs ~50% less — not itemized above since they don't fit this use case.\n\nUNVERIFIED: reasoning_billed_as_output is null for every row — I could not find an explicit statement on any page read this session that reasoning/thinking tokens for these Azure-hosted models bill as output tokens, so I did not assert it despite it being standard OpenAI practice generally.\n\nRaw downloaded pages and the Azure Retail Prices API JSON dumps are saved under C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing\\ for anyone who wants to re-check a number."
+      },
+      "verify": {
+        "checks": [
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-6 Astra (Global Standard, <=272K)",
+            "all_numbers_match_page": true,
+            "corrections": "Prices confirmed: $10 input, $1 cached, $12.50 cache write, $50 output. Long-context rates also confirmed: $20 / $2 / $25 / $75. (1) reasoning_billed_as_output: null -> TRUE. The Learn reasoning page, titled 'Azure OpenAI reasoning models - GPT-6 Astra and GPT-5', lists gpt-6-astra and says: 'Reasoning tokens never appear in the message content, but they occupy space in the context window and are billed as output tokens.' (https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/reasoning). (2) The 'powers' field is misattributed. The cited Microsoft page (learn.microsoft.com/en-us/microsoft-365/copilot/ai-models-overview) has 0 matches for 'router', 'GPT-6', 'Astra' or 'GPT-5', in their saved copy and in mine. The 'real-time router' wording comes from OpenAI's ChatGPT help page (their help-default-model.html), not from Microsoft. Remove the M365 router/pool claim. (3) Web search: the claim that Bing grounding 'works with any deployed Foundry chat model' is wrong. The Learn bing-tools page says: 'Not all models support Grounding with Bing Search or Grounding with Bing Custom Search.' GPT-6 Astra is not in the Agent Service 'Tool support by region and model' table (77 models parsed), so the Bing tool is UNVERIFIED for this model. The option they missed is the Responses API web_search tool. Its doc says 'Web Search in the Responses API works with GPT-4 models and later' and 'Search actions incur tool call costs'. It is billed as Grounding with Bing at $14 per 1K ('including through the Web Search Tool'). Whether retrieved content is billed as input tokens is still not stated on any page I read, so their 'inferred' label is correct.",
+            "evidence_url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+            "evidence_quote": "skuName 6-astra ShortCo Inp Std Gl retailPrice 10.0 / ShortCo Cd Inp Std Gl 1.0 / ShortCo Cd Wr Std Gl 12.5 / ShortCo Opt Std Gl 50.0 (1M). GitHub docs row: GPT-6 Astra | GA | Powerful | Default | ≤ 272K | $10.00 | $1.00 | $12.50 | $50.00"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.6 Sol (Global Standard, <=272K)",
+            "all_numbers_match_page": true,
+            "corrections": "Prices confirmed: $4 input, $0.40 cached, $5 cache write, $20 output. Long-context rates also confirmed: $8 / $0.80 / $10 / $30. (1) reasoning_billed_as_output: null -> TRUE. gpt-5.6-sol is listed on the Learn reasoning page: 'Reasoning tokens ... are billed as output tokens.' (2) Web search: GPT-5.6 Sol is not in the Agent Service tool-support table, so Grounding with Bing support is UNVERIFIED. Use the Responses API web_search tool ('works with GPT-4 models and later'), billed at $14 per 1K search actions. (3) Missed cheaper tier: the Retail API has half-price 'Fl' meters. '56sol ShCo Inp Fl Gl' is $2.00, 'ShCo Cd Inp Fl Gl' is $0.20 and 'ShCo Opt Fl Gl' is $10.00. The GPT-5.4 and GPT-5.5 meters spell out 'Flex', so 'Fl' is probably Flex, but no page I read defines it. Inferred.",
+            "evidence_url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+            "evidence_quote": "5.6 sol ShortCo Inp Std Gl 4.0 / ShortCo Cd Inp Std Gl 0.4 / ShortCo Cd Wr Std Gl 5.0 / ShortCo Opt Std Gl 20.0. GitHub: GPT-5.6 Sol | GA | Powerful | Default | ≤ 272K | $4.00 | $0.40 | $5.00 | $20.00"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.6 Terra (Global Standard, <=272K)",
+            "all_numbers_match_page": true,
+            "corrections": "Prices confirmed: $2 input, $0.20 cached, $2.50 cache write, $12 output. Long-context rates also confirmed: $4 / $0.40 / $5 / $18. It is in the Copilot Auto model selection list, as they said. (1) reasoning_billed_as_output: null -> TRUE. gpt-5.6-terra is listed on the Learn reasoning page. (2) Web search: GPT-5.6 Terra is not in the Agent Service tool-support table, so the Bing tool is UNVERIFIED. The Responses API web_search tool covers GPT-4 and later, at $14 per 1K search actions. (3) Missed cheaper tier: 'Fl' meters are $1.00 input, $0.10 cached and $6.00 output ('56terra ShCo ... Fl Gl'). 'Fl' = Flex is inferred.",
+            "evidence_url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+            "evidence_quote": "5.6 terra ShortCo Inp Std Gl 2.0 / ShortCo Cd Inp Std Gl 0.2 / ShortCo Cd Wr Std Gl 2.5 / ShortCo Opt Std Gl 12.0. GitHub: GPT-5.6 Terra | GA | Versatile | Default | ≤ 272K | $2.00 | $0.20 | $2.50 | $12.00"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.6 Luna (Global Standard, <=200K)",
+            "all_numbers_match_page": true,
+            "corrections": "Prices confirmed: $0.20 input, $0.02 cached, $0.25 cache write, $1.20 output. Long-context rates also confirmed: $0.40 / $0.04 / $0.50 / $1.80. (1) reasoning_billed_as_output: null -> TRUE. gpt-5.6-luna is listed on the Learn reasoning page. (2) Web search: GPT-5.6 Luna is not in the Agent Service tool-support table, so the Bing tool is UNVERIFIED. Use the Responses API web_search tool at $14 per 1K search actions. (3) 'Closest analogue to a free/default-tier model' is their opinion; no page says so. GPT-5.4 nano has the same $0.20 input price. (4) Missed cheaper tier: 'Fl' meters are $0.10 input, $0.01 cached and $0.60 output. 'Fl' = Flex is inferred.",
+            "evidence_url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName, 'OpenAI') and armRegionName eq 'eastus2'",
+            "evidence_quote": "5.6 luna ShortCo Inp Std Gl 0.2 / ShortCo Cd Inp Std Gl 0.02 / ShortCo Cd Wr Std Gl 0.25 / ShortCo Opt Std Gl 1.2. GitHub: GPT-5.6 Luna | GA | Lightweight | Default | ≤ 200K | $0.20 | $0.02 | $0.25 | $1.20"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5.3-Codex (Global Standard)",
+            "all_numbers_match_page": true,
+            "corrections": "Prices confirmed: $1.75 input, $0.175 cached, $14 output. The LTS quote is exact. (1) reasoning_billed_as_output: null -> TRUE. gpt-5.3-codex is listed on the Learn reasoning page. (2) Web search is CONFIRMED for this model. The Agent Service tool table shows gpt-5.3-codex with Grounding Bing Search = Yes, Grounding Bing Custom = Yes, Web Search = Yes. (3) For reference, Priority is $3.50 input, $0.35 cached, $28 output ('5.3 codex pp ... Gl').",
+            "evidence_url": "https://docs.github.com/en/copilot/reference/ai-models/supported-models",
+            "evidence_quote": "as the long term support model, GPT-5.3-Codex will be used in the event no other models are available"
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-5 mini (Global Standard)",
+            "all_numbers_match_page": true,
+            "corrections": "Prices confirmed: $0.25 input, $0.025 cached, $2.00 output. Priority confirmed: $0.45 / $0.045 / $3.60. (1) reasoning_billed_as_output: null -> TRUE. gpt-5-mini is listed on the Learn reasoning page. (2) The web search tool name is WRONG. The Foundry Agent Service 'Tool support by region and model' table shows gpt-5-mini with Grounding Bing Search = No, Grounding Bing Custom = No, Web Search = Yes (https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions). The classic Bing grounding page also says it 'works with all Azure OpenAI models that Agent Service supports, except gpt-4o-mini, 2024-07-18 and gpt-5 models.' Use the Web Search tool instead. Microsoft's Bing pricing page says it bills under Grounding with Bing at $14 per 1K ('including through the Web Search Tool').",
+            "evidence_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+            "evidence_quote": "Not all models support Grounding with Bing Search or Grounding with Bing Custom Search."
+          },
+          {
+            "provider": "Azure OpenAI (Azure AI Foundry)",
+            "model_id": "GPT-4.1 (Global Standard)",
+            "all_numbers_match_page": true,
+            "corrections": "Prices confirmed: $2.00 input, $0.50 cached, $8.00 output. The Retail API lists them per 1K: 0.002 / 0.0005 / 0.008. (1) reasoning_billed_as_output: GPT-4.1 is not on the Learn reasoning-model list, so the field does not apply. Say N/A rather than null. (2) 'Appears superseded' should be firmer. GitHub's Model retirement history lists 'GPT-4.1 | 2026-06-01 | GPT-5.5', so it was retired from the Copilot model picker on 2026-06-01. The same page still lists it as a background utility model: 'The following models are currently used as utility models: GPT-4o mini GPT-4o GPT-4.1 GPT-5.4 nano'. 'Historically Copilot's original default' is not stated on any page read (unverified). (3) Web search is confirmed: the tool table shows gpt-4.1 with Bing Search = Yes, Bing Custom = Yes, Web Search = Yes.",
+            "evidence_url": "https://docs.github.com/en/copilot/reference/ai-models/supported-models",
+            "evidence_quote": "GPT-4.1 | 2026-06-01 | GPT-5.5"
+          }
+        ],
+        "missing_models_worth_adding": "All numbers below come from the Azure Retail Prices API (eastus2, Global) and match docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing unless marked otherwise.\n\nMISSING MODELS\n(1) GPT-5.4: $2.50 input / $0.25 cached / $15.00 output. Above 272K: $5.00 / $0.50 / $22.50. It is in Copilot's Auto model selection list.\n(2) GPT-5.5: $5.00 / $0.50 / $30.00. Above 272K: $10.00 / $1.00 / $45.00. It is in the Auto list, and it is the model Microsoft's own web_search doc uses in its examples.\n(3) GPT-5.4 mini: $0.75 / $0.075 / $4.50.\n(4) GPT-5.4 nano: $0.20 / $0.02 / $1.25. GitHub says it is not available in Copilot Chat.\n(5) MAI-Code-1.1-Flash: Microsoft's own model and in the Auto list. $0.20 / $0.02 / $1.20.\n(6) MAI-Thinking-1: Microsoft's own reasoning model, preview on Foundry. Retail API only, not on the GitHub list: $2.00 / $0.20 / $8.00.\n\nMISSING SEARCH OPTIONS AND BILLING DETAILS\n(a) The Azure OpenAI Responses API has a 'web_search' tool. It works directly on a model deployment, with no Agent Service needed. The doc says it 'works with GPT-4 models and later' and 'Search actions incur tool call costs'. It bills as Grounding with Bing at $14 per 1K (the Bing pricing page says 'including through the Web Search Tool'). The doc also says 'Live internet access isn't supported', and the Microsoft DPA does not apply to data sent to Bing.\n(b) The Retail API has a separate 'MAI Models Web Grounding' meter at $14 per 1K calls. No doc page I read explains it.\n(c) Cheaper tiers: Flex meters are half the Standard price. For GPT-5.4 and GPT-5.5 the meters say 'Flex' explicitly. For GPT-5.6 Sol, Terra and Luna the meters are labeled 'Fl'; that this means Flex is inferred. Global Batch is 50% off with a 24-hour turnaround (Learn deployment-types page).\n(d) The Copilot plan route. Their note says Copilot 'has no public API', but GitHub now documents a Copilot SDK and 'Run the CLI programmatically', billed in AI credits at the same per-token prices (1 AI credit = $0.01). Copilot Pro is $10/month and includes 1,500 AI credits (1,000 base + 500 flex), which is far more than 44 short questions need. Paid plans get a 10% discount under auto model selection. Copilot Free has an AI-credit allowance, but no amount is stated. Copilot CLI's research agent can 'search the web', but no per-search price is published (unverified).\n\nCORRECTION TO THEIR NOTES\nThe notes section repeats the unsupported M365 'real-time router' claim; drop it there as well.\n\nRaw pages and API dumps from this check: C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing\\skeptic-copilot\\"
+      }
+    },
+    {
+      "family": "Web search on providers already in use",
+      "research": {
+        "models": [
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-6-astra",
+            "powers": "ChatGPT (flagship/recommended model); API",
+            "input_per_1m_usd": 10,
+            "cached_input_per_1m_usd": 1,
+            "output_per_1m_usd": 50,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "Roughly doubles above the long-context threshold (exact token cutoff not shown in static page text): short $10/$1/$12.50(cache write)/$50 -> long $20/$2/$25/$75 per 1M.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web_search tool (Responses API)",
+              "fee_per_1k_searches_usd": 10,
+              "search_content_tokens_billed": "Yes, at the model's standard input rate, on top of the $10/1k-call fee (reasoning models incl. gpt-5/o-series and 'all models' rate). Older non-reasoning 'preview' variant is $25/1k calls but search content is free; gpt-4o-mini/gpt-4.1-mini bill a fixed 8,000-input-token block per call instead.",
+              "free_allowance": "None found",
+              "notes": "Confirmed at platform.openai.com/docs/pricing, tools section."
+            },
+            "free_tier": "No free token quota. 'Free' is just the starting rate-limit tier name (up to $100/month usage, allowed geographies only) — every call is still billed per token.",
+            "minimum_spend": "Pay-as-you-go, no prepay minimum to start (just a payment method). $5 paid unlocks Tier 2 rate limits but isn't required to use the API.",
+            "sources": [
+              {
+                "url": "https://platform.openai.com/docs/pricing",
+                "quote": "gpt-6-astra $10.00 $1.00 $12.50 $50.00",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://platform.openai.com/docs/guides/reasoning",
+                "quote": "reasoning tokens ... are billed as output tokens",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://platform.openai.com/docs/guides/rate-limits",
+                "quote": "Free ... $100 / month; Tier 1 $5 paid $100/month",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.1-pro-preview",
+            "powers": "Gemini app (highest-quality responses); still labeled Preview, no GA 'Gemini 3.1 Pro' exists",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": 0.2,
+            "output_per_1m_usd": 12,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "Prices rise for prompts over 200K tokens (Standard tier): input $2.00->$4.00, output $12.00->$18.00. Cache storage billed separately at $4.50/1M tokens/hour.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Google Search",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not explicitly stated. Unlike File Search/URL context tools (which the page explicitly says bill retrieved content as regular input tokens), the Google Search grounding entry has no such note — only the per-query fee is shown.",
+              "free_allowance": "5,000 free search requests/month, shared across all Gemini 3.x models",
+              "notes": "Billed per individual search query the model executes, not per prompt (Gemini 3 models) — one prompt can trigger multiple billable queries."
+            },
+            "free_tier": "None — Free Tier column is 'Not available' for this model.",
+            "minimum_spend": "Not stated on the pricing page. Requires a Google Cloud Billing account with a payment method; no explicit dollar minimum found.",
+            "sources": [
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "$2.00 (text/image) ... $12.00 (text and thinking)",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "5,000 free search requests per month ... then $14 per 1,000 requests",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/google-search",
+                "quote": "billed for each search query that the model decides to execute",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.8-flash",
+            "powers": "Gemini app (default/fast responses)",
+            "input_per_1m_usd": 0.75,
+            "cached_input_per_1m_usd": 0.075,
+            "output_per_1m_usd": 3.75,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "Price rises Jan 1, 2027 regardless of length: input $0.75->$1.50, output $3.75->$7.50 per 1M.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Google Search",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not explicitly stated (same as Gemini 3.1 Pro Preview entry).",
+              "free_allowance": "Shares the same 5,000/month pool as all Gemini 3.x models",
+              "notes": "Same grounding terms as Gemini 3.1 Pro Preview."
+            },
+            "free_tier": "Yes — genuinely free input/output tokens under the Free tier (rate-limited; content used to improve Google's products).",
+            "minimum_spend": "Not stated; pay-as-you-go via Cloud Billing account once you leave the free tier.",
+            "sources": [
+              {
+                "url": "https://ai.google.dev/gemini-api/docs/pricing",
+                "quote": "Free of charge $0.75 through December 31, 2026",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Microsoft (Copilot stack / Azure AI Foundry)",
+            "model_id": "gpt-6-astra (Azure Global Standard deployment)",
+            "powers": "Microsoft Copilot indirectly (via Azure OpenAI/Foundry backend); no direct per-token Copilot API exists",
+            "input_per_1m_usd": 10,
+            "cached_input_per_1m_usd": 1,
+            "output_per_1m_usd": 50,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "Same doubling pattern as OpenAI direct: long-context Input $20/Cached $2/Output $75 vs short $10/$1/$50 per 1M (confirmed live via Azure Retail Prices API, region eastus).",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Grounding with Bing Search (Azure AI Foundry Agent Service)",
+              "fee_per_1k_searches_usd": 14,
+              "search_content_tokens_billed": "Not confirmed this session — inferred yes (standard input-token billing once results enter context) by analogy with how other providers' grounding tools work, but not explicitly stated on the fetched MS Learn page.",
+              "free_allowance": "None — free-credit/sponsored Azure subscriptions are explicitly excluded from using this feature",
+              "notes": "Price confirmed live via the official Azure Retail Prices API (prices.azure.com)."
+            },
+            "free_tier": "None found for the API itself.",
+            "minimum_spend": "Requires a paid or pay-as-you-go Azure subscription (sponsored/free-credit subs explicitly barred for Bing Grounding). No specific dollar minimum found.",
+            "sources": [
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=productName eq 'Azure OpenAI GPT6' and armRegionName eq 'eastus'",
+                "quote": "6-astra ShortCo Inp Std Gl 1M Tokens = 10.0",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName,'Bing')",
+                "quote": "Grounding with Bing | Search Transactions = 14.0 1K",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://learn.microsoft.com/en-us/azure/ai-services/agents/how-to/tools/bing-grounding",
+                "quote": "Sponsored subscriptions or subscriptions based on free credits are not eligible",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/",
+                "quote": "GPT-6 prices are currently in processing for publishing on this page",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "OpenRouter",
+            "model_id": "openai/gpt-5.2 (marketplace pass-through)",
+            "powers": "API only (OpenRouter marketplace)",
+            "input_per_1m_usd": 1.75,
+            "cached_input_per_1m_usd": 0.175,
+            "output_per_1m_usd": 14,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web plugin / ':online' suffix — Exa (default), native provider search, Parallel, Firecrawl, or Perplexity",
+              "fee_per_1k_searches_usd": 7,
+              "search_content_tokens_billed": "Yes, explicitly: 'in addition to the LLM usage for the search result prompt tokens.'",
+              "free_allowance": "A small new-user free credit allowance exists plus many genuinely free ':free' community models with low daily rate limits, but the exact dollar/request figures are injected client-side (rendered as empty HTML comments in the static page) and weren't recoverable via curl or WebFetch this session.",
+              "notes": "Exa modes: instant/fast/auto $7/1k requests, deep-lite/deep $12/1k, deep-reasoning $15/1k (+$1/1k per extra result beyond 10). Parallel: turbo/fast $1/1k, basic/advanced $5/1k. Perplexity (OR credits): $5/1k. Native search (OpenAI/Anthropic/Google/Perplexity/SpaceXAI): pure pass-through of that provider's own price, no OpenRouter markup."
+            },
+            "free_tier": "Small free allowance for new users + many free community models (rate-limited); no dollar/request figures could be pulled from the static page.",
+            "minimum_spend": "Unverified this session — credit purchase minimum and card-processing fee % are dynamic values not present in the static HTML fetch.",
+            "sources": [
+              {
+                "url": "https://openrouter.ai/openai/gpt-5.2",
+                "quote": "GPT-5.2 costs $1.75/M input tokens and $14.00/M output tokens",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://openrouter.ai/docs/features/web-search",
+                "quote": "Instant, Fast, and Auto cost $0.007 per request; Deep Lite and Deep cost $0.012",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://openrouter.ai/docs/faq",
+                "quote": "We pass through the pricing of the underlying providers; there is no markup",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Groq",
+            "model_id": "openai/gpt-oss-120b",
+            "powers": "API only (also the model behind Groq's Compound/Compound Mini agentic systems)",
+            "input_per_1m_usd": 0.15,
+            "cached_input_per_1m_usd": null,
+            "output_per_1m_usd": 0.6,
+            "reasoning_billed_as_output": null,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Groq Built-in Tools — Web Search (via groq/compound or groq/compound-mini), powered by Tavily",
+              "fee_per_1k_searches_usd": null,
+              "search_content_tokens_billed": "Inferred yes — Compound responses return a usage_breakdown with normal prompt/completion token counts per underlying model call, which would include retrieved search context billed at that model's standard rate; not stated as a distinct line item.",
+              "free_allowance": "Not found specifically for search. A general 'Free Plan' exists for Groq overall (confirmed, e.g. groq/compound: 30 RPM / 250 RPD / 70K TPM).",
+              "notes": "console.groq.com/docs/web-search confirms 'basic search' and 'advanced search' are billed differently and points to groq.com/pricing for the numbers. That page is a fully client-rendered SPA (Next.js) — no price text exists in the server HTML. Tried: direct curl, Googlebot user-agent, WebFetch, and Wayback Machine (only snapshots from 2024, before this feature existed). Could not recover the dollar figure this session."
+            },
+            "free_tier": "Yes — a genuine 'Free Plan' exists (confirmed rate limits published, e.g. groq/compound: 30 RPM/250 RPD/70K TPM), no card required to start; 'Developer Plan' raises limits.",
+            "minimum_spend": "Not found — pay-as-you-go implied; no explicit dollar minimum located in fetched pages.",
+            "sources": [
+              {
+                "url": "https://console.groq.com/docs/models",
+                "quote": "GPT OSS 120B $0.15 input $0.60 output",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://console.groq.com/docs/web-search",
+                "quote": "basic search and advanced search, and these are billed differently",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://console.groq.com/docs/rate-limits",
+                "quote": "Free Plan Limits Developer Plan Limits",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "inferred"
+          },
+          {
+            "provider": "Cohere",
+            "model_id": "command-a-03-2025 (current flagship — price not published)",
+            "powers": "API only / Cohere North platform",
+            "input_per_1m_usd": null,
+            "cached_input_per_1m_usd": null,
+            "output_per_1m_usd": null,
+            "reasoning_billed_as_output": null,
+            "long_context_note": "",
+            "web_search": {
+              "available": false,
+              "tool_or_feature_name": "None currently — the hosted 'connector' parameter (incl. the managed web-search connector) was deprecated Sept 15, 2025",
+              "fee_per_1k_searches_usd": null,
+              "search_content_tokens_billed": "N/A — no Cohere-hosted search product. Developers bring their own search tool via multi-step/function-calling tool use; that outside tool's cost is separate, and its results are billed as ordinary Cohere input tokens.",
+              "free_allowance": "N/A",
+              "notes": "Confirmed at docs.cohere.com/docs/connectors."
+            },
+            "free_tier": "Yes for testing — Trial API key calls are free (rate-limited, not permitted for production/commercial use).",
+            "minimum_spend": "None — pay-as-you-go on a Production key, billed monthly or when the outstanding balance hits $250, whichever comes first. Production access itself requires an approval step (Owner completes a 'Go to Production' application), not a prepay.",
+            "sources": [
+              {
+                "url": "https://cohere.com/pricing",
+                "quote": "billed on a pay-as-you-go basis ... when you reach $250 in outstanding balances",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://cohere.com/pricing",
+                "quote": "Command R+ 08-2024 pricing is $2.50/1M tokens for input and $10.00/1M tokens for output",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.cohere.com/docs/connectors",
+                "quote": "Cohere's connector parameter was deprecated on September 15, 2025",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "unverified"
+          },
+          {
+            "provider": "Cloudflare Workers AI",
+            "model_id": "@cf/openai/gpt-oss-120b",
+            "powers": "API only (Cloudflare Workers AI / Workers)",
+            "input_per_1m_usd": 0.35,
+            "cached_input_per_1m_usd": null,
+            "output_per_1m_usd": 0.75,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "AI Gateway Web Search — proxies each provider's own native web search (Anthropic, OpenAI, xAI, Alibaba; or search-first Perplexity/Parallel). Workers AI itself has no native search tool.",
+              "fee_per_1k_searches_usd": null,
+              "search_content_tokens_billed": "Per the upstream provider's own rules (e.g. OpenAI's terms apply when proxying to OpenAI).",
+              "free_allowance": "Whatever the upstream provider offers.",
+              "notes": "'AI Gateway does not charge a separate web-search fee' — pure pass-through, confirmed at developers.cloudflare.com/ai-gateway/usage/web-search/."
+            },
+            "free_tier": "Yes — 10,000 Neurons/day free (≈314K gpt-oss-120b input tokens or ≈147K output tokens/day) on both Workers Free and Paid plans; comfortably covers 22 short Q&A.",
+            "minimum_spend": "$5/month minimum (Workers Paid plan) required only once you exceed the 10,000 free Neurons/day.",
+            "sources": [
+              {
+                "url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+                "quote": "$0.350 per M input tokens $0.750 per M output tokens",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://developers.cloudflare.com/workers-ai/platform/pricing/",
+                "quote": "10,000 Neurons per day at no charge",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://developers.cloudflare.com/ai-gateway/usage/web-search/",
+                "quote": "AI Gateway does not charge a separate web-search fee",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://developers.cloudflare.com/workers/platform/pricing/",
+                "quote": "minimum charge of $5 USD per month for an account",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Z.ai",
+            "model_id": "GLM-5.3",
+            "powers": "Z.ai chat product / API",
+            "input_per_1m_usd": 1.4,
+            "cached_input_per_1m_usd": 0.26,
+            "output_per_1m_usd": 4.4,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Web Search (built-in tool)",
+              "fee_per_1k_searches_usd": 10,
+              "search_content_tokens_billed": "Not explicitly separated from the flat $0.01/use fee on the pricing page; likely folds into normal input-token billing once results enter context, but that's not stated.",
+              "free_allowance": "None found",
+              "notes": "Listed as $0.01/use under 'Built-in Tools.'"
+            },
+            "free_tier": "Yes for cheaper models — GLM-4.7-Flash, GLM-4.5-Flash (text) and GLM-4.6V-Flash (vision) are listed fully free. GLM-5.3 (flagship) has no free tier.",
+            "minimum_spend": "Unverified — official payment/recharge pages returned 404 this session; third-party sources claim a $5-10 minimum deposit but that is NOT independently confirmed at an official Z.ai URL.",
+            "sources": [
+              {
+                "url": "https://docs.z.ai/guides/overview/pricing",
+                "quote": "GLM-5.3 $1.4 $0.26 $4.4",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.z.ai/guides/overview/pricing",
+                "quote": "Web Search $0.01 / use",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.z.ai/guides/overview/pricing",
+                "quote": "GLM-4.7-Flash Free Free Free Free",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          }
+        ],
+        "notes": "Fits your use case: every provider's free tier (where one exists) comfortably covers 22 short Q&A. Only Gemini 3.1 Pro Preview and Azure/Bing Grounding have zero free tier.\n\nCorrection mid-research: Google has NO GA \"Gemini 3.1 Pro\" — only \"Gemini 3.1 Pro Preview\" exists (verified via the page's own H2 anchor IDs after an earlier misread).\n\nMicrosoft Copilot has no public per-token API. Priced via Azure AI Foundry instead — same GPT-6 Astra model, and the Azure Retail Prices API (official MS pricing API, queried live) matches OpenAI's direct price exactly, dollar for dollar.\n\nCould NOT verify (reported null, not guessed, per your rule):\n- Groq web-search $/1,000 searches (basic vs advanced, powered by Tavily): groq.com/pricing is a client-only-rendered SPA. Tried direct curl, Googlebot UA, WebFetch, and Wayback Machine (only 2024 snapshots exist, predating this feature). Token price and free-tier ARE confirmed via console.groq.com docs.\n- Cohere Command A (current flagship) per-token price: not published on cohere.com/pricing or docs.cohere.com — only legacy Command/R/R+ prices remain public. Cohere's own web-search \"connector\" was deprecated Sept 15, 2025; no Cohere-billed search product exists now.\n- OpenRouter: exact card-payment fee %, new-user free-credit $, and free-model daily caps are client-injected (empty HTML comments in the static fetch) — not recoverable via curl/WebFetch.\n- Z.ai minimum deposit: official payment page 404'd.\n\nThree-way check on the one number every provider agrees on: Gemini's Grounding with Google Search ($14/1k) and Azure's Grounding with Bing Search ($14/1k) are identical — coincidence confirmed independently from two unrelated official sources (ai.google.dev and the Azure Retail Prices API), not copied from each other.\n\nAll raw downloaded pages are in C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing\\ if you want to spot-check anything yourself."
+      },
+      "verify": {
+        "checks": [
+          {
+            "provider": "OpenAI",
+            "model_id": "gpt-6-astra",
+            "all_numbers_match_page": false,
+            "corrections": "Token prices confirmed ($10 / $1 cached / $12.50 cache write / $50 short; $20 / $2 / $25 / $75 long). Web search confirmed: 'Web search (all models) $10.00 / 1k calls + Search content tokens billed at model rates.' Preview non-reasoning variant: '$25.00 / 1k calls + Search content tokens are free.' Reasoning tokens bill as output, confirmed ('billed as output tokens'). CORRECTIONS: (1) minimum_spend is wrong. 'Pay-as-you-go, no prepay minimum' should be 'Prepaid. Minimum $5 credit purchase, credits expire after 1 year, non-refundable.' Quote from help.openai.com: 'New API accounts use prepaid billing.' and 'The minimum purchase is $5, and the default amount is $10.' (2) '$5 paid unlocks Tier 2' is wrong. $5 paid is Tier 1, Tier 2 needs $50 paid. Rate-limits page: 'Tier 1 $5 paid $100 / month; Tier 2 $50 paid $500 / month'. (3) long_context_note: the cutoff IS in the page data: short context is '≤272K input tokens', long is '>272K input tokens'. Output only goes up 1.5x ($50 to $75), so 'roughly doubles' is wrong for output. Irrelevant for 60-300 token prompts.",
+            "evidence_url": "https://help.openai.com/en/articles/8264644-how-can-i-set-up-prepaid-billing",
+            "evidence_quote": "The minimum purchase is $5, and the default amount is $10."
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.1-pro-preview",
+            "all_numbers_match_page": false,
+            "corrections": "Token prices confirmed: '$2.00, prompts' / '$4.00, prompts > 200k tokens'; output '$12.00' / '$18.00'; cache '$0.20' / '$0.40'; storage '$4.50 / 1,000,000 tokens per hour'. Output row is labeled 'Output price (including thinking tokens)', so reasoning bills as output (confirmed). Grounding confirmed: '5,000 free search requests per month (shared across all Gemini 3.x models), then $14 per 1,000 requests', billed 'for each search query that the model decides to execute'. Whether search content bills as input tokens is not stated (their read is correct). No GA 3.1 Pro section exists, only the Preview (correct). CORRECTION: minimum_spend is wrong. The billing page does state a dollar minimum: 'prepaying to add a minimum of $5 (or equivalent in other currencies) of credits'. 'New users default to the Prepay billing plan.' Prepaid credits 'expire after 12 months and are non-refundable'.",
+            "evidence_url": "https://ai.google.dev/gemini-api/docs/billing",
+            "evidence_quote": "Asked to prepay a minimum of $5 to complete billing setup"
+          },
+          {
+            "provider": "Google",
+            "model_id": "gemini-3.8-flash",
+            "all_numbers_match_page": false,
+            "corrections": "Token prices confirmed: input '$0.75 through December 31, 2026' then '$1.50 starting January 1, 2027'; output '$3.75' then '$7.50'; cache '$0.075' then '$0.15'. Free tier tokens are 'Free of charge' (correct). CORRECTIONS: (1) The free tier does NOT cover the web-search half. In the Gemini 3.8 Flash Standard table, the Grounding with Google Search row shows Free Tier = 'Not available'. The 5,000/month free searches are a Paid-tier allowance, so you need the $5 prepay to run the search pass. The page contradicts itself: the separate Tools table says Free Tier Google Search '500 RPD free (limit shared for Flash and Flash-Lite)'. Treat free-tier search as unconfirmed. (2) minimum_spend 'Not stated' is wrong: paid tier needs a $5 minimum prepay (same billing page quote as the Pro row). (3) long_context_note describes a date-based price increase, not a long-context rule. The numbers are right, the label is wrong.",
+            "evidence_url": "https://ai.google.dev/gemini-api/docs/pricing",
+            "evidence_quote": "Grounding with Google Search * Not available 5,000 free search requests per month (shared across all Gemini 3.x models), then $14 per 1,000 requests."
+          },
+          {
+            "provider": "Microsoft (Azure AI Foundry)",
+            "model_id": "gpt-6-astra (Azure Global Standard)",
+            "all_numbers_match_page": true,
+            "corrections": "All numbers confirmed on my own live Retail Prices API query (eastus, effective 2026-09-01): ShortCo Inp Std Gl 10.0, Cd Inp 1.0, Cd Wr 12.5, Opt 50.0; LongCo 20.0 / 2.0 / 25.0 / 75.0. 'Grounding with Bing | Search | Search Transactions | 14.0 1K' (effective 2026-01-01). Additions: (1) Data Zone deployments cost 10% more: ShortCo Inp Std DZ 11.0, Opt Std DZ 55.0. (2) The MS Learn page they cite is the '(classic)' doc. It says 'Agents (classic) are now deprecated and will be retired on March 31, 2027.' The new Foundry 'Web search tool' page says it 'uses Grounding with Bing Search and Grounding with Bing Custom Search', so it is the same $14/1K meter. (3) Billing unit: 'Transactions ... are counted by the number of tool calls per run.' Whether search content bills as input tokens is still not stated (their 'inferred' label is honest). The row-level 'confirmed' confidence overstates that one field.",
+            "evidence_url": "https://prices.azure.com/api/retail/prices?$filter=contains(productName,'Bing')",
+            "evidence_quote": "Grounding with Bing | Search | Search Transactions | 14.0 1K"
+          },
+          {
+            "provider": "OpenRouter",
+            "model_id": "openai/gpt-5.2",
+            "all_numbers_match_page": false,
+            "corrections": "Token prices confirmed in OpenRouter's official models API: prompt 0.00000175, completion 0.000014, input_cache_read 0.000000175 ($1.75 / $14 / $0.175). Reasoning bills as output, confirmed ('Reasoning tokens are considered output tokens and charged accordingly'). CORRECTIONS: (1) fee_per_1k_searches_usd 7 is wrong for this model. OpenAI models default to NATIVE search, not Exa: 'Native search is used by default for OpenAI, Anthropic, Google, Perplexity, and SpaceXAI models that support it.' The models API lists openai/gpt-5.2 web_search = '0.01', which is $10/1k. OpenAI's own rules apply too (search content billed at model input rates). The $7/1k Exa price applies only if you force engine:'exa'. (2) The free allowance and fees are in the docs' .md source (openrouter.ai/docs/faq.md), not unrecoverable. Card fee: '5.5% ($0.80 minimum)'; crypto '5%'. Free models: 50 requests/day with no credits, 1,000/day after buying at least $10 of credits (FREE_MODEL_NO_CREDITS_RPD = 50, FREE_MODEL_HAS_CREDITS_RPD = 1000, FREE_MODEL_CREDITS_THRESHOLD = 10). OpenRouter may expire 'unused credits after one year of purchase'. Refunds only within 24 hours. No minimum credit purchase amount was stated. (3) openai/gpt-5.2 is a stale choice. OpenRouter also lists openai/gpt-6-astra at $10 / $50 with web_search 0.01.",
+            "evidence_url": "https://openrouter.ai/api/v1/models",
+            "evidence_quote": "openai/gpt-5.2 {'prompt': '0.00000175', 'completion': '0.000014', 'web_search': '0.01', 'input_cache_read': '0.000000175'}"
+          },
+          {
+            "provider": "Groq",
+            "model_id": "openai/gpt-oss-120b",
+            "all_numbers_match_page": true,
+            "corrections": "Confirmed: '$0.15 input $0.60 output'. Free Plan compound limits confirmed: 30 RPM / 250 RPD / 70K TPM. Search $/1k is still unpublished. CORRECTIONS: (1) cached_input null can be filled: 'There is a 50% discount for cached input tokens', and gpt-oss-120b is on the supported list, so $0.075. That is derived from the stated 50%, not printed as a dollar figure. (2) Their diagnosis is wrong: groq.com/pricing is not a client-rendered SPA. It returns 'HTTP/1.1 308 Permanent Redirect, Location: /' to the homepage, so the pricing page every doc links to no longer exists. (3) minimum_spend is in the Billing FAQ (console.groq.com/llms-full.txt). It is postpaid, no prepay. You need a card to upgrade to the Developer tier, with progressive invoices at '$1, $10, $100, $500, and $1,000', and 'We only bill you once your usage has reached at least $0.50.' (4) They missed an option: the built-in 'browser_search' tool runs directly on openai/gpt-oss-120b, with no need for Compound. Its price also points to the dead pricing page.",
+            "evidence_url": "https://console.groq.com/llms-full.txt",
+            "evidence_quote": "Prompt caching is provided at no additional cost. There is a 50% discount for cached input tokens."
+          },
+          {
+            "provider": "Cohere",
+            "model_id": "command-a-03-2025",
+            "all_numbers_match_page": true,
+            "corrections": "Quoted numbers confirmed: '$250 in outstanding balances', 'Command R+ 08-2024 pricing is $2.50/1M tokens for input and $10.00/1M tokens for output', Trial keys free, connector 'deprecated on September 15, 2025'. CORRECTION: the model_id is wrong. The current flagship is Command A+, 'command-a-plus-05-2026', per docs.cohere.com/docs/models, not command-a-03-2025. Neither has a price on cohere.com/pricing. Extra data point, from a pass-through source and not Cohere's own page: OpenRouter's models API lists cohere/command-a at prompt 0.0000025 / completion 0.00001 ($2.50 / $10).",
+            "evidence_url": "https://docs.cohere.com/docs/models",
+            "evidence_quote": "command-a-plus-05-2026"
+          },
+          {
+            "provider": "Cloudflare Workers AI",
+            "model_id": "@cf/openai/gpt-oss-120b",
+            "all_numbers_match_page": true,
+            "corrections": "Confirmed: '$0.350 per M input tokens $0.750 per M output tokens' (31818 / 68182 neurons per M, so about 314K in / 147K out free per day), '10,000 Neurons per day at no charge', Workers Paid 'minimum charge of $5 USD per month', 'AI Gateway does not charge a separate web-search fee'. CORRECTIONS: (1) reasoning_billed_as_output true is not stated anywhere on the pricing page. It should be null/unverified. (2) web_search available=true is misleading for this model. AI Gateway web search only works for Anthropic, OpenAI, xAI and Alibaba (plus Perplexity/Parallel), and no Workers AI (@cf) model is listed. (3) The OpenAI path uses 'tools: [{ \"type\": \"web_search_preview\" }]', which is OpenAI's preview SKU: $10/1k for reasoning models, $25/1k for non-reasoning with content free. The supported list stops at gpt-5.5, so gpt-6-astra and gpt-5.6 are not listed. Gemini is excluded: 'not available through the unified web_search tool'.",
+            "evidence_url": "https://developers.cloudflare.com/ai-gateway/usage/web-search/",
+            "evidence_quote": "Web search requests are billed at the upstream provider's web-search rates"
+          },
+          {
+            "provider": "Z.ai",
+            "model_id": "GLM-5.3",
+            "all_numbers_match_page": true,
+            "corrections": "Confirmed in docs.z.ai pricing .md: 'GLM-5.3 | $1.4 | $0.26 | Limited-time Free | $4.4', 'Web Search | $0.01 / use', GLM-4.7-Flash / GLM-4.5-Flash / GLM-4.6V-Flash Free. CORRECTIONS: (1) reasoning_billed_as_output true is not stated on the pricing page or the thinking doc. It should be null/unverified. (2) Minimum: the help FAQ confirms prepaid balance recharge ('You can recharge from the billing page') but states no minimum amount, so keep that unverified. (3) They missed cheaper current models on the same page: GLM-5.3-Flash $0.15 in / $0.03 cached / $0.50 out, and GLM-5.3-FlashX $0.37 / $0.075 / $1.25. Web search is the same $0.01/use.",
+            "evidence_url": "https://docs.z.ai/guides/overview/pricing.md",
+            "evidence_quote": "| GLM-5.3        | \\$1.4  | \\$0.26       | Limited-time Free    | \\$4.4  |"
+          }
+        ],
+        "missing_models_worth_adding": "1) Anthropic Claude. Copilot runs Claude models and the table has none. The official pricing .md says web search 'is available on the Claude API for $10 per 1,000 searches, plus standard token costs for search-generated content', and results count as input tokens. Example: Claude Sonnet 5 at $2 in / $10 out (platform.claude.com/docs/en/about-claude/pricing.md).\n\n2) Perplexity Sonar through OpenRouter, the cheapest search-native option in the models API: perplexity/sonar at $1 / $1 per 1M plus web_search 0.005 ($5/1k); sonar-pro at $3 / $15 plus $5/1k.\n\n3) OpenRouter carries the current flagships the table skipped. openai/gpt-6-astra: $10 / $50, web_search 0.01. google/gemini-3.8-flash: $0.75 / $3.75, web_search 0.014 ($14/1k passthrough). x-ai/grok-4.6: $2 / $6, web_search 0.005.\n\n4) Cheap tiers from the same families, same search fees. OpenAI gpt-5.6-luna at $0.20 / $0.02 / $1.20 and gpt-5.6-terra at $2 / $0.20 / $12, both with web search at $10/1k. Z.ai GLM-5.3-Flash at $0.15 / $0.50 with search at $0.01/use.\n\n5) Groq built-in browser_search runs directly on openai/gpt-oss-120b. Its price is unpublished because groq.com/pricing 308-redirects to the homepage.\n\n6) Azure Data Zone deployments cost 10% more ($11 / $55). The Foundry 'Web search tool' replaces the classic Bing grounding doc on the same $14/1K meter.\n\nAll my raw downloads are in C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing\\skeptic_ws\\"
+      }
+    },
+    {
+      "family": "Perplexity and xAI",
+      "research": {
+        "models": [
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar",
+            "powers": "API only (Perplexity's Sonar API product; not confirmed to be the same model behind the consumer perplexity.ai app)",
+            "input_per_1m_usd": 1,
+            "cached_input_per_1m_usd": null,
+            "output_per_1m_usd": 1,
+            "reasoning_billed_as_output": null,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Built-in web search (every Sonar call searches) - flat request fee tiered by search context size",
+              "fee_per_1k_searches_usd": 5,
+              "search_content_tokens_billed": "Retrieved web results/citations are counted as OUTPUT tokens per Perplexity's own glossary ('Output Tokens... includes... Search results and references'), not billed as extra input tokens. On top of token billing there is a flat per-1,000-request fee that scales with search context size: Low $5, Medium $8, High $12 per 1k requests (Low is default).",
+              "free_allowance": "none documented",
+              "notes": "3 context-size tiers exist (low/medium/high); $5 shown is the low/default tier."
+            },
+            "free_tier": "none - no complimentary quota found in docs.perplexity.ai; account tiers (Tier 0-5) only change rate limits, not price or a free allotment",
+            "minimum_spend": "pay as you go, no stated minimum first-purchase amount in docs read; payment method required, prepaid credit balance, Tier 0 = $0 purchased to start",
+            "sources": [
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Sonar $1 $1 - - -",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Sonar $5 $8 $12",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Output Tokens ... includes: ... Search results and references",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar-pro",
+            "powers": "API only",
+            "input_per_1m_usd": 3,
+            "cached_input_per_1m_usd": null,
+            "output_per_1m_usd": 15,
+            "reasoning_billed_as_output": null,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Built-in web search - flat request fee tiered by search context size, plus optional 'Pro Search' multi-step mode",
+              "fee_per_1k_searches_usd": 6,
+              "search_content_tokens_billed": "Same as sonar: search results/citations bill as output tokens, not a separate input charge; flat per-1,000-request fee on top, tiered by context size.",
+              "free_allowance": "none documented",
+              "notes": "Standard tiers: Low $6 / Medium $10 / High $14 per 1k requests. Optional Pro Search (search_type=pro, multi-step tool use) costs more: $14/$18/$22 per 1k by context size vs $6/$10/$14 for standard 'fast' mode. Token price is the same $3 in / $15 out either way."
+            },
+            "free_tier": "none",
+            "minimum_spend": "pay as you go, no stated minimum in docs read",
+            "sources": [
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Sonar Pro $3 $15 - - -",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Sonar Pro $6 $10 $14",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "pro Multi-step tool usage for complex queries $14 / $18 / $22",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar-reasoning-pro",
+            "powers": "API only",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": null,
+            "output_per_1m_usd": 8,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Built-in web search - flat request fee tiered by search context size",
+              "fee_per_1k_searches_usd": 6,
+              "search_content_tokens_billed": "Search results/citations bill as output tokens (per glossary), not separate input tokens; flat per-1,000-request fee on top, tiered by context size (Low $6/Med $10/High $14).",
+              "free_allowance": "none documented",
+              "notes": ""
+            },
+            "free_tier": "none",
+            "minimum_spend": "pay as you go, no stated minimum in docs read",
+            "sources": [
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Sonar Reasoning Pro $2 $8 - - -",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Sonar Reasoning Pro $6 $10 $14",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.perplexity.ai/llms-full.txt",
+                "quote": "As of December 15, 2025, the sonar-reasoning model has been deprecated and removed from the API.",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar-deep-research",
+            "powers": "API only",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": null,
+            "output_per_1m_usd": 8,
+            "reasoning_billed_as_output": false,
+            "long_context_note": "",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "Multi-query deep research search - billed per search query, not by a context-size request fee",
+              "fee_per_1k_searches_usd": 5,
+              "search_content_tokens_billed": "Citation-related text is billed separately as 'Citation Tokens' at $2/1M (its own line item), not blended into standard output tokens; the model also runs its own web 'Search Queries' billed at $5 per 1,000 queries (count is auto-determined by the model, not user-controlled) instead of the low/med/high request fee used by the other 3 models.",
+              "free_allowance": "none documented",
+              "notes": "This is the only Sonar model with a separate 'Reasoning Tokens' price ($3/1M) - reasoning is NOT bundled into the $8/1M output rate here, unlike sonar-reasoning-pro."
+            },
+            "free_tier": "none",
+            "minimum_spend": "pay as you go, no stated minimum in docs read",
+            "sources": [
+              {
+                "url": "https://docs.perplexity.ai/getting-started/pricing",
+                "quote": "Sonar Deep Research $2 $8 $2 $5 $3",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "xAI",
+            "model_id": "grok-4.6",
+            "powers": "API only (xAI markets it as the flagship for 'code and everything else'; mapping to the consumer Grok app / X integration not confirmed on the pages read)",
+            "input_per_1m_usd": 2,
+            "cached_input_per_1m_usd": 0.5,
+            "output_per_1m_usd": 6,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "Inferred from the page's embedded pricing data (not shown on the visible price card): above a 200k-input-token threshold, rates step up to $4.00/1M input and $12.00/1M output. Max context is 500k tokens.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web_search (Web Search tool, model-agnostic add-on)",
+              "fee_per_1k_searches_usd": 5,
+              "search_content_tokens_billed": "Yes. xAI's pricing page states tool requests are priced on two components: normal token usage (input/output/reasoning/cached, which covers whatever retrieved content gets fed back to the model) PLUS the flat $5/1,000-calls tool-invocation fee, charged in addition.",
+              "free_allowance": "none documented",
+              "notes": "Separate 'X Search' tool is currently also $5/1k calls but xAI's docs say that from Sept 21, 2026 12:00 PM PT it changes to $5/1k posts fetched + $10/1k user profiles fetched."
+            },
+            "free_tier": "none documented in docs.x.ai pages read this session",
+            "minimum_spend": "pay as you go, no fixed minimum stated; quickstart just says to 'load it with credits to start using the API'",
+            "sources": [
+              {
+                "url": "https://docs.x.ai/developers/models/grok-4.6",
+                "quote": "Input Tokens $2.00 / 1M tokens Cached tokens $0.50 / 1M tokens Output Tokens $6.00 / 1M tokens",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.x.ai/developers/models",
+                "quote": "Our flagship model for code and everything else... Input $2.00 / 1M tokens Output $6.00 / 1M tokens",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.x.ai/developers/pricing",
+                "quote": "Web Search web_search Search the internet and browse web pages $5 / 1k calls",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.x.ai/developers/pricing",
+                "quote": "priced based on two components: token usage and server-side tool invocations",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          },
+          {
+            "provider": "xAI",
+            "model_id": "grok-code-fast-1",
+            "powers": "API only (xAI's dedicated fast/cheap coding model; still live and documented but no longer featured on the main models gallery page, which now points coding use-cases to grok-4.6 instead)",
+            "input_per_1m_usd": 1,
+            "cached_input_per_1m_usd": 0.2,
+            "output_per_1m_usd": 2,
+            "reasoning_billed_as_output": true,
+            "long_context_note": "Inferred from embedded pricing data: above a 200k-input-token threshold, rates step up to $2.00/1M input and $4.00/1M output. Max context 256k tokens.",
+            "web_search": {
+              "available": true,
+              "tool_or_feature_name": "web_search (same model-agnostic tool as grok-4.6)",
+              "fee_per_1k_searches_usd": 5,
+              "search_content_tokens_billed": "Same mechanism as grok-4.6: token usage plus the flat $5/1,000-calls tool fee.",
+              "free_allowance": "none documented",
+              "notes": ""
+            },
+            "free_tier": "none documented",
+            "minimum_spend": "pay as you go, no fixed minimum stated in docs read",
+            "sources": [
+              {
+                "url": "https://docs.x.ai/developers/models/grok-code-fast-1",
+                "quote": "Input Tokens $1.00 / 1M tokens Cached tokens $0.20 / 1M tokens Output Tokens $2.00 / 1M tokens",
+                "read_how": "full-page-or-pdf-text"
+              },
+              {
+                "url": "https://docs.x.ai/developers/pricing",
+                "quote": "Web Search web_search Search the internet and browse web pages $5 / 1k calls",
+                "read_how": "full-page-or-pdf-text"
+              }
+            ],
+            "confidence": "confirmed"
+          }
+        ],
+        "notes": "SCOPE: Perplexity Sonar API + xAI Grok API only (per my assignment). Token prices verified 2026-09-18 directly against raw downloaded HTML/embedded JSON from docs.perplexity.ai and docs.x.ai (curl, not WebFetch summaries - PowerShell Invoke-WebRequest kept resetting the TLS connection on both sites, so I used curl instead, same raw-text approach). Files saved under the workflow scratchpad's pricing/ folder for provenance.\n\nKEY FLAGS FOR DANNY:\n1. \"sonar-reasoning\" (the plain model you asked about) is DEAD - Perplexity removed it from the API on 2025-12-15. Use sonar-reasoning-pro instead (numbers included above). Also included sonar-deep-research since it's on the same pricing table and is the ONLY Perplexity model that bills reasoning tokens separately ($3/1M) rather than folding them into output - useful contrast.\n2. Perplexity's web-search fee is NOT a flat per-call price - it's per-1,000-REQUESTS and scales 3 ways by \"search context size\" (low/med/high): sonar $5/$8/$12, sonar-pro & sonar-reasoning-pro $6/$10/$14. I used the low/default tier number in fee_per_1k_searches_usd; full tiers are in each row's web_search.notes.\n3. xAI has effectively collapsed to ONE headline model: grok-4.6 is now billed as both \"flagship\" AND \"fastest model we've built\" on their own models page - there's no separate cheap general-chat model anymore. grok-code-fast-1 still exists with its own live pricing page ($1/$0.20 cached/$2 per 1M) but is no longer shown on the main gallery.\n4. xAI web search is a flat $5 per 1,000 tool calls, confirmed on a page literally titled \"API Pricing.\" Perplexity's is per-1,000-REQUESTS tiered by context size - these are not directly comparable price structures, don't just line up the \"5\" and \"5\" and call it a wash.\n5. reasoning_billed_as_output for xAI models (grok-4.6, grok-code-fast-1) is INFERRED, not an explicit docs statement - xAI lists \"reasoning tokens\" as one of the standard billed token types but gives it no separate $ rate on the model cards (only Input/Cached/Output), which implies it rides the output rate. Perplexity's version of this same fact IS explicit/confirmed (the pricing table itself shows \"-\" for Reasoning Tokens on sonar-reasoning-pro, meaning no separate charge exists).\n6. Neither provider states a fixed minimum dollar amount to start - both are prepaid-credit, pay-as-you-go, no documented free API quota for either. Perplexity does have a cumulative-spend tier system (Tier 0 = $0 purchased still works but with the lowest rate limits; Tier 1 unlocks at $50+ lifetime purchased) that affects rate limits only, not price.\n7. Did NOT sign up, log in, or touch any form/browser - pure docs reads via curl, per the read-only constraint."
+      },
+      "verify": {
+        "checks": [
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar",
+            "all_numbers_match_page": true,
+            "corrections": "Every number is correct: $1 in / $1 out; request fee $5/$8/$12 per 1k requests at low/medium/high context. Three problems, though. (1) They missed that the Sonar API is being shut down. Every Sonar model page says: \"Sonar Chat Completions is now Agent API. Sonar will be supported until September 27, 2026.\" That is 9 days from today. Don't prepay for Sonar work. Its replacement is the Agent API `fast` preset (see missing_models). (2) search_content_tokens_billed misreads the page. The glossary line (Output Tokens includes \"Search results and references\") is quoted correctly, but it describes the response text. The retrieved web context is not billed as tokens at all; the request fee covers it. Inferred from the page's formula \"Total cost per query = Token costs + Request fee\" and from the docs example, where a searched query shows \"prompt_tokens\": 9, \"input_tokens_cost\": 0.0, \"request_cost\": 0.005. (3) The fee is charged per 1,000 REQUESTS, not per search. Every Sonar call pays it. The docs do not say whether disable_search waives it for the 'from memory' run, so that is unverified. Context window is 128K.",
+            "evidence_url": "https://docs.perplexity.ai/docs/sonar/models/sonar",
+            "evidence_quote": "Sonar will be supported until September 27, 2026."
+          },
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar-pro",
+            "all_numbers_match_page": true,
+            "corrections": "Every number is correct: $3 in / $15 out; standard (fast) request fee $6/$10/$14; Pro Search $14/$18/$22 per 1k by context size. Missed: the same Sonar shutdown on September 27, 2026 applies. Perplexity maps sonar-pro to the Agent API `low` preset. Also missing: Pro Search only works with streaming (page: \"Pro Search requires stream: true\"), and search_type `auto` has no fixed price (\"Varies by classification\"). Their search-content billing note has the same misread as the sonar row: retrieved context is covered by the request fee, not billed as output tokens. Context window is 200K.",
+            "evidence_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+            "evidence_quote": "Token pricing remains the same as standard Sonar Pro ($3 per 1M input, $15 per 1M output)."
+          },
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar-reasoning-pro",
+            "all_numbers_match_page": true,
+            "corrections": "Every number is correct: $2 in / $8 out; request fee $6/$10/$14. The sonar-reasoning deprecation is confirmed: \"As of December 15, 2025, the `sonar-reasoning` model has been deprecated and removed from the API.\" One label is wrong. reasoning_billed_as_output=true is INFERRED, not confirmed. The pricing table shows \"-\" in the Reasoning Tokens column, the glossary says Reasoning Tokens \"Only applies to Sonar Deep Research model\", and the model page says the reasoning comes back as a <think> section inside the output. No page states the billing rule outright. Also missed: the Sonar shutdown on September 27, 2026. The Agent API replacement is the `medium` preset.",
+            "evidence_url": "https://docs.perplexity.ai/docs/sonar/models/sonar-reasoning-pro",
+            "evidence_quote": "The `sonar-reasoning-pro` model is designed to output a `<think>` section containing reasoning tokens"
+          },
+          {
+            "provider": "Perplexity",
+            "model_id": "sonar-deep-research",
+            "all_numbers_match_page": true,
+            "corrections": "Every number is correct. The pricing table row reads Input $2, Output $8, Citation $2/1M, Search Queries $5/1K, Reasoning $3/1M, and the model page cards show the same values. reasoning_billed_as_output=false is correct: reasoning has its own $3/1M line. Missing cost warning: the model page's own example query cost \"total_cost\": 0.816. That was 193,947 reasoning tokens ($0.582) plus 21 searches ($0.105). This model is wrong for 22 short factual questions. It is also covered by the Sonar shutdown on September 27, 2026. The Agent API replacement is the `high` preset.",
+            "evidence_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+            "evidence_quote": "Sonar Deep Research $2 $8 $2 $5 $3"
+          },
+          {
+            "provider": "xAI",
+            "model_id": "grok-4.6",
+            "all_numbers_match_page": true,
+            "corrections": "The short-context numbers are correct: $2.00 in / $0.50 cached / $6.00 out; web_search $5 per 1k calls; 500k context. Corrections: (1) long_context_note is wrong to call the long-context rates 'inferred' or 'not shown'. They are printed on the pricing page and the model page, and the note omits the cached rate. The rates are $4.00 in / $1.00 cached / $12.00 out. They apply from 200k tokens up (prompt 'reaches' 200k), and to every token in that request. (2) Reasoning, a big cost driver for this use case: the reasoning page says \"If not specified, `reasoning_effort` defaults to `\\\"high\\\"`. Reasoning cannot be disabled.\" The allowed efforts are low/medium/high/xhigh, so a no-reasoning 'from memory' run is not possible on this model. (3) reasoning_billed_as_output is INFERRED. xAI only says \"reasoning tokens are billed as part of your total consumption\", and the price card has no separate reasoning rate. Don't label it confirmed. (4) search_content_tokens_billed is also INFERRED. The pricing page defines input tokens as \"Your query and conversation history\" and never says search results are billed as input. Supporting evidence: xAI's own Collections Search example shows prompt_tokens: 383265 (cached 177518) for one agentic request, so expect large input-token counts on search calls. (5) Other price facts missed: Batch API is not supported for this model; the US regional endpoint bills 1.1x; priority processing bills 2x.",
+            "evidence_url": "https://docs.x.ai/developers/models/grok-4.6",
+            "evidence_quote": "Requests whose prompt reaches 200k tokens are billed at the higher rate for all tokens in the request."
+          },
+          {
+            "provider": "xAI",
+            "model_id": "grok-code-fast-1",
+            "all_numbers_match_page": true,
+            "corrections": "The model_id and 'still live' framing are wrong. grok-code-fast-1 was retired on May 15, 2026. The slug is now an alias of grok-build-0.1, and the page at /models/grok-code-fast-1 shows grok-build-0.1 with Aliases: grok-code-fast-1, grok-code-fast, grok-code-fast-1-0825. The prices quoted are grok-build-0.1's: $1.00 in / $0.20 cached / $2.00 out. Long-context rates are printed on the page, not inferred: from 200k tokens up, $2.00 in / $0.40 cached / $4.00 out. Context is 256k and Batch is not supported. Rename the row to grok-build-0.1. It is a coding model and a poor pick for factual Q&A.",
+            "evidence_url": "https://docs.x.ai/developers/migration/may-15-retirement",
+            "evidence_quote": "After May 15, requests to `grok-code-fast-1` are routed to `grok-build-0.1`."
+          }
+        ],
+        "missing_models_worth_adding": "All confirmed 2026-09-18 by curl of the raw official pages. Files are in C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratchpad\\pricing\\skeptic_px\\\n1) xAI grok-4.3: the best Grok fit for 22 short factual questions. $1.25 in / $0.20 cached / $2.50 out below 200k tokens; $2.50 / $0.40 / $5.00 from 200k up. 1M context. Reasoning efforts none/low/medium/high/xhigh, default low, so reasoning CAN be turned off, unlike grok-4.6. Batch API is 20% off. Source: https://docs.x.ai/developers/models/grok-4.3 and the pricing table at https://docs.x.ai/developers/pricing.\n2) xAI grok-4.20-0309-non-reasoning and grok-4.20-0309-reasoning: same $1.25 / $0.20 / $2.50 on the pricing page, 1M context, 20% batch discount. grok-4.5 is $2.00 / $0.30 / $6.00.\n3) Perplexity Agent API, the official replacement for Sonar. Perplexity recommends it for all new projects and Sonar support ends September 27, 2026. web_search tool: $2.50 per 1,000 invocations ($0.0025 each), half Sonar's lowest request fee. Model tokens are billed at first-party rates with no markup. Search context IS billed as tokens: \\\"you are charged for the exact number of search context tokens consumed\\\". The model perplexity/sonar costs $0.25 in / $2.50 out / $0.0625 cache read on this API. The `fast` preset (Perplexity's mapping for Sonar) runs openai/gpt-5.6-luna ($0.20 / $1.20) at service tier `priority`, which bills 2x token prices, plus web_search. The same API can call xai/grok-4.3 and other vendors' models with Perplexity's search. Source: https://docs.perplexity.ai/docs/agent-api/models and /docs/agent-api/tools/web-search.\n4) Perplexity Search API: $5.00 per 1,000 requests for raw web results, \\\"no additional token-based charges\\\". Up to 5 queries per request count as one billing unit. You pair it with any model.\n5) xAI X Search pricing changes in 3 days: \\\"Starting September 21, 2026 at 12:00 PM PT, X Search is billed at $5 per 1k posts fetched and $10 per 1k user profiles fetched\\\". Their note had this right.\n6) Billing, both confirmed. Perplexity: prepaid credits, card on file, \\\"you won't be charged initially\\\", Tier 0 = $0 (Agent API 50 requests/min), no free API credits found. xAI: prepaid credits, auto top-up minimum $5, invoiced billing off by default, no free credits found in llms-full.txt. No stated minimum first purchase for either."
+      }
+    }
+  ],
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Research"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Verify"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "research: OpenAI (ChatGPT)",
+      "phaseIndex": 1,
+      "phaseTitle": "Research",
+      "agentId": "a5fb9fa98403433fc",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789740269288,
+      "queuedAt": 1789740269151,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "SCOPE: This subagent covered ONLY the OpenAI API (per the f…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789740935021,
+      "tokens": 147411,
+      "toolCalls": 57,
+      "durationMs": 665723,
+      "resultPreview": "{\"models\":[{\"provider\":\"OpenAI\",\"model_id\":\"gpt-6-astra\",\"powers\":\"OpenAI's current flagship API model ('our most capable model, built for the hardest end-to-end work'); offered inside ChatGPT Business/Enterprise/Pro plans, not on Free/Go by default\",\"input_per_1m_usd\":10,\"cached_input_per_1m_usd\":1,\"output_per_1m_usd\":50,\"reasoning_billed_as_output\":true,\"long_context_note\":\"\",\"web_search\":{\"avai…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "research: Google (Gemini)",
+      "phaseIndex": 1,
+      "phaseTitle": "Research",
+      "agentId": "a486e5f9ad40b567a",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789740269290,
+      "queuedAt": 1789740269152,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "Scope: this run covers ONLY Google Gemini API (assigned pro…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789740541509,
+      "tokens": 118344,
+      "toolCalls": 13,
+      "durationMs": 267752,
+      "resultPreview": "{\"models\":[{\"provider\":\"Google\",\"model_id\":\"gemini-3.1-pro-preview\",\"powers\":\"Inferred to be the current top Pro model shown in Gemini app / AI Studio (the prior 'Gemini 3 Pro Preview' model is listed as shut down on the models page). NOT directly confirmed against the consumer Gemini app's model picker this session — no browsing was done, per read-only task constraints.\",\"input_per_1m_usd\":2,\"cac…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "research: Microsoft (Copilot)",
+      "phaseIndex": 1,
+      "phaseTitle": "Research",
+      "agentId": "af56ad297470a32d1",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789740269292,
+      "queuedAt": 1789740269152,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "SCOPE: I was the 'YOUR PROVIDER' agent for Copilot in a fan…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789740998577,
+      "tokens": 167128,
+      "toolCalls": 56,
+      "durationMs": 724820,
+      "resultPreview": "{\"models\":[{\"provider\":\"Azure OpenAI (Azure AI Foundry)\",\"model_id\":\"GPT-6 Astra (Global Standard, ≤272K context)\",\"powers\":\"GitHub Copilot (GA, top 'Powerful' tier, in the current Sept-2026 supported-models list). Microsoft's own docs say Copilot uses a 'real-time router' that picks a model per prompt from a pool including GPT-6 Astra for M365 Copilot; no single fixed model is confirmed as 'the' …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "research: Web search on providers already in use",
+      "phaseIndex": 1,
+      "phaseTitle": "Research",
+      "agentId": "a7b94a030ef04924e",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789740269293,
+      "queuedAt": 1789740269153,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "Fits your use case: every provider's free tier (where one e…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789741714902,
+      "tokens": 248770,
+      "toolCalls": 128,
+      "durationMs": 1441145,
+      "resultPreview": "{\"models\":[{\"provider\":\"OpenAI\",\"model_id\":\"gpt-6-astra\",\"powers\":\"ChatGPT (flagship/recommended model); API\",\"input_per_1m_usd\":10,\"cached_input_per_1m_usd\":1,\"output_per_1m_usd\":50,\"reasoning_billed_as_output\":true,\"long_context_note\":\"Roughly doubles above the long-context threshold (exact token cutoff not shown in static page text): short $10/$1/$12.50(cache write)/$50 -> long $20/$2/$25/$75 p…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "research: Perplexity and xAI",
+      "phaseIndex": 1,
+      "phaseTitle": "Research",
+      "agentId": "aca8b121961ba65a0",
+      "model": "claude-sonnet-5",
+      "state": "done",
+      "startedAt": 1789740269297,
+      "queuedAt": 1789740269153,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "SCOPE: Perplexity Sonar API + xAI Grok API only (per my ass…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789741211148,
+      "tokens": 187504,
+      "toolCalls": 88,
+      "durationMs": 937390,
+      "resultPreview": "{\"models\":[{\"provider\":\"Perplexity\",\"model_id\":\"sonar\",\"powers\":\"API only (Perplexity's Sonar API product; not confirmed to be the same model behind the consumer perplexity.ai app)\",\"input_per_1m_usd\":1,\"cached_input_per_1m_usd\":null,\"output_per_1m_usd\":1,\"reasoning_billed_as_output\":null,\"long_context_note\":\"\",\"web_search\":{\"available\":true,\"tool_or_feature_name\":\"Built-in web search (every Sonar…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "verify: Google (Gemini)",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "ae1a0320dbf729c9d",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789740541636,
+      "queuedAt": 1789740541515,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "1) The biggest miss is gemini-2.5-flash and gemini-2.5-flas…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789740704436,
+      "tokens": 133034,
+      "toolCalls": 19,
+      "durationMs": 162800,
+      "resultPreview": "{\"checks\":[{\"provider\":\"Google\",\"model_id\":\"gemini-3.1-pro-preview\",\"all_numbers_match_page\":true,\"corrections\":\"All prices confirmed from the raw HTML table (my text strip lost the <= and > signs, so I checked the raw cells): $2.00 / $12.00 / $0.20 cache up to 200k; $4.00 / $18.00 / $0.40 above 200k; $4.50 per 1M per hour storage; free tier Not available; search 5,000/month free then $14 per 1,00…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 7,
+      "label": "verify: OpenAI (ChatGPT)",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "aa9e9ff72bbbe101f",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789740935034,
+      "queuedAt": 1789740935026,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "From https://developers.openai.com/api/docs/pricing (full .…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789741228093,
+      "tokens": 139808,
+      "toolCalls": 36,
+      "durationMs": 293059,
+      "resultPreview": "{\"checks\":[{\"provider\":\"OpenAI\",\"model_id\":\"gpt-6-astra\",\"all_numbers_match_page\":true,\"corrections\":\"Prices all correct: $10 in, $1 cached, $50 out, web search $10/1k calls, $5 minimum. Three corrections. (1) long_context_note should not be empty. Pricing row gives >272K input as $20 in / $2 cached / $75 out, and the model page says '2x input and cache rates and 1.5x output for the full request'.…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 8,
+      "label": "verify: Microsoft (Copilot)",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "ab51dc4ac9a07d625",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789740998601,
+      "queuedAt": 1789740998595,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "All numbers below come from the Azure Retail Prices API (ea…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789741405848,
+      "tokens": 169717,
+      "toolCalls": 37,
+      "durationMs": 407246,
+      "resultPreview": "{\"checks\":[{\"provider\":\"Azure OpenAI (Azure AI Foundry)\",\"model_id\":\"GPT-6 Astra (Global Standard, <=272K)\",\"all_numbers_match_page\":true,\"corrections\":\"Prices confirmed: $10 input, $1 cached, $12.50 cache write, $50 output. Long-context rates also confirmed: $20 / $2 / $25 / $75. (1) reasoning_billed_as_output: null -> TRUE. The Learn reasoning page, titled 'Azure OpenAI reasoning models - GPT-6 …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 9,
+      "label": "verify: Perplexity and xAI",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "a9f88417d5638d561",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789741211156,
+      "queuedAt": 1789741211152,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "All confirmed 2026-09-18 by curl of the raw official pages.…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789741583009,
+      "tokens": 163304,
+      "toolCalls": 45,
+      "durationMs": 371853,
+      "resultPreview": "{\"checks\":[{\"provider\":\"Perplexity\",\"model_id\":\"sonar\",\"all_numbers_match_page\":true,\"corrections\":\"Every number is correct: $1 in / $1 out; request fee $5/$8/$12 per 1k requests at low/medium/high context. Three problems, though. (1) They missed that the Sonar API is being shut down. Every Sonar model page says: \\\"Sonar Chat Completions is now Agent API. Sonar will be supported until September 27…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 10,
+      "label": "verify: Web search on providers already in use",
+      "phaseIndex": 2,
+      "phaseTitle": "Verify",
+      "agentId": "aabfb413df6a9570b",
+      "model": "claude-opus-5",
+      "state": "done",
+      "startedAt": 1789741714919,
+      "queuedAt": 1789741714913,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "1) Anthropic Claude. Copilot runs Claude models and the tab…",
+      "promptPreview": "Today is 2026-09-18. The owner is about to spend real money based on these prices and has already been burned once by an unchecked price, so every number must come from the provider's OFFICIAL pricing or docs page read this session. Prefer downloading the page with PowerShell Invoke-WebRequest into C:\\Users\\Dan\\AppData\\Local\\Temp\\claude\\C--Temp-ForClaude\\96612b21-ce62-4cc7-b512-f9fd3ff936a4\\scratc…",
+      "promptFramed": true,
+      "lastProgressAt": 1789742260287,
+      "tokens": 164240,
+      "toolCalls": 64,
+      "durationMs": 545368,
+      "resultPreview": "{\"checks\":[{\"provider\":\"OpenAI\",\"model_id\":\"gpt-6-astra\",\"all_numbers_match_page\":false,\"corrections\":\"Token prices confirmed ($10 / $1 cached / $12.50 cache write / $50 short; $20 / $2 / $25 / $75 long). Web search confirmed: 'Web search (all models) $10.00 / 1k calls + Search content tokens billed at model rates.' Preview non-reasoning variant: '$25.00 / 1k calls + Search content tokens are free…"
+    }
+  ],
+  "totalTokens": 1639260,
+  "totalToolCalls": 543
+}

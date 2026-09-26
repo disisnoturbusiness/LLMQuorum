@@ -1,0 +1,103 @@
+{
+  "KeysDirectory": "../keys",
+  "ProfilesPath": "../profiles.json",
+  "SweepReportDirectory": "../sweeps",
+  "SheetJudges": [ "claude-sub|claude-sonnet-5|memory|default", "groq|openai/gpt-oss-120b|memory|low" ],
+  "ConnectionString": "Server=localhost;Database=LLMQuorum;Trusted_Connection=True;TrustServerCertificate=True;",
+  "Panel": {
+    "BaseCount": 3,
+    "QuorumSize": 3,
+    "MinimumAnswers": 2,
+    "MatcherVersion": "rules-v1",
+    "ScalarTolerance": 0.1
+  },
+  "Providers": [
+    {
+      "Key": "cloudflare",
+      "DisplayName": "Cloudflare Workers AI",
+      "ModelId": "@cf/meta/llama-4-scout-17b-16e-instruct",
+      "Lab": "Meta",
+      "Endpoint": "https://api.cloudflare.com/client/v4/accounts/6b413d6bfb10879db9ba483806da19e4/ai/v1/chat/completions",
+      "ApiKeyFile": "cloudflare.key",
+      "Protocol": "OpenAiCompatible",
+      "LadderPosition": 1,
+      "IsEnabled": true,
+      "MaxTokens": 700,
+      "TimeoutSeconds": 120
+    },
+    {
+      "Key": "groq",
+      "DisplayName": "Groq",
+      "ModelId": "openai/gpt-oss-120b",
+      "Lab": "OpenAI (open weights)",
+      "Endpoint": "https://api.groq.com/openai/v1/chat/completions",
+      "ApiKeyFile": "groq.key",
+      "Protocol": "OpenAiCompatible",
+      "LadderPosition": 2,
+      "IsEnabled": true,
+      "MaxTokens": 700,
+      "TimeoutSeconds": 120
+    },
+    {
+      "Key": "openrouter",
+      "DisplayName": "OpenRouter",
+      "ModelId": "nvidia/nemotron-3-super-120b-a12b:free",
+      "Lab": "NVIDIA",
+      "Endpoint": "https://openrouter.ai/api/v1/chat/completions",
+      "ApiKeyFile": "openrouter.key",
+      "Protocol": "OpenAiCompatible",
+      "LadderPosition": 3,
+      "IsEnabled": true,
+      "MaxTokens": 1200,
+      "TimeoutSeconds": 180,
+      "ExtraBody": {
+        "provider": {
+          "allow_fallbacks": false,
+          "ignore": [
+            "anthropic"
+          ]
+        }
+      }
+    },
+    {
+      "Key": "zai",
+      "DisplayName": "Z.ai",
+      "ModelId": "glm-4.5-flash",
+      "Lab": "Zhipu",
+      "Endpoint": "https://api.z.ai/api/paas/v4/chat/completions",
+      "ApiKeyFile": "zai.key",
+      "Protocol": "OpenAiCompatible",
+      "LadderPosition": 4,
+      "IsEnabled": true,
+      "MaxTokens": 1200,
+      "TimeoutSeconds": 180
+    },
+    {
+      "Key": "cohere",
+      "DisplayName": "Cohere",
+      "ModelId": "command-a-plus-05-2026",
+      "Lab": "Cohere",
+      "Endpoint": "https://api.cohere.ai/compatibility/v1/chat/completions",
+      "ApiKeyFile": "cohere.key",
+      "Protocol": "OpenAiCompatible",
+      "LadderPosition": 5,
+      "IsEnabled": true,
+      "MaxTokens": 1500,
+      "TimeoutSeconds": 180
+    },
+    {
+      "Key": "anthropic",
+      "DisplayName": "Claude (subscription)",
+      "ModelId": "claude-opus-5",
+      "Lab": "Anthropic",
+      "Endpoint": "auto",
+      "ApiKeyFile": "",
+      "Protocol": "ClaudeCli",
+      "WorkingDirectory": "../seat-sandbox",
+      "LadderPosition": 6,
+      "IsEnabled": true,
+      "MaxTokens": 1500,
+      "TimeoutSeconds": 180
+    }
+  ]
+}

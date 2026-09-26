@@ -1,0 +1,15 @@
+keys/
+*.key
+bin/
+obj/
+llmquorum.local.json
+seat-sandbox/
+
+# Run artefacts: logs, generated sheets and the watchdog's pause flag are machine state, not source.
+app.log
+app.err
+ops/*.log
+ops/watchdog.pause
+ops/paid-summary.txt
+sweeps/
+seat-sandbox-copilot/

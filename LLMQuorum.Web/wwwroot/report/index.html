@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLMQuorum: what 76 models answer, with and without the web</title>
+<meta name="description" content="Seventy-six models, seventy-six verifiable questions, every answer graded against a primary source.">
+<style>
+  :root {
+    --bg:#11131a; --panel:#181b24; --line:#272b38; --text:#e6e8ef;
+    --dim:#8b93a7; --ok:#4ade80; --warn:#fbbf24; --bad:#f87171; --accent:#7dd3fc; --stale:#c084fc;
+    --row:#1e2230; --shadow:none;
+  }
+  /* Light theme. Kept to the same six roles so every rule below works in both without a second stylesheet. */
+  :root[data-theme="light"] {
+    --bg:#f6f7fb; --panel:#ffffff; --line:#e2e6f0; --text:#161922;
+    --dim:#5b6376; --ok:#15803d; --warn:#a16207; --bad:#b91c1c; --accent:#0b6ea8; --stale:#6d28d9;
+    --row:#eef1f8; --shadow:0 1px 2px rgba(16,20,30,.06);
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font:14px/1.55 ui-sans-serif,system-ui,"Segoe UI",sans-serif; }
+  header { padding:16px 20px; border-bottom:1px solid var(--line); display:flex;
+           align-items:baseline; gap:18px; flex-wrap:wrap; }
+  h1 { font-size:17px; margin:0; letter-spacing:.5px; }
+  h1 span { color:var(--accent); }
+  nav a { color:var(--dim); text-decoration:none; margin-right:14px; font-size:13px; cursor:pointer; }
+  nav a:hover, nav a.on { color:var(--text); }
+  main { padding:20px; max-width:1180px; margin:0 auto; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:8px;
+          padding:16px; margin-bottom:14px; box-shadow:var(--shadow); }
+  .theme-toggle { margin-left:auto; background:transparent; border:1px solid var(--line); color:var(--dim);
+                  border-radius:6px; width:32px; height:32px; font-size:14px; cursor:pointer; line-height:1; }
+  .theme-toggle:hover { color:var(--text); border-color:var(--accent); }
+  h2 { font-size:15px; margin:0 0 4px; }
+  .lede { color:var(--dim); font-size:13px; margin:0 0 14px; }
+  .headline { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .stat { background:var(--panel); border:1px solid var(--line); border-radius:8px;
+          padding:14px 18px; min-width:190px; flex:1; }
+  .stat .n { font-size:28px; font-weight:600; letter-spacing:-.5px; }
+  .stat .l { color:var(--dim); font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
+  .stat.web .n { color:var(--ok); }
+  .stat.mem .n { color:var(--bad); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; padding:7px 9px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--dim); font-weight:600; font-size:11.5px; text-transform:uppercase;
+       letter-spacing:.4px; cursor:pointer; white-space:nowrap; }
+  th:hover { color:var(--text); }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  tr.click:hover { background:var(--row); cursor:pointer; }
+  .muted { color:var(--dim); }
+  .mono { font-family:ui-monospace,Consolas,monospace; }
+  .pill { font-size:10.5px; padding:2px 7px; border-radius:10px; font-weight:600; letter-spacing:.4px; }
+  .p-web { background:rgba(125,211,252,.14); color:var(--accent); }
+  .p-mem { background:rgba(139,147,167,.16); color:var(--dim); }
+  .b-Correct { color:var(--ok); }
+  .b-Hallucinated { color:var(--bad); }
+  .b-Outdated { color:var(--stale); }
+  .b-Refusal, .b-Error, .b-Truncated, .b-Wrong, .b-Unclassified { color:var(--warn); }
+  .cnt { cursor:pointer; text-decoration:underline dotted; text-underline-offset:3px; }
+  .cnt:hover { color:var(--accent); }
+  .zero { color:#3b4152; }
+  .back { color:var(--accent); cursor:pointer; font-size:13px; }
+  .answer { margin:10px 0 0; padding:10px 12px; background:var(--row); border:1px solid var(--line);
+            border-radius:6px; white-space:pre-wrap; word-break:break-word; }
+  .qtext { font-size:13.5px; margin-bottom:4px; }
+  .expected { font-size:12.5px; color:var(--dim); margin-bottom:6px; }
+  .expected b { color:var(--ok); font-weight:600; }
+  .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  .filters button { background:var(--row); color:var(--text); border:1px solid var(--line);
+                    border-radius:6px; padding:6px 11px; font-size:12.5px; cursor:pointer; }
+  .filters button.on { border-color:var(--accent); color:var(--accent); }
+  .empty { color:var(--dim); padding:18px 0; }
+  footer { padding:26px 20px 44px; color:var(--dim); font-size:12.5px; max-width:1180px; margin:0 auto;
+           border-top:1px solid var(--line); text-align:center; }
+  footer p { margin:6px 0; }
+  .foot-about { font-size:13px; }
+  .foot-built strong { color:var(--text); }
+  .foot-links a { margin:0 2px; }
+  a { color:var(--accent); }
+  @media (max-width:640px) { .hide-sm { display:none; } main { padding:12px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>LLM<span>Quorum</span></h1>
+  <nav>
+    <a data-view="models" class="on">Models</a>
+    <a data-view="questions">Questions</a>
+    <a data-view="about">How this was run</a>
+  </nav>
+  <button class="theme-toggle" id="themeToggle" type="button" title="Toggle light / dark theme"
+          aria-label="Switch theme">&#9728;</button>
+</header>
+<main id="main"><div class="empty">Loading&hellip;</div></main>
+<footer>
+  <p class="foot-about" id="footStats"></p>
+  <p class="foot-built">
+    Built by <strong>Dan Weaver</strong> &middot; Applied AI / RAG engineer &middot; Michigan, USA &middot; remote
+  </p>
+  <p class="foot-links">
+    <a href="https://azuredevops.aidataforager.com" target="_blank" rel="noopener">AzureDevOpsForager demo</a>
+    &middot;
+    <a href="https://github.com/disisnoturbusiness" target="_blank" rel="noopener">GitHub</a>
+    &middot;
+    <a href="https://www.linkedin.com/in/dan-weaver-1861038" target="_blank" rel="noopener">LinkedIn</a>
+    &middot;
+    <a href="https://huggingface.co/disisnoturbusiness" target="_blank" rel="noopener">Hugging Face</a>
+    &middot;
+    <a href="mailto:disisnoturbusiness@gmail.com">Email</a>
+  </p>
+</footer>
+
+<script>
+const BUCKETS = ['Correct','Outdated','Hallucinated','Refusal','Truncated','Error','Wrong','Unclassified'];
+const state = { view:'models', sort:{ key:'Accuracy', dir:-1 }, data:null };
+
+async function load() {
+  const grab = async name => {
+    // Published: plain files next to the page. Local: the live API, so a fresh run shows up immediately.
+    for (const url of [`data/${name}.json`, `/api/report/${name}`]) {
+      try { const r = await fetch(url); if (r.ok) return await r.json(); } catch (e) { /* try the next */ }
+    }
+    throw new Error(`could not load ${name}`);
+  };
+  const [summary, models, questions, answers] = await Promise.all(
+    ['summary','models','questions','answers'].map(grab));
+
+  const byModel = new Map(), byQuestion = new Map();
+  for (const a of answers) {
+    if (!byModel.has(a.SeatId)) byModel.set(a.SeatId, []);
+    byModel.get(a.SeatId).push(a);
+    if (!byQuestion.has(a.QuestionId)) byQuestion.set(a.QuestionId, []);
+    byQuestion.get(a.QuestionId).push(a);
+  }
+  state.data = { summary, models, questions, byModel, byQuestion,
+                 question: new Map(questions.map(q => [q.QuestionId, q])),
+                 model: new Map(models.map(m => [m.SeatId, m])) };
+  render();
+}
+
+const esc = t => String(t ?? '').replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+const pct = v => v === null || v === undefined ? '' : `${Number(v).toFixed(1)}%`;
+const money = v => Number(v || 0) > 0 ? `$${Number(v).toFixed(2)}` : '';
+const shortModel = id => String(id).replace(/^.*\//, '');
+
+function count(n, seat, bucket) {
+  if (!n) return `<td class="num zero">0</td>`;
+  return `<td class="num"><span class="cnt b-${bucket}" data-seat="${esc(seat)}" data-bucket="${bucket}">${n}</span></td>`;
+}
+
+function headlineCards() {
+  const mem = state.data.summary.Modes.find(m => m.Mode === 'memory') || {};
+  const web = state.data.summary.Modes.find(m => m.Mode === 'web') || {};
+  const money = (state.data.summary.Money || [{}])[0] || {};
+  return `<div class="headline">
+    <div class="stat mem"><div class="n">${pct(mem.Accuracy)}</div>
+      <div class="l">correct from memory</div>
+      <div class="muted" style="font-size:12px">${mem.Correct} of ${mem.Asked} answers, ${mem.Seats} models</div></div>
+    <div class="stat web"><div class="n">${pct(web.Accuracy)}</div>
+      <div class="l">correct with web search</div>
+      <div class="muted" style="font-size:12px">${web.Correct} of ${web.Asked} answers, ${web.Seats} models</div></div>
+    <div class="stat"><div class="n">${state.data.questions.length}</div>
+      <div class="l">questions, every answer sourced</div>
+      <div class="muted" style="font-size:12px">${state.data.models.length} model seats, ${money.PaidCalls || 0} paid calls</div></div>
+  </div>`;
+}
+
+function sortRows(rows) {
+  const { key, dir } = state.sort;
+  return rows.slice().sort((a, b) => {
+    const x = a[key], y = b[key];
+    if (typeof x === 'string' || typeof y === 'string') return String(x).localeCompare(String(y)) * dir;
+    return ((x ?? 0) - (y ?? 0)) * dir;
+  });
+}
+
+function viewModels() {
+  const cols = [['ModelId','Model',''],['Mode','Mode',''],['Asked','Asked','num'],['Correct','Correct','num'],
+                ['Outdated','Outdated','num'],['Hallucinated','Hallucinated','num'],['Refusal','Refused','num'],
+                ['Truncated','Cut off','num'],['Error','Errors','num'],['Accuracy','Accuracy','num'],['CostUsd','Cost','num']];
+  const rows = sortRows(state.data.models).map(m => `
+    <tr class="click" data-seat="${esc(m.SeatId)}">
+      <td>${esc(shortModel(m.ModelId))}<div class="muted" style="font-size:11.5px">${esc(m.Provider)}</div></td>
+      <td><span class="pill ${m.Mode === 'web' ? 'p-web' : 'p-mem'}">${m.Mode}</span></td>
+      <td class="num">${m.Asked}</td>
+      ${count(m.Correct,m.SeatId,'Correct')}${count(m.Outdated,m.SeatId,'Outdated')}
+      ${count(m.Hallucinated,m.SeatId,'Hallucinated')}${count(m.Refusal,m.SeatId,'Refusal')}
+      ${count(m.Truncated,m.SeatId,'Truncated')}${count(m.Error,m.SeatId,'Error')}
+      <td class="num" style="color:${m.Accuracy >= 90 ? 'var(--ok)' : m.Accuracy >= 50 ? 'var(--warn)' : 'var(--bad)'}">${pct(m.Accuracy)}</td>
+      <td class="num muted">${money(m.CostUsd)}</td>
+    </tr>`).join('');
+
+  return `${headlineCards()}
+  <div class="card">
+    <h2>Every model, every verdict</h2>
+    <p class="lede">A model appears twice when it was asked both ways. Click a row for its answers, or a number for just those.</p>
+    <table><thead><tr>${cols.map(([k,l,c]) =>
+      `<th class="${c}" data-sort="${k}">${l}${state.sort.key === k ? (state.sort.dir < 0 ? ' ▾' : ' ▴') : ''}</th>`).join('')}
+      </tr></thead><tbody>${rows}</tbody></table>
+  </div>`;
+}
+
+function viewQuestions() {
+  const rows = state.data.questions.map(q => `
+    <tr class="click" data-question="${q.QuestionId}">
+      <td>${esc(q.Topic || '')}<div class="muted hide-sm" style="font-size:11.5px">${esc(q.SetName)}</div></td>
+      <td class="hide-sm">${esc(String(q.Prompt).slice(0, 90))}&hellip;</td>
+      <td><b class="b-Correct">${esc(q.ExpectedAnswer)}</b></td>
+      <td class="num">${q.Correct}</td><td class="num b-Outdated">${q.Outdated}</td>
+      <td class="num b-Hallucinated">${q.Hallucinated}</td><td class="num">${q.Asked}</td>
+      <td class="num" style="color:${q.Accuracy >= 70 ? 'var(--ok)' : q.Accuracy >= 40 ? 'var(--warn)' : 'var(--bad)'}">${pct(q.Accuracy)}</td>
+    </tr>`).join('');
+
+  return `<div class="card"><h2>Questions, hardest first</h2>
+    <p class="lede">Every answer was verified against a primary source before any model was asked. Click a question to see what all 76 said.</p>
+    <table><thead><tr><th>Topic</th><th class="hide-sm">Question</th><th>Answer</th>
+      <th class="num">Correct</th><th class="num">Outdated</th><th class="num">Made up</th>
+      <th class="num">Asked</th><th class="num">Accuracy</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function answerList(rows, showModel) {
+  if (!rows.length) return `<div class="empty">Nothing here.</div>`;
+  return rows.map(a => {
+    const q = state.data.question.get(a.QuestionId) || {};
+    const m = state.data.model.get(a.SeatId) || {};
+    const head = showModel
+      ? `${esc(shortModel(m.ModelId || a.SeatId))} <span class="pill ${m.Mode === 'web' ? 'p-web' : 'p-mem'}">${m.Mode || ''}</span>`
+      : `${esc(q.Topic || '')} <span class="muted">${esc(q.SetName || '')}</span>`;
+    return `<div class="card">
+      <div class="qtext">${head} &mdash; <span class="b-${a.Bucket}">${a.Bucket}</span></div>
+      ${showModel ? '' : `<div class="qtext muted">${esc(q.Prompt)}</div>`}
+      <div class="expected">Correct answer: <b>${esc(q.ExpectedAnswer)}</b>${
+        q.ExpectedSource ? ` &middot; <a href="${esc(q.ExpectedSource)}" target="_blank" rel="noopener">source</a>` : ''}</div>
+      <div class="answer">${esc(a.AnswerText) || '<span class="muted">(no answer)</span>'}</div>
+      ${a.GradeText ? `<div class="muted" style="font-size:12px;margin-top:6px">Judge: ${esc(a.GradeText)}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function viewModelDetail(seat, bucket) {
+  const m = state.data.model.get(seat) || {};
+  const all = state.data.byModel.get(seat) || [];
+  const rows = bucket ? all.filter(a => a.Bucket === bucket) : all;
+  const buttons = ['All', ...BUCKETS.filter(b => all.some(a => a.Bucket === b))].map(b =>
+    `<button data-filter="${b === 'All' ? '' : b}" class="${(bucket || '') === (b === 'All' ? '' : b) ? 'on' : ''}">${b}${
+      b === 'All' ? ` (${all.length})` : ` (${all.filter(a => a.Bucket === b).length})`}</button>`).join('');
+
+  return `<div class="card">
+      <div class="back" data-back="models">&larr; all models</div>
+      <h2 style="margin-top:8px">${esc(shortModel(m.ModelId || seat))}
+        <span class="pill ${m.Mode === 'web' ? 'p-web' : 'p-mem'}">${m.Mode === 'web' ? 'with web search' : 'from memory'}</span></h2>
+      <p class="lede">${esc(m.Provider || '')} &middot; ${m.Correct} correct of ${m.Asked} (${pct(m.Accuracy)})${
+        Number(m.CostUsd) > 0 ? ` &middot; ${money(m.CostUsd)} spent` : ' &middot; free tier'}</p>
+      <div class="filters">${buttons}</div>
+    </div>${answerList(rows, false)}`;
+}
+
+function viewQuestionDetail(questionId, bucket) {
+  const q = state.data.question.get(questionId) || {};
+  const all = (state.data.byQuestion.get(questionId) || []);
+  const rows = bucket ? all.filter(a => a.Bucket === bucket) : all;
+  const order = b => BUCKETS.indexOf(b);
+  rows.sort((a, b) => order(a.Bucket) - order(b.Bucket));
+  const buttons = ['All', ...BUCKETS.filter(b => all.some(a => a.Bucket === b))].map(b =>
+    `<button data-filter="${b === 'All' ? '' : b}" class="${(bucket || '') === (b === 'All' ? '' : b) ? 'on' : ''}">${b}${
+      b === 'All' ? ` (${all.length})` : ` (${all.filter(a => a.Bucket === b).length})`}</button>`).join('');
+
+  return `<div class="card">
+      <div class="back" data-back="questions">&larr; all questions</div>
+      <h2 style="margin-top:8px">${esc(q.Topic || '')}</h2>
+      <p class="lede">${esc(q.Prompt)}</p>
+      <div class="expected">Correct answer: <b>${esc(q.ExpectedAnswer)}</b>${
+        q.ExpectedSource ? ` &middot; <a href="${esc(q.ExpectedSource)}" target="_blank" rel="noopener">primary source</a>` : ''}</div>
+      <div class="filters" style="margin-top:12px">${buttons}</div>
+    </div>${answerList(rows, true)}`;
+}
+
+function viewAbout() {
+  const money = (state.data.summary.Money || [{}])[0] || {};
+  const sets = state.data.summary.Sets.map(s =>
+    `<tr><td>${esc(s.SetName)}</td><td class="num">${s.Questions}</td><td class="num">${pct(s.Accuracy)}</td></tr>`).join('');
+  return `<div class="card">
+    <h2>How this was run</h2>
+    <p class="lede">Nothing here is a benchmark score reported by a vendor. Every number comes from asking the models directly and grading what came back.</p>
+    <p>Each question has one short answer that can be checked against a primary source: the agency, the manufacturer, the law. Answers were verified before any model was asked, and the earlier values were recorded too, so a model repeating last year's figure is graded <span class="b-Outdated">Outdated</span> rather than <span class="b-Hallucinated">Hallucinated</span>.</p>
+    <p>Every model was asked the same question, in the same words, with the same instruction about the form of the answer. Models that could search the web were asked twice: once with search and once without. That is the comparison this whole thing exists to make.</p>
+    <table><thead><tr><th>Question set</th><th class="num">Questions</th><th class="num">Correct</th></tr></thead>
+      <tbody>${sets}</tbody></table>
+    <p class="muted" style="margin-top:14px">${money.PaidCalls || 0} paid API calls, $${Number(money.RecordedUsd || 0).toFixed(2)} recorded against the meter. The free models ran on free tiers.</p>
+  </div>`;
+}
+
+function render() {
+  const main = document.getElementById('main');
+  const v = state.view;
+  main.innerHTML =
+    v === 'models' ? viewModels() :
+    v === 'questions' ? viewQuestions() :
+    v === 'about' ? viewAbout() :
+    v.startsWith('model:') ? viewModelDetail(v.slice(6), state.bucket) :
+    v.startsWith('question:') ? viewQuestionDetail(Number(v.slice(9)), state.bucket) : '';
+  document.querySelectorAll('nav a').forEach(a =>
+    a.classList.toggle('on', a.dataset.view === v));
+  const money = (state.data.summary.Money || [{}])[0] || {};
+  document.getElementById('footStats').innerHTML =
+    `${state.data.models.length} model seats &middot; ${state.data.questions.length} questions with a primary source &middot; every answer stored and re-gradable from the raw response &middot; $${Number(money.RecordedUsd || 0).toFixed(2)} of paid API calls`;
+  window.scrollTo(0, 0);
+}
+
+document.addEventListener('click', e => {
+  const nav = e.target.closest('nav a');
+  if (nav) { state.view = nav.dataset.view; state.bucket = null; return render(); }
+
+  const back = e.target.closest('[data-back]');
+  if (back) { state.view = back.dataset.back; state.bucket = null; return render(); }
+
+  const cnt = e.target.closest('.cnt');
+  if (cnt) { e.stopPropagation(); state.view = 'model:' + cnt.dataset.seat; state.bucket = cnt.dataset.bucket; return render(); }
+
+  const filter = e.target.closest('[data-filter]');
+  if (filter) { state.bucket = filter.dataset.filter || null; return render(); }
+
+  const th = e.target.closest('th[data-sort]');
+  if (th) {
+    const key = th.dataset.sort;
+    state.sort = { key, dir: state.sort.key === key ? -state.sort.dir : -1 };
+    return render();
+  }
+
+  const row = e.target.closest('tr.click');
+  if (row) {
+    state.bucket = null;
+    state.view = row.dataset.seat ? 'model:' + row.dataset.seat : 'question:' + row.dataset.question;
+    return render();
+  }
+});
+
+// Theme: the reader's own choice wins and is remembered; otherwise follow whatever their system says.
+const themeButton = document.getElementById('themeToggle');
+
+function applyTheme(mode) {
+  document.documentElement.setAttribute('data-theme', mode);
+  themeButton.innerHTML = mode === 'light' ? '&#9790;' : '&#9728;';
+  themeButton.setAttribute('aria-label', mode === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+}
+
+let saved = null;
+try { saved = localStorage.getItem('llmquorum-theme'); } catch (e) { /* private window; follow the system */ }
+applyTheme(saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+
+themeButton.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  try { localStorage.setItem('llmquorum-theme', next); } catch (e) { /* nothing to remember it with */ }
+});
+
+load().catch(err => {
+  document.getElementById('main').innerHTML =
+    `<div class="card"><h2>No data</h2><p class="lede">${esc(err.message)}</p></div>`;
+});
+</script>
+</body>
+</html>
