@@ -2,12 +2,18 @@
 
 **[llmquorum.aidataforager.com](https://llmquorum.aidataforager.com)**
 
-Seventy-six models were asked the same seventy-six questions. Every question has one short answer that can be
-checked against a primary source, and every answer the models gave was graded against it.
+![63 models, 76 questions: 24% correct from memory, 93% with web search](LLMQuorum.Web/wwwroot/report/card.png)
+
+Sixty-three models were asked the same seventy-six questions. Every question has one short answer that can be
+checked against a primary source, and every answer the models gave was graded against it. Models that can search
+were asked twice, once each way, which makes 76 seats.
 
 **From memory they were right 24% of the time. With web search, 93%.**
 
 That is the whole finding. The rest of this repository is the machinery that makes it checkable.
+
+Full tables, best and worst seats and the hardest questions: **[RESULTS.md](RESULTS.md)**, generated from
+the database rather than typed.
 
 ## What makes the questions fair
 

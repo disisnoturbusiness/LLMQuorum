@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LLMQuorum card</title>
+<style>
+  /* A social card, sized 1200x630, the shape LinkedIn and every preview crops to. */
+  html, body { margin:0; padding:0; background:#0e1017; }
+  .card { width:1200px; height:630px; background:linear-gradient(160deg,#11131a 0%,#171b27 100%);
+          color:#e6e8ef; font:16px/1.5 ui-sans-serif,system-ui,"Segoe UI",sans-serif;
+          padding:52px 60px; box-sizing:border-box; position:relative; }
+  h1 { font-size:46px; margin:0 0 6px; letter-spacing:-.8px; }
+  h1 span { color:#7dd3fc; }
+  .sub { color:#8b93a7; font-size:20px; margin-bottom:40px; }
+  .pair { display:flex; gap:28px; margin-bottom:34px; }
+  .stat { flex:1; border:1px solid #272b38; border-radius:14px; padding:26px 30px; background:#181b24; }
+  .n { font-size:78px; font-weight:700; letter-spacing:-2px; line-height:1; }
+  .mem .n { color:#f87171; }
+  .web .n { color:#4ade80; }
+  .l { font-size:19px; color:#c8cddb; margin-top:10px; }
+  .d { font-size:15px; color:#8b93a7; margin-top:4px; }
+  .line { font-size:21px; color:#e6e8ef; }
+  .line b { color:#7dd3fc; }
+  .foot { position:absolute; left:60px; right:60px; bottom:40px; display:flex;
+          justify-content:space-between; color:#8b93a7; font-size:16px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Your model is confidently wrong about <span>this year</span></h1>
+  <div class="sub">63 models. 76 questions. Every answer checked against a primary source.</div>
+  <div class="pair">
+    <div class="stat mem"><div class="n">24%</div>
+      <div class="l">correct from memory</div>
+      <div class="d">61 model seats, no search</div></div>
+    <div class="stat web"><div class="n">93%</div>
+      <div class="l">correct with web search</div>
+      <div class="d">15 model seats, search on</div></div>
+  </div>
+  <div class="line">Same models. Same questions. The only difference was whether they could <b>look it up</b>.</div>
+  <div class="foot"><span>llmquorum.aidataforager.com</span><span>$31.74 of API calls &middot; measured 2026-09-26</span></div>
+</div>
+</body>
+</html>
