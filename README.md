@@ -2,13 +2,17 @@
 
 **[llmquorum.aidataforager.com](https://llmquorum.aidataforager.com)**
 
-![63 models, 76 questions: 24% correct from memory, 93% with web search](LLMQuorum.Web/wwwroot/report/card.png)
+![63 models, 76 questions: 24% correct from memory, 90% with web search](LLMQuorum.Web/wwwroot/report/card.png)
 
 Sixty-three models were asked the same seventy-six questions. Every question has one short answer that can be
 checked against a primary source, and every answer the models gave was graded against it. Models that can search
 were asked twice, once each way, which makes 76 seats.
 
-**From memory they were right 24% of the time. With web search, 93%.**
+**From memory they were right 24% of the time. With web search, 90%.**
+
+Counting only the answers that actually came back, rather than calls that errored: **24.7%** and **96.0%**. Both
+numbers are on the site; the gap between them is failed calls, almost all from one free seat whose search tool
+kept erroring.
 
 That is the whole finding. The rest of this repository is the machinery that makes it checkable.
 

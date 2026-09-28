@@ -49,6 +49,8 @@
   td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
   tr.click:hover { background:var(--row); cursor:pointer; }
   .muted { color:var(--dim); }
+  /* The question reads in full: a truncated prompt hides exactly the wording that makes it answerable. */
+  .qcell { max-width:520px; color:var(--dim); font-size:12.5px; line-height:1.45; }
   .mono { font-family:ui-monospace,Consolas,monospace; }
   .pill { font-size:10.5px; padding:2px 7px; border-radius:10px; font-weight:600; letter-spacing:.4px; }
   .p-web { background:rgba(125,211,252,.14); color:var(--accent); }
@@ -142,6 +144,14 @@ async function load() {
 const esc = t => String(t ?? '').replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
 const pct = v => v === null || v === undefined ? '' : `${Number(v).toFixed(1)}%`;
 const money = v => Number(v || 0) > 0 ? `$${Number(v).toFixed(2)}` : '';
+
+// Three ways a seat was paid for, and a blank cell would read as "free" for all of them. The Claude seats
+// run through a Max subscription: not metered per call, but not free either, and the most expensive of the
+// three. The free-tier seats are genuinely $0, rate-limited rather than billed.
+function cost(seat) {
+  if (Number(seat.CostUsd) > 0) return `$${Number(seat.CostUsd).toFixed(2)}`;
+  return seat.Provider === 'claude-sub' ? 'Max plan' : 'free tier';
+}
 const shortModel = id => String(id).replace(/^.*\//, '');
 
 function count(n, seat, bucket) {
@@ -153,13 +163,15 @@ function headlineCards() {
   const mem = state.data.summary.Modes.find(m => m.Mode === 'memory') || {};
   const web = state.data.summary.Modes.find(m => m.Mode === 'web') || {};
   const money = (state.data.summary.Money || [{}])[0] || {};
+  // Both bases, side by side and equally prominent. A call that errored is not a wrong answer, and one free
+  // seat's tool kept failing, so quoting either number alone would mislead in one direction or the other.
   return `<div class="headline">
     <div class="stat mem"><div class="n">${pct(mem.Accuracy)}</div>
       <div class="l">correct from memory</div>
-      <div class="muted" style="font-size:12px">${mem.Correct} of ${mem.Asked} answers, ${mem.Seats} models</div></div>
+      <div class="muted" style="font-size:12px">${mem.Correct} of ${mem.Asked} asked &middot; ${pct(mem.AccuracyOfAnswers)} of the ${mem.Answered} it answered</div></div>
     <div class="stat web"><div class="n">${pct(web.Accuracy)}</div>
       <div class="l">correct with web search</div>
-      <div class="muted" style="font-size:12px">${web.Correct} of ${web.Asked} answers, ${web.Seats} models</div></div>
+      <div class="muted" style="font-size:12px">${web.Correct} of ${web.Asked} asked &middot; ${pct(web.AccuracyOfAnswers)} of the ${web.Answered} it answered</div></div>
     <div class="stat"><div class="n">${state.data.questions.length}</div>
       <div class="l">questions, every answer sourced</div>
       <div class="muted" style="font-size:12px">${state.data.models.length} model seats, ${money.PaidCalls || 0} paid calls</div></div>
@@ -188,7 +200,7 @@ function viewModels() {
       ${count(m.Hallucinated,m.SeatId,'Hallucinated')}${count(m.Refusal,m.SeatId,'Refusal')}
       ${count(m.Truncated,m.SeatId,'Truncated')}${count(m.Error,m.SeatId,'Error')}
       <td class="num" style="color:${m.Accuracy >= 90 ? 'var(--ok)' : m.Accuracy >= 50 ? 'var(--warn)' : 'var(--bad)'}">${pct(m.Accuracy)}</td>
-      <td class="num muted">${money(m.CostUsd)}</td>
+      <td class="num muted">${cost(m)}</td>
     </tr>`).join('');
 
   return `${headlineCards()}
@@ -205,7 +217,7 @@ function viewQuestions() {
   const rows = state.data.questions.map(q => `
     <tr class="click" data-question="${q.QuestionId}">
       <td>${esc(q.Topic || '')}<div class="muted hide-sm" style="font-size:11.5px">${esc(q.SetName)}</div></td>
-      <td class="hide-sm">${esc(String(q.Prompt).slice(0, 90))}&hellip;</td>
+      <td class="hide-sm qcell" title="${esc(q.Prompt)}">${esc(q.Prompt)}</td>
       <td><b class="b-Correct">${esc(q.ExpectedAnswer)}</b></td>
       <td class="num">${q.Correct}</td><td class="num b-Outdated">${q.Outdated}</td>
       <td class="num b-Hallucinated">${q.Hallucinated}</td><td class="num">${q.Asked}</td>
@@ -251,7 +263,9 @@ function viewModelDetail(seat, bucket) {
       <h2 style="margin-top:8px">${esc(shortModel(m.ModelId || seat))}
         <span class="pill ${m.Mode === 'web' ? 'p-web' : 'p-mem'}">${m.Mode === 'web' ? 'with web search' : 'from memory'}</span></h2>
       <p class="lede">${esc(m.Provider || '')} &middot; ${m.Correct} correct of ${m.Asked} (${pct(m.Accuracy)})${
-        Number(m.CostUsd) > 0 ? ` &middot; ${money(m.CostUsd)} spent` : ' &middot; free tier'}</p>
+        Number(m.CostUsd) > 0 ? ` &middot; ${money(m.CostUsd)} spent`
+          : m.Provider === 'claude-sub' ? ' &middot; on a Claude Max subscription, not metered per call'
+          : ' &middot; free tier, rate-limited rather than billed'}</p>
       <div class="filters">${buttons}</div>
     </div>${answerList(rows, false)}`;
 }
@@ -287,7 +301,17 @@ function viewAbout() {
     <p>Every model was asked the same question, in the same words, with the same instruction about the form of the answer. Models that could search the web were asked twice: once with search and once without. That is the comparison this whole thing exists to make.</p>
     <table><thead><tr><th>Question set</th><th class="num">Questions</th><th class="num">Correct</th></tr></thead>
       <tbody>${sets}</tbody></table>
-    <p class="muted" style="margin-top:14px">${money.PaidCalls || 0} paid API calls, $${Number(money.RecordedUsd || 0).toFixed(2)} recorded against the meter. The free models ran on free tiers.</p>
+    <p><b>Two ways to count.</b> A call that failed is not a wrong answer. One free seat, groq's compound-mini,
+    had its web tool error on most of its calls, which drags the plain average down without saying anything about
+    what the model knows. So both numbers are shown: correct out of everything asked, and correct out of the
+    answers that actually came back. The gap between them is entirely failed calls, and the table below shows
+    which seats they belong to.</p>
+    <p><b>What each seat cost.</b> Three different things sit behind the cost column and none of them should be
+    read as the others. Seats marked with a dollar figure were billed per call through OpenRouter. Seats marked
+    <i>Max plan</i> are Claude models run through a Claude Max subscription: not metered per call, but paid for,
+    and the most expensive access of the three. Seats marked <i>free tier</i> are genuinely $0, rate-limited
+    rather than billed, which is why several of them answered fewer questions.</p>
+    <p class="muted" style="margin-top:14px">${money.PaidCalls || 0} metered API calls, $${Number(money.RecordedUsd || 0).toFixed(2)} recorded against the meter.</p>
   </div>`;
 }
 

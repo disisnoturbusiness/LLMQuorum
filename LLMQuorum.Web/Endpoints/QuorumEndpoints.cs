@@ -231,7 +231,11 @@ SELECT CASE WHEN g.SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END AS Mo
        SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END ) AS Correct,
        SUM( CASE WHEN g.Bucket = 'Hallucinated' THEN 1 ELSE 0 END ) AS Hallucinated,
        SUM( CASE WHEN g.Bucket = 'Outdated' THEN 1 ELSE 0 END ) AS Outdated,
-       CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END ) / NULLIF( COUNT(*), 0 ) AS DECIMAL(5,1) ) AS Accuracy
+       SUM( CASE WHEN g.Bucket IN ( 'Error', 'Truncated' ) THEN 1 ELSE 0 END ) AS Failed,
+       SUM( CASE WHEN g.Bucket NOT IN ( 'Error', 'Truncated' ) THEN 1 ELSE 0 END ) AS Answered,
+       CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END ) / NULLIF( COUNT(*), 0 ) AS DECIMAL(5,1) ) AS Accuracy,
+       CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END )
+             / NULLIF( SUM( CASE WHEN g.Bucket NOT IN ( 'Error', 'Truncated' ) THEN 1 ELSE 0 END ), 0 ) AS DECIMAL(5,1) ) AS AccuracyOfAnswers
   FROM quorum.SeatGrade g GROUP BY CASE WHEN g.SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END;" ),
                 Sets = await QueryAsync( config.ConnectionString, @"
 SELECT s.Name AS SetName, COUNT( DISTINCT q.QuestionId ) AS Questions,
