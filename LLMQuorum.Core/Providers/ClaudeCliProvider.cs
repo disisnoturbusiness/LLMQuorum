@@ -278,18 +278,50 @@ public sealed class ClaudeCliProvider : IQuorumProvider
             return _definition.Endpoint;
         }
 
-        var root = Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ), CLI_INSTALL_SUBDIR );
+        // MEASURED 2026-10-03: every Claude seat failed for three days with "No Claude CLI build found" while
+        // claude.exe sat in %APPDATA%\Claude\claude-code the whole time. The desktop app is packaged, so a
+        // process started from inside its session can inherit a redirected APPDATA that has no such folder.
+        // Every place the CLI is actually installed is searched, and the newest build across all of them wins.
+        var roots = CliRoots().Where( Directory.Exists ).ToList();
 
-        var newest = Directory.Exists( root )
-            ? Directory.GetDirectories( root )
-                .Select( dir => ( Dir: dir, Parsed: Version.TryParse( Path.GetFileName( dir ), out var v ) ? v : null ) )
-                .Where( x => x.Parsed is not null && File.Exists( Path.Combine( x.Dir, "claude.exe" ) ) )
-                .OrderByDescending( x => x.Parsed )
-                .Select( x => Path.Combine( x.Dir, "claude.exe" ) )
-                .FirstOrDefault()
-            : null;
+        var newest = roots
+            .SelectMany( Directory.GetDirectories )
+            .Select( dir => ( Dir: dir, Parsed: Version.TryParse( Path.GetFileName( dir ), out var v ) ? v : null ) )
+            .Where( x => x.Parsed is not null && File.Exists( Path.Combine( x.Dir, "claude.exe" ) ) )
+            .OrderByDescending( x => x.Parsed )
+            .Select( x => Path.Combine( x.Dir, "claude.exe" ) )
+            .FirstOrDefault();
 
-        return newest ?? throw new FileNotFoundException( $"No Claude CLI build found under '{root}'." );
+        return newest ?? throw new FileNotFoundException(
+            $"No Claude CLI build found under any of: {string.Join( ", ", CliRoots() )}" );
+    }
+
+    /// <summary>Every directory the desktop app installs the CLI into, the packaged location included.</summary>
+    /// <returns>Candidate roots, best first.</returns>
+    private static IEnumerable<string> CliRoots()
+    {
+        yield return Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.ApplicationData ), CLI_INSTALL_SUBDIR );
+
+        var profile = Environment.GetFolderPath( Environment.SpecialFolder.UserProfile );
+
+        if( string.IsNullOrEmpty( profile ) )
+        {
+            yield break;
+        }
+
+        yield return Path.Combine( profile, "AppData", "Roaming", CLI_INSTALL_SUBDIR );
+
+        var packages = Path.Combine( profile, "AppData", "Local", "Packages" );
+
+        if( !Directory.Exists( packages ) )
+        {
+            yield break;
+        }
+
+        foreach( var package in Directory.GetDirectories( packages, "Claude*" ) )
+        {
+            yield return Path.Combine( package, "LocalCache", "Roaming", CLI_INSTALL_SUBDIR );
+        }
     }
 
     /// <summary>Resolves and creates the sandbox working directory.</summary>

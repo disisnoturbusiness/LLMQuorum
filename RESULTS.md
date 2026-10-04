@@ -1,19 +1,19 @@
 # Results
 
-_Snapshot: 2026-09-28. The free-tier lane keeps running, so counts grow; the percentages hold._
+_Snapshot: 2026-10-04. The free-tier lane keeps running, so counts grow; the percentages hold._
 
 Generated from the database by `ops/write-results-md.py`. Nothing here is typed by hand, and every
 figure can be clicked through at [llmquorum.aidataforager.com](https://llmquorum.aidataforager.com).
 
-**63 models, 76 seats, 76 questions, 5418 graded answers.** A seat is a model plus how it
+**63 models, 76 seats, 76 questions, 5776 graded answers.** A seat is a model plus how it
 was asked, so a model asked both from memory and with web search counts as two.
 
 ## The finding
 
 | How it was asked | Seats | Answers | Correct | Made up | Stale | Accuracy |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| With web search | 15 | 1133 | 1024 | 19 | 18 | **90.4%** |
-| From memory | 61 | 4285 | 1026 | 1857 | 811 | **23.9%** |
+| With web search | 15 | 1140 | 1024 | 16 | 18 | **89.8%** |
+| From memory | 61 | 4636 | 1073 | 2039 | 858 | **23.1%** |
 
 Same models, same questions, asked in the same words. The only difference is whether the model could
 look the answer up.
@@ -39,18 +39,18 @@ look the answer up.
 
 | Model | Asked as | Provider | Questions | Correct | Accuracy |
 | --- | --- | --- | ---: | ---: | ---: |
-| groq/compound-mini | web | groq | 69 | 4 | 5.8% |
+| groq/compound-mini | web | groq | 76 | 4 | 5.3% |
 | command-r7b-12-2024 | memory | cohere | 76 | 6 | 7.9% |
 | glm-4.6v-flash | memory | zai | 76 | 6 | 7.9% |
-| @cf/ibm-granite/granite-4.0-h-micro | memory | cloudflare | 57 | 5 | 8.8% |
+| @cf/ibm-granite/granite-4.0-h-micro | memory | cloudflare | 76 | 7 | 9.2% |
+| @cf/meta/llama-3.2-3b-instruct | memory | cloudflare | 76 | 7 | 9.2% |
 | claude-haiku-4-5 | memory | claude-sub | 76 | 8 | 10.5% |
 | poolside/laguna-xs-2.1:free | memory | openrouter | 76 | 8 | 10.5% |
-| @cf/meta/llama-3.2-3b-instruct | memory | cloudflare | 57 | 6 | 10.5% |
-| allam-2-7b | memory | groq | 69 | 8 | 11.6% |
+| @cf/meta/llama-3.1-8b-instruct-fp8 | memory | cloudflare | 76 | 9 | 11.8% |
+| allam-2-7b | memory | groq | 76 | 9 | 11.8% |
 | command-a-plus-05-2026 | memory | cohere | 76 | 9 | 11.8% |
 | poolside/laguna-s-2.1:free | memory | openrouter | 76 | 9 | 11.8% |
-| command-a-reasoning-08-2025 | memory | cohere | 76 | 10 | 13.2% |
-| command-r-08-2024 | memory | cohere | 76 | 10 | 13.2% |
+| @cf/deepseek-ai/deepseek-r1-distill-qwen-32b | memory | cloudflare | 76 | 10 | 13.2% |
 
 ## Hardest questions
 
@@ -59,15 +59,15 @@ look the answer up.
 | State withholding certificates | List the marital status options printed on the current Georgia Form G-4 employee withholding ce... | `Single; Married Filing Separate or Married Filing Joint, both spouses working; Married Filing Joint, one spouse working; Head of Household` | 9 of 76 | 52 | 9 |
 | State withholding certificates | List the marital status options printed on the current Indiana Form WH-4 employee withholding c... | `None` | 11 of 76 | 57 | 0 |
 | Supplements | On what date did DEA's temporary order placing mitragynine pseudoindoxyl, MGM-15, and MGM-16 in... | `August 26, 2026` | 13 of 76 | 51 | 0 |
-| USCIS fees | What is the USCIS premium processing fee (Form I-907) for an H-1B petition filed on Form I-129... | `$2,965` | 13 of 76 | 9 | 49 |
 | FDA devices | What is the standard (non-small-business) FDA medical device user fee for a 510(k) premarket no... | `$28,653` | 13 of 76 | 39 | 4 |
 | Aviation and drones | In the FAA's final rule 'Requirements for Interference-Tolerant Radio Altimeter Systems,' by wh... | `December 30, 2030` | 13 of 76 | 50 | 7 |
+| SEC rules | What is the SEC's Section 6(b) filing fee rate per million dollars for fiscal year 2027, effect... | `$87.00` | 13 of 76 | 37 | 1 |
+| Student loans | What is the fixed interest rate on Direct Subsidized and Direct Unsubsidized Loans for undergra... | `6.52%` | 13 of 76 | 25 | 15 |
 | Employer compliance 2026 | What is the IRS standard mileage rate for business use of a car for miles driven on or after Ju... | `76` | 14 of 76 | 26 | 18 |
 | Memory prices | What is Raspberry Pi's current official list price for the 16GB Raspberry Pi 5 board? Give only... | `$305` | 14 of 76 | 42 | 13 |
 | Consumer product safety | Under the CPSC federal toy safety standard at 16 CFR 1250.4, what is the maximum amount of extr... | `325 micrograms (325 ug)` | 14 of 76 | 50 | 3 |
-| DOL wage and hour | As of today, what is the Executive Order 13658 minimum hourly wage that must be paid to workers... | `$13.65` | 15 of 76 | 49 | 7 |
-| New federal deductions (One Big Beautiful Bill Act) | Schedule 1-A (Form 1040) was introduced for tax year 2025. List the deductions it is used to cl... | `No tax on tips; No tax on overtime; No tax on car loan interest; Enhanced deduction for seniors` | 16 of 76 | 40 | 0 |
-| GPUs | What is the maximum frame-rate multiplier of NVIDIA's DLSS Multi Frame Generation today? Give o... | `6X` | 16 of 76 | 12 | 44 |
+| USCIS fees | What is the USCIS premium processing fee (Form I-907) for an H-1B petition filed on Form I-129... | `$2,965` | 14 of 76 | 10 | 47 |
+| ACA marketplace | In the HHS Notice of Benefit and Payment Parameters for 2027, what FFE user fee rate and SBE-FP... | `1.9%, 1.5%` | 14 of 76 | 40 | 6 |
 
 ## What it cost
 
