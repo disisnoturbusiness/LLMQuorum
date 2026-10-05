@@ -1,6 +1,6 @@
 # Results
 
-_Snapshot: 2026-10-04. The free-tier lane keeps running, so counts grow; the percentages hold._
+_Snapshot: 2026-10-05. The free-tier lane keeps running, so counts grow; the percentages hold._
 
 Generated from the database by `ops/write-results-md.py`. Nothing here is typed by hand, and every
 figure can be clicked through at [llmquorum.aidataforager.com](https://llmquorum.aidataforager.com).
