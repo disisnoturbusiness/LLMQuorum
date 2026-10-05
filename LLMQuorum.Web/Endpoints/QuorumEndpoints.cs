@@ -237,6 +237,30 @@ SELECT CASE WHEN g.SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END AS Mo
        CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END )
              / NULLIF( SUM( CASE WHEN g.Bucket NOT IN ( 'Error', 'Truncated' ) THEN 1 ELSE 0 END ), 0 ) AS DECIMAL(5,1) ) AS AccuracyOfAnswers
   FROM quorum.SeatGrade g GROUP BY CASE WHEN g.SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END;" ),
+                // The only comparison that controls for the model. Only some models can search, so setting all
+                // the memory seats against all the search seats compares two different populations; these are
+                // the models that were asked both ways, which is the comparison the harness exists to make.
+                Paired = await QueryAsync( config.ConnectionString, @"
+WITH s AS ( SELECT DISTINCT ModelId, CASE WHEN SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END AS m
+              FROM quorum.SeatGrade ),
+     both AS ( SELECT ModelId FROM s GROUP BY ModelId HAVING COUNT( DISTINCT m ) = 2 )
+SELECT CASE WHEN g.SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END AS Mode,
+       COUNT( DISTINCT g.ModelId ) AS Models, COUNT(*) AS Asked,
+       SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END ) AS Correct,
+       CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END ) / NULLIF( COUNT(*), 0 ) AS DECIMAL(5,1) ) AS Accuracy
+  FROM quorum.SeatGrade g INNER JOIN both b ON b.ModelId = g.ModelId
+ GROUP BY CASE WHEN g.SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END;" ),
+                PairedByModel = await QueryAsync( config.ConnectionString, @"
+WITH s AS ( SELECT DISTINCT ModelId, CASE WHEN SeatId LIKE '%web-search%' THEN 'web' ELSE 'memory' END AS m
+              FROM quorum.SeatGrade ),
+     both AS ( SELECT ModelId FROM s GROUP BY ModelId HAVING COUNT( DISTINCT m ) = 2 )
+SELECT g.ModelId,
+       CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' AND g.SeatId NOT LIKE '%web-search%' THEN 1 ELSE 0 END )
+             / NULLIF( SUM( CASE WHEN g.SeatId NOT LIKE '%web-search%' THEN 1 ELSE 0 END ), 0 ) AS DECIMAL(5,1) ) AS Memory,
+       CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' AND g.SeatId LIKE '%web-search%' THEN 1 ELSE 0 END )
+             / NULLIF( SUM( CASE WHEN g.SeatId LIKE '%web-search%' THEN 1 ELSE 0 END ), 0 ) AS DECIMAL(5,1) ) AS Web
+  FROM quorum.SeatGrade g INNER JOIN both b ON b.ModelId = g.ModelId
+ GROUP BY g.ModelId ORDER BY 2;" ),
                 Sets = await QueryAsync( config.ConnectionString, @"
 SELECT s.Name AS SetName, COUNT( DISTINCT q.QuestionId ) AS Questions,
        CAST( 100.0 * SUM( CASE WHEN g.Bucket = 'Correct' THEN 1 ELSE 0 END ) / NULLIF( COUNT( g.SeatGradeId ), 0 ) AS DECIMAL(5,1) ) AS Accuracy

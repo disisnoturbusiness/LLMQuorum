@@ -4,7 +4,9 @@
    verified key. Every judge call is kept, successful or not, with the exact
    prompt and reply, so a grade can always be traced and a rubric change can be
    diffed against identical answers. Verdicts are reused per
-   (SweepCallId, JudgeSeat, RubricVersion); an answer is never judged twice.
+   (SweepCallId, JudgeSeat, RubricVersion), so an answer is never judged twice
+   under the same rubric. RubricVersion hashes the judge prompt AND the known
+   answers, so changing either one is a new rubric and the judges are re-asked.
    ============================================================================ */
 
 SET QUOTED_IDENTIFIER ON;

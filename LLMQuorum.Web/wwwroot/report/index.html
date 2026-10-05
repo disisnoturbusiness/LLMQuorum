@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LLMQuorum: what 76 models answer, with and without the web</title>
-<meta name="description" content="Seventy-six models, seventy-six verifiable questions, every answer graded against a primary source.">
+<title>LLMQuorum: 63 models, 76 questions, with and without the web</title>
+<meta name="description" content="Sixty-three models, seventy-six verifiable questions, every answer graded against a primary source. The thirteen asked both ways went from 44.5% to 96.0%.">
 <style>
   :root {
     --bg:#11131a; --panel:#181b24; --line:#272b38; --text:#e6e8ef;
@@ -163,19 +163,52 @@ function headlineCards() {
   const mem = state.data.summary.Modes.find(m => m.Mode === 'memory') || {};
   const web = state.data.summary.Modes.find(m => m.Mode === 'web') || {};
   const money = (state.data.summary.Money || [{}])[0] || {};
-  // Both bases, side by side and equally prominent. A call that errored is not a wrong answer, and one free
-  // seat's tool kept failing, so quoting either number alone would mislead in one direction or the other.
+  const paired = state.data.summary.Paired || [];
+  const pMem = paired.find(m => m.Mode === 'memory') || {};
+  const pWeb = paired.find(m => m.Mode === 'web') || {};
+  const byModel = state.data.summary.PairedByModel || [];
+  // The headline is the PAIRED comparison: the models that were asked both ways. Only some models can search,
+  // so putting every memory seat against every search seat compares two different populations and credits the
+  // search with a gap that is partly just better models. The population figures stay on the page, below, in
+  // full, because hiding them would be the same trick in the other direction.
+  const improved = byModel.filter(m => Number(m.Web) > Number(m.Memory)).length;
   return `<div class="headline">
-    <div class="stat mem"><div class="n">${pct(mem.Accuracy)}</div>
+    <div class="stat mem"><div class="n">${pct(pMem.Accuracy)}</div>
       <div class="l">correct from memory</div>
-      <div class="muted" style="font-size:12px">${mem.Correct} of ${mem.Asked} asked &middot; ${pct(mem.AccuracyOfAnswers)} of the ${mem.Answered} it answered</div></div>
-    <div class="stat web"><div class="n">${pct(web.Accuracy)}</div>
+      <div class="muted" style="font-size:12px">${pMem.Correct} of ${pMem.Asked} &middot; the ${pMem.Models} models asked both ways</div></div>
+    <div class="stat web"><div class="n">${pct(pWeb.Accuracy)}</div>
       <div class="l">correct with web search</div>
-      <div class="muted" style="font-size:12px">${web.Correct} of ${web.Asked} asked &middot; ${pct(web.AccuracyOfAnswers)} of the ${web.Answered} it answered</div></div>
+      <div class="muted" style="font-size:12px">${pWeb.Correct} of ${pWeb.Asked} &middot; those same ${pWeb.Models} models</div></div>
     <div class="stat"><div class="n">${state.data.questions.length}</div>
       <div class="l">questions, every answer sourced</div>
       <div class="muted" style="font-size:12px">${state.data.models.length} model seats, ${money.PaidCalls || 0} paid calls</div></div>
-  </div>`;
+  </div>
+  <p class="muted" style="margin:-4px 0 18px;font-size:13.5px;line-height:1.55">
+    Same ${pMem.Models} models, same questions, same wording. The only difference was whether they could look it
+    up, and ${improved} of the ${byModel.length} improved.
+    Across <em>every</em> seat, where only some models can search, it is
+    ${pct(mem.Accuracy)} from memory (${mem.Seats} seats, ${pct(mem.AccuracyOfAnswers)} of the ${mem.Answered} it
+    answered) against ${pct(web.Accuracy)} with search (${web.Seats} seats,
+    ${pct(web.AccuracyOfAnswers)} of ${web.Answered}). Those are different populations, so the paired number above
+    is the one that means something.
+  </p>
+  ${pairedTable(byModel)}`;
+}
+
+// Every paired model, worst from memory first. This is the table that makes the headline checkable.
+function pairedTable(byModel) {
+  if (!byModel.length) return '';
+  const rows = byModel.map(m => `<tr>
+      <td>${esc(shortModel(m.ModelId))}</td>
+      <td class="num">${pct(m.Memory)}</td>
+      <td class="num">${pct(m.Web)}</td>
+      <td class="num">+${(Number(m.Web) - Number(m.Memory)).toFixed(1)}</td>
+    </tr>`).join('');
+  return `<details style="margin:0 0 22px"><summary class="muted" style="cursor:pointer;font-size:13.5px">
+      The ${byModel.length} models asked both ways, one row each</summary>
+    <table style="margin-top:10px"><thead><tr><th>Model</th><th class="num">From memory</th>
+      <th class="num">With search</th><th class="num">Change</th></tr></thead>
+    <tbody>${rows}</tbody></table></details>`;
 }
 
 function sortRows(rows) {
@@ -225,7 +258,7 @@ function viewQuestions() {
     </tr>`).join('');
 
   return `<div class="card"><h2>Questions, hardest first</h2>
-    <p class="lede">Every answer was verified against a primary source before any model was asked. Click a question to see what all 76 said.</p>
+    <p class="lede">Every answer was verified against a primary source before any model was asked. Click a question to see what all 76 seats said.</p>
     <table><thead><tr><th>Topic</th><th class="hide-sm">Question</th><th>Answer</th>
       <th class="num">Correct</th><th class="num">Outdated</th><th class="num">Made up</th>
       <th class="num">Asked</th><th class="num">Accuracy</th></tr></thead><tbody>${rows}</tbody></table></div>`;
@@ -298,7 +331,9 @@ function viewAbout() {
     <h2>How this was run</h2>
     <p class="lede">Nothing here is a benchmark score reported by a vendor. Every number comes from asking the models directly and grading what came back.</p>
     <p>Each question has one short answer that can be checked against a primary source: the agency, the manufacturer, the law. Answers were verified before any model was asked, and the earlier values were recorded too, so a model repeating last year's figure is graded <span class="b-Outdated">Outdated</span> rather than <span class="b-Hallucinated">Hallucinated</span>.</p>
-    <p>Every model was asked the same question, in the same words, with the same instruction about the form of the answer. Models that could search the web were asked twice: once with search and once without. That is the comparison this whole thing exists to make.</p>
+    <p>Every model was asked the same question, in the same words, with the same instruction about the form of the answer. A seat is a model plus how it was asked, which is why 63 models make 76 seats.</p>
+    <p><b>Read the headline carefully.</b> Only some models can search, so the 61 memory seats and the 15 search seats are not the same set of models, and the search seats are mostly the frontier ones. Setting 23.1% against 89.8% therefore credits search with a gap that is partly just better models. Thirteen models were asked <i>both</i> ways over all 76 questions, and that paired comparison, 44.5% against 96.0%, is the one the headline shows. Two seats could only be asked with search (<code>sonar</code> and <code>compound-mini</code>) and so are not in it.</p>
+    <p>For ten of those thirteen the only thing that changed between the two asks was whether the web tool was switched on. The three Claude seats run through the CLI, which takes a system prompt, and theirs also changed from "answer from your own knowledge" to "check the current official source on the web". Dropping those three leaves ten models going from 47.6% to 95.9%, so the result does not rest on the wording.</p>
     <table><thead><tr><th>Question set</th><th class="num">Questions</th><th class="num">Correct</th></tr></thead>
       <tbody>${sets}</tbody></table>
     <p><b>Two ways to count.</b> A call that failed is not a wrong answer. One free seat, groq's compound-mini,
@@ -311,7 +346,9 @@ function viewAbout() {
     <i>Max plan</i> are Claude models run through a Claude Max subscription: not metered per call, but paid for,
     and the most expensive access of the three. Seats marked <i>free tier</i> are genuinely $0, rate-limited
     rather than billed, which is why several of them answered fewer questions.</p>
-    <p class="muted" style="margin-top:14px">${money.PaidCalls || 0} metered API calls, $${Number(money.RecordedUsd || 0).toFixed(2)} recorded against the meter.</p>
+    <p class="muted" style="margin-top:14px">${money.PaidCalls || 0} paid API calls. OpenRouter's own meter for the key says
+      <b>$31.74</b>; the ledger here recorded $${Number(money.RecordedUsd || 0).toFixed(2)}, because it books the larger of the
+      reported cost and its own pricing so that it can never undercount.</p>
   </div>`;
 }
 
@@ -328,7 +365,7 @@ function render() {
     a.classList.toggle('on', a.dataset.view === v));
   const money = (state.data.summary.Money || [{}])[0] || {};
   document.getElementById('footStats').innerHTML =
-    `${state.data.models.length} model seats &middot; ${state.data.questions.length} questions with a primary source &middot; every answer stored and re-gradable from the raw response &middot; $${Number(money.RecordedUsd || 0).toFixed(2)} of paid API calls`;
+    `${state.data.models.length} model seats &middot; ${state.data.questions.length} questions with a primary source &middot; every raw response stored, grading re-run over the stored answers &middot; $31.74 of paid API calls on OpenRouter's meter`;
   window.scrollTo(0, 0);
 }
 

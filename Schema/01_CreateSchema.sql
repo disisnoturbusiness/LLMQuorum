@@ -16,9 +16,15 @@
 
    3. RAW BYTES ARE THE RECORD. ProviderCall.ResponseBytes stores the exact
       wire response. Parsed columns are a query index over those bytes, never
-      the source of truth. This makes the matcher re-runnable offline: change a
-      match rule, replay it over stored bytes, spend zero API calls. That
+      the source of truth. This makes grading re-runnable offline: change a
+      match rule, replay it over the stored answers, spend zero API calls. That
       matters when one provider allows 1,000 calls a MONTH.
+
+      Be precise about what replays for free. VerdictReplayer reads the parsed
+      AnswerText column, not ResponseBytes, so a match-rule change is free but
+      re-extracting an answer from the raw bytes is a manual re-run of
+      ResponseExtractor, and a change to the judges' prompt or to a known answer
+      re-asks the judge models (JudgePanel hashes both into RubricVersion).
 
    4. NO QUADRATIC STORAGE. A run never copies the question text or config; it
       references them. Config is snapshotted once per Run, not per call.
@@ -151,9 +157,10 @@ GO
 
 /* ---------------------------------------------------------------------------
    ProviderCall - APPEND ONLY. One row per HTTP attempt, including failures.
-   ResponseBytes holds the exact wire body so the matcher can be replayed
-   without re-spending quota. AnswerText is a convenience projection, NOT the
-   record; if a parse changes, reparse from bytes.
+   ResponseBytes holds the exact wire body, which is what makes a parse fix
+   possible at all without re-asking. AnswerText is a convenience projection,
+   NOT the record; if a parse changes, reparse from bytes, which is a manual
+   re-run rather than something the harness does on its own.
    Rank is the order this provider was consulted within the question, so the
    escalation path is reconstructable.
    --------------------------------------------------------------------------- */

@@ -8,8 +8,11 @@ namespace LLMQuorum.Core.Matching;
 /// Re-computes verdicts for a completed run from the STORED provider answers,
 /// spending no API quota.
 ///
-/// This is why raw responses are persisted rather than just the verdict. The
-/// comparison rules are the part most likely to change, and on this panel the
+/// This is why raw responses are persisted rather than just the verdict. Note
+/// what this class actually reads: the parsed AnswerText column, not
+/// ResponseBytes. A comparison-rule change replays for free; a change to how
+/// bytes become an answer needs ResponseExtractor re-run over the bytes first.
+/// The comparison rules are the part most likely to change, and on this panel the
 /// scarcest seat allows a thousand calls a MONTH. Re-asking the providers to
 /// evaluate a rule tweak would burn a week of budget to answer a question the
 /// stored bytes already contain.

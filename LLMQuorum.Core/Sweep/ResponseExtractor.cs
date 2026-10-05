@@ -36,8 +36,10 @@ public sealed record ExtractedResponse(
 }
 
 /// <summary>
-/// Pure, versioned interpretation of a provider response. Everything here is replayable from
-/// stored bytes with zero API calls, so a rule fix re-grades history instead of re-spending quota.
+/// Pure, versioned interpretation of a provider response. It is a function of the bytes alone, so it
+/// can be re-run over stored responses with zero API calls. In the live harness ProfileCaller is its
+/// only caller, at call time; re-running it across history is a deliberate manual step, not something
+/// that happens on its own when a rule here changes.
 ///
 /// Each rule exists because a live response broke the previous harness:
 ///   * content may be a string, JSON null (Cloudflare on truncation) or an array of blocks

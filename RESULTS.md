@@ -2,21 +2,51 @@
 
 _Snapshot: 2026-10-05. The free-tier lane keeps running, so counts grow; the percentages hold._
 
-Generated from the database by `ops/write-results-md.py`. Nothing here is typed by hand, and every
-figure can be clicked through at [llmquorum.aidataforager.com](https://llmquorum.aidataforager.com).
+Generated from the database by `ops/write-results-md.py`. Every figure here is queried, not typed, and
+each one can be clicked through at [llmquorum.aidataforager.com](https://llmquorum.aidataforager.com).
 
 **63 models, 76 seats, 76 questions, 5776 graded answers.** A seat is a model plus how it
 was asked, so a model asked both from memory and with web search counts as two.
 
 ## The finding
 
+Only some models can search, so comparing all the memory seats against all the search seats compares two
+different sets of models. The comparison that controls for the model is the one below: the models that were
+asked both ways, over all 76 questions each.
+
+| The models asked both ways | Models | Answers | Correct | Accuracy |
+| --- | ---: | ---: | ---: | ---: |
+| With web search | 13 | 988 | 948 | **96.0%** |
+| From memory | 13 | 988 | 440 | **44.5%** |
+
+Same models, same questions, asked in the same words. The only difference is whether the model could
+look the answer up. Every one of them improved:
+
+| Model | From memory | With search | Change |
+| --- | ---: | ---: | ---: |
+| claude-haiku-4-5 | 10.5% | 94.7% | +84.2 |
+| google/gemini-3.5-flash-lite | 21.1% | 93.4% | +72.3 |
+| google/gemini-3.1-pro-preview | 26.3% | 97.4% | +71.1 |
+| x-ai/grok-4.3 | 30.3% | 100.0% | +69.7 |
+| google/gemini-3.8-flash | 32.9% | 98.7% | +65.8 |
+| claude-sonnet-5 | 40.8% | 93.4% | +52.6 |
+| x-ai/grok-4.6 | 43.4% | 97.4% | +54.0 |
+| claude-opus-5 | 51.3% | 100.0% | +48.7 |
+| openai/gpt-5.6-terra | 57.9% | 97.4% | +39.5 |
+| openai/gpt-5.6-luna | 59.2% | 97.4% | +38.2 |
+| openai/gpt-5.6-sol | 61.8% | 96.1% | +34.3 |
+| openai/gpt-chat-latest | 64.5% | 81.6% | +17.1 |
+| openai/gpt-6-astra | 78.9% | 100.0% | +21.1 |
+
+### Across every seat
+
+For context, and because leaving it out would be the same sleight of hand: the whole population, where the
+two columns are 61 seats and 15 seats rather than the same models twice.
+
 | How it was asked | Seats | Answers | Correct | Made up | Stale | Accuracy |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | With web search | 15 | 1140 | 1024 | 16 | 18 | **89.8%** |
 | From memory | 61 | 4636 | 1073 | 2039 | 858 | **23.1%** |
-
-Same models, same questions, asked in the same words. The only difference is whether the model could
-look the answer up.
 
 ## Best seats
 
@@ -71,7 +101,7 @@ look the answer up.
 
 ## What it cost
 
-**$38.22** recorded over 1591 paid calls, against $31.74 metered by OpenRouter itself.
+**$38.22** recorded over 1591 paid calls, against **$31.74** metered by OpenRouter itself (its own `GET /api/v1/key` lifetime usage for the key, read back when this file was generated).
 The ledger over-records on purpose: it books the larger of the reported cost and its own pricing, which is
 why it never overspent. The free models ran on free tiers.
 
