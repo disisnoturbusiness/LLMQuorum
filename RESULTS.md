@@ -1,6 +1,6 @@
 # Results
 
-_Snapshot: 2026-10-05. The free-tier lane keeps running, so counts grow; the percentages hold._
+_Snapshot: 2026-10-08. The free-tier lane keeps running, so counts grow; the percentages hold._
 
 Generated from the database by `ops/write-results-md.py`. Every figure here is queried, not typed, and
 each one can be clicked through at [llmquorum.aidataforager.com](https://llmquorum.aidataforager.com).
@@ -16,8 +16,8 @@ asked both ways, over all 76 questions each.
 
 | The models asked both ways | Models | Answers | Correct | Accuracy |
 | --- | ---: | ---: | ---: | ---: |
-| With web search | 13 | 988 | 948 | **96.0%** |
-| From memory | 13 | 988 | 440 | **44.5%** |
+| With web search | 13 | 988 | 945 | **95.6%** |
+| From memory | 13 | 988 | 439 | **44.4%** |
 
 Same models, same questions, asked in the same words. The only difference is whether the model could
 look the answer up. Every one of them improved:
@@ -34,9 +34,9 @@ look the answer up. Every one of them improved:
 | claude-opus-5 | 51.3% | 100.0% | +48.7 |
 | openai/gpt-5.6-terra | 57.9% | 97.4% | +39.5 |
 | openai/gpt-5.6-luna | 59.2% | 97.4% | +38.2 |
-| openai/gpt-5.6-sol | 61.8% | 96.1% | +34.3 |
-| openai/gpt-chat-latest | 64.5% | 81.6% | +17.1 |
-| openai/gpt-6-astra | 78.9% | 100.0% | +21.1 |
+| openai/gpt-5.6-sol | 60.5% | 94.7% | +34.2 |
+| openai/gpt-chat-latest | 64.5% | 80.3% | +15.8 |
+| openai/gpt-6-astra | 78.9% | 98.7% | +19.8 |
 
 ### Across every seat
 
@@ -45,23 +45,23 @@ two columns are 61 seats and 15 seats rather than the same models twice.
 
 | How it was asked | Seats | Answers | Correct | Made up | Stale | Accuracy |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| With web search | 15 | 1140 | 1024 | 16 | 18 | **89.8%** |
-| From memory | 61 | 4636 | 1073 | 2039 | 858 | **23.1%** |
+| With web search | 15 | 1140 | 1021 | 16 | 18 | **89.6%** |
+| From memory | 61 | 4636 | 1072 | 2001 | 850 | **23.1%** |
 
 ## Best seats
 
 | Model | Asked as | Provider | Questions | Correct | Accuracy |
 | --- | --- | --- | ---: | ---: | ---: |
 | claude-opus-5 | web | claude-sub | 76 | 76 | 100.0% |
-| openai/gpt-6-astra | web | openrouter-paid | 76 | 76 | 100.0% |
 | x-ai/grok-4.3 | web | openrouter-paid | 76 | 76 | 100.0% |
 | google/gemini-3.8-flash | web | openrouter-paid | 76 | 75 | 98.7% |
+| openai/gpt-6-astra | web | openrouter-paid | 76 | 75 | 98.7% |
 | google/gemini-3.1-pro-preview | web | openrouter-paid | 76 | 74 | 97.4% |
 | openai/gpt-5.6-luna | web | openrouter-paid | 76 | 74 | 97.4% |
 | openai/gpt-5.6-terra | web | openrouter-paid | 76 | 74 | 97.4% |
 | x-ai/grok-4.6 | web | openrouter-paid | 76 | 74 | 97.4% |
-| openai/gpt-5.6-sol | web | openrouter-paid | 76 | 73 | 96.1% |
 | claude-haiku-4-5 | web | claude-sub | 76 | 72 | 94.7% |
+| openai/gpt-5.6-sol | web | openrouter-paid | 76 | 72 | 94.7% |
 | perplexity/sonar | web | openrouter-paid | 76 | 72 | 94.7% |
 | claude-sonnet-5 | web | claude-sub | 76 | 71 | 93.4% |
 

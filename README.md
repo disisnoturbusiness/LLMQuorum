@@ -2,28 +2,28 @@
 
 **[llmquorum.aidataforager.com](https://llmquorum.aidataforager.com)**
 
-![63 models, 76 questions: the thirteen asked both ways went from 45% to 96%](LLMQuorum.Web/wwwroot/report/card.png)
+![63 models, 76 questions: the thirteen asked both ways went from 44% to 96%](LLMQuorum.Web/wwwroot/report/card.png)
 
 Sixty-three models were asked the same seventy-six questions. Every question has one short answer that can be
 checked against a primary source, and every answer the models gave was graded against it. A model that can search
 was asked twice, once each way, which is why 63 models make 76 seats.
 
-**Thirteen of the models were asked both ways. From memory those thirteen were right 44.5% of the time. With web
-search on, 96.0%. Every one of the thirteen improved, the smallest gain 17 points and the largest 84.**
+**Thirteen of the models were asked both ways. From memory those thirteen were right 44.4% of the time. With web
+search on, 95.6%. Every one of the thirteen improved, the smallest gain 16 points and the largest 84.**
 
 That is the finding, and it is the only comparison here that controls for the model. Taken across everything,
-the 61 memory seats scored 23.1% and the 15 search seats scored 89.8%, but only 15 of the 63 models can search
-and they are mostly the frontier models, so that 67-point spread is partly the models and not the search. The
+the 61 memory seats scored 23.1% and the 15 search seats scored 89.6%, but only 15 of the 63 models can search
+and they are mostly the frontier models, so that 66-point spread is partly the models and not the search. The
 paired number is the honest one. Two seats could only be asked with search, `sonar` and
 `compound-mini`, so they are not in it.
 
 For ten of the thirteen the only thing that changed between the two asks was whether the web tool was
 switched on. The three Claude seats go through the CLI, which takes a system prompt, and theirs also changed
 from "answer from your own knowledge" to "check the current official source on the web". Drop those three and
-the remaining ten go from **47.6% to 95.9%**, so the result does not rest on the wording.
+the remaining ten go from **47.5% to 95.5%**, so the result does not rest on the wording.
 
-Counting only answers that came back rather than calls that errored, the population figures are **23.9%** and
-**96.0%**. Both are on the site; the gap is failed calls, almost all from one free seat whose search tool kept
+Counting only answers that came back rather than calls that errored, the population figures are **23.8%** and
+**95.7%**. Both are on the site; the gap is failed calls, almost all from one free seat whose search tool kept
 erroring.
 
 The rest of this repository is the machinery that makes all of it checkable.
@@ -40,7 +40,9 @@ twelve months, so **54 of the 76 questions were picked because the answer moved 
 since 2009, two are arithmetic, and one is how SQL Server handles `NOT IN` against NULL.
 
 The previous answers are recorded too, so a model repeating last year's figure is graded **Outdated** rather
-than **Hallucinated**. Those are different failures and the report keeps them apart.
+than **Hallucinated**. Those are different failures and the report keeps them apart. The full set of
+verdicts is **Correct**, **Outdated**, **Hallucinated**, **Refusal**, **Truncated**, **Error**, **Wrong**,
+and **Unclassified**, the last of which means the two judges disagreed and the answer was not scored.
 
 Two question sets are included:
 
@@ -48,6 +50,27 @@ Two question sets are included:
 | --- | --- | --- |
 | Public set v2 | 22 | US payroll and tax limits, Michigan delinquent property tax, .NET, SQL Server |
 | Public set v3 | 54 | 27 categories, every answer changed within the last year: hardware prices, FDA rules, cosmetics, supplements, OSHA, DOL, USCIS, Medicare, SEC, CFPB, crypto, student loans, AI law, state privacy, EPA |
+
+## How an answer gets a grade, and who does the grading
+
+Half of it never reaches a model. **2,866 of the 5,776 grades are deterministic**: the extracted value
+matches the verified answer, matches a recorded earlier value, or the call itself failed. No judgement is
+involved and none is needed.
+
+The other **2,910 go to a panel of two judges**, which are asked to compare two strings with the verified
+answer and the known-stale list supplied in the prompt. It is a comparison task, not a recall task. Both
+judges returned a verdict on all 2,910 and they agreed on 2,867 of them, which is 98.5%. Where they split,
+the answer is bucketed **Unclassified** rather than scored either way. There are 146 of those.
+
+**The judges are also contestants, and that is a flaw.** The two judge seats are `claude-sonnet-5` and
+`openai/gpt-oss-120b`, and both are models in the field: 152 answers and 76 answers respectively.
+`claude-sonnet-5` ended up grading 52 of its own answers and `gpt-oss-120b` 45 of its own, and
+`claude-sonnet-5` is a row in the paired table above. The deterministic half is untouched by this and panel
+agreement is high, but a judge should not be sitting the exam. If this is re-run, the judges come from
+outside the field.
+
+Every judge call is stored with its prompt and its reply, so any grade can be traced to the sentence that
+produced it.
 
 ## How a run works
 

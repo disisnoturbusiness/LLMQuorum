@@ -11,7 +11,7 @@ that did not come back clean. 26 agents, 370 tool calls.
 | 2026 standard deduction for a single filer is $16,100 | IRS Rev. Proc. for TY2026 |
 | Question 19: 22 correct, 24 hallucinated, 19 outdated, 9 refused of 76 | `quorum.SeatGrade` |
 | Three hallucinations landed on $8,300 | stored answer text |
-| 23.1% memory / 89.8% web, 23.9% / 96.0% of answers returned | DB, site JSON, RESULTS.md all agree |
+| 23.1% memory / 89.6% web, 23.8% / 95.7% of answers returned | DB, site JSON, RESULTS.md all agree |
 | Every question carries a named primary source | `quorum.Question` |
 | $31.74 of metered API calls | **live read of OpenRouter `GET /api/v1/key`: usage = 31.74317** |
 
@@ -37,8 +37,8 @@ The controlled comparison, the 13 models asked both ways on all 76 questions (98
 
 | | Correct | Runs | Accuracy |
 | --- | ---: | ---: | ---: |
-| From memory | 440 | 988 | **44.5%** |
-| With web search | 948 | 988 | **96.0%** |
+| From memory | 439 | 988 | **44.4%** |
+| With web search | 945 | 988 | **95.6%** |
 
 Every one of the 13 improved. Not one got worse.
 
@@ -54,11 +54,11 @@ Every one of the 13 improved. Not one got worse.
 | claude-opus-5 | 51.3% | 100.0% | +48.7 |
 | openai/gpt-5.6-terra | 57.9% | 97.4% | +39.5 |
 | openai/gpt-5.6-luna | 59.2% | 97.4% | +38.2 |
-| openai/gpt-5.6-sol | 61.8% | 96.1% | +34.3 |
-| openai/gpt-chat-latest | 64.5% | 81.6% | +17.1 |
-| openai/gpt-6-astra | 78.9% | 100.0% | +21.1 |
+| openai/gpt-5.6-sol | 60.5% | 94.7% | +34.2 |
+| openai/gpt-chat-latest | 64.5% | 80.3% | +15.8 |
+| openai/gpt-6-astra | 78.9% | 98.7% | +19.8 |
 
-The paired number is the stronger claim, not the weaker one. 44.5 to 96.0 on the same thirteen models is
+The paired number is the stronger claim, not the weaker one. 44.4 to 95.6 on the same thirteen models is
 a result. 23 to 90 across two different populations is an artifact with a result inside it.
 
 ## Problem 2: the opening paragraph blends the two conditions
@@ -105,3 +105,23 @@ Defensible: every raw response is stored, and re-grading runs over what came bac
 The 23% and 90% figures on the card and the site are correct as statements about those seats. What does
 not survive is the sentence claiming it was the same models both ways. That line is on the card, on the
 site and in the README, so it is fixed in all four places, not just in the post.
+
+## Addendum, 2026-10-08: these figures were themselves published stale
+
+The numbers in this file were correct when it was written and wrong within the hour. A re-grade ran under
+`grader-v3` on 2026-10-05 from 19:55 to 21:06 UTC. The site was exported at about 19:10, mid-regrade, so
+the site, the social card, a LinkedIn post and a Hacker News comment all shipped a run in progress. The
+figures above have been corrected to the settled database.
+
+What moved: paired 44.5 to 44.4 and 96.0 to 95.6; the ten non-Claude models 47.6/95.9 to 47.5/95.5;
+population web 89.8 to 89.6 and 96.0 to 95.7 of answers returned; three per-model rows. What did not move:
+23.1% from memory, the standard-deduction split, 63 models, 76 questions, 5,776 answers, $31.74.
+
+Two things this verification missed entirely, found later by a hostile-reader pass on the dev.to draft:
+the **Unclassified** bucket, 146 answers where the two judges split, which appeared in no published
+taxonomy; and that **both judge models are also contestants**, `claude-sonnet-5` with 152 answers of its
+own and `openai/gpt-oss-120b` with 76. Both are now disclosed in the README, on the site and in the
+article.
+
+The fix for the staleness is not another rule to remember. `ops/export-site.ps1` now refuses to freeze a
+snapshot if the database was written to within the last 30 minutes or any plan item is still open.
